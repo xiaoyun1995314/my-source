@@ -1,15 +1,15 @@
 {
-  "identifier": "自用源",
+  "identifier": "訫云科技资源",
   "sourceURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "sourceicon": "",
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
-      "name": "应用一",
+      "name": "东京热",
       "type": "4",
       "version": "1.0.0",
       "versionDate": "2026-11-21T05:25:07+08:00",
-      "versionDescription": "自用说明",
+      "versionDescription": "变身码在安装包里面提取",
       "lock": "0",
       "downloadURL": "https://wwbli.lanzouq.com/irH6j4grxf6h&pwd=fceb",
       "isLanZouCloud": "1",
