@@ -22,8 +22,9 @@ import datetime
 BASE_URL = "https://xiaoyun1995314.github.io/my-source"
 
 # 源信息
-SOURCE_NAME = "自用源"
-SOURCE_ICON = ""                                # 源图标 https 地址，没有留空
+SOURCE_NAME = "訫云科技
+自用源，请勿传播"
+SOURCE_ICON = "https://xiaoyun1995314.github.io/my-source/icons/123.png"                                # 源图标 https 地址，没有留空
 TINT_COLOR = "018084"                           # 主题色
 
 # ---------- 应用列表（蓝奏云模式，在这里逐条加应用） ----------
