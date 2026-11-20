@@ -1,0 +1,21 @@
+{
+  "identifier": "自用源",
+  "sourceURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
+  "sourceicon": "",
+  "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
+  "apps": [
+    {
+      "name": "应用一",
+      "type": "4",
+      "version": "1.0.0",
+      "versionDate": "2026-11-21T05:25:07+08:00",
+      "versionDescription": "自用说明",
+      "lock": "0",
+      "downloadURL": "https://wwbli.lanzouq.com/irH6j4grxf6h&pwd=fceb",
+      "isLanZouCloud": "1",
+      "iconURL": "",
+      "tintColor": "018084",
+      "size": 0
+    }
+  ]
+}
