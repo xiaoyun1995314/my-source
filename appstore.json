@@ -40,7 +40,7 @@
       "versionDescription": "下载地址",
       "lock": "0",
       "downloadURL": "https://hongguo.goforit.si",
-      "isLanZouCloud": "1",
+      "isLanZouCloud": "0",
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/3bf8bc28b31192aff738049561ae736cc2e00e7e/icons/123.png.PNG",
       "tintColor": "018084",
       "size": 0
@@ -53,7 +53,7 @@
       "versionDescription": "软件下载地址",
       "lock": "0",
       "downloadURL": "https://eliteres.fanruan.com/office/2026/05/11/96b2eb9c-3533-4679-aa53-d76cb4426f79.ipa",
-      "isLanZouCloud": "1",
+      "isLanZouCloud": "0",
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/3bf8bc28b31192aff738049561ae736cc2e00e7e/icons/123.png.PNG",
       "tintColor": "018084",
       "size": 0
