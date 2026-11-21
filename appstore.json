@@ -150,15 +150,15 @@
   "size": "20809311"
 },
     {
-  "name": "网易云音乐",
+  "name": "瓜子影视",
   "type": "1",
   "version": "9.6.13",
   "versionDate": "2026-10-28T16:00:00+00:00",
-  "versionDescription": "解锁会员，解锁极高音质\n所有VIP音乐可听，不能下载\n不会显示会员标志\n无需登录，但可登录。\n已经失效",
+  "versionDescription": "进入软件输入框里输入BGZ0888确认粘贴，变身下载就可以了\n",
   "lock": "0",
-  "downloadURL": "https://ipa.hxys2.xyz/mirror-apps-media/muxi/edbaabd2a1f6ef7cdc8c096f257af1387c84fa7351dc8dcb817bc35de14229c8.ipa",
+  "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/0be787717eea013b7214b0bbee73dcba43220dbb/ipa/%E7%93%9C%E5%AD%90%E5%BD%B1%E8%A7%86_2.19.ipa",
   "isLanZouCloud": "0",
-  "iconURL": "https://ipa.hxys2.xyz/mirror-apps-media/muxi/icons/7f2c64bd25002776cc7d0ac1674f85d27657ed36bf2a83fceb4a5c2eef21e4a8.png",
+  "iconURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/icons/1ba3e01240da2ce2290b0ecfe3e9451460945eb67189e2ab0e6ba864568f7e8b.jpg",
   "tintColor": "#2475ef",
   "size": "187411215"
 }
