@@ -135,6 +135,32 @@
   "iconURL": "http://app.ioszc.com/uploads/20250319/658ae920eca9831de3106c6c01204e9c.jpg",
   "tintColor": "",
   "size": "494728642.56"
+},
+    {
+  "name": "闪电水印",
+  "type": "1",
+  "version": "4.9.9",
+  "versionDate": "2026-07-28T00:09:44+00:00",
+  "versionDescription": "照片视频去水印 解锁Vip 安装方法：证书签名或巨魔安装",
+  "lock": "0",
+  "downloadURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/c934d0d6a6af9c67d1105d009ba29aaa63df8d66e39273e37df624e03e5e76e6.ipa",
+  "isLanZouCloud": "0",
+  "iconURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/icons/79897efd41dec1a486c30bf9996e7aa4989468ac8076b0a1dcb7b4e16f9532c4.png",
+  "tintColor": "#2475ef",
+  "size": "20809311"
+},
+    {
+  "name": "网易云音乐",
+  "type": "1",
+  "version": "9.6.13",
+  "versionDate": "2026-10-28T16:00:00+00:00",
+  "versionDescription": "解锁会员，解锁极高音质\n所有VIP音乐可听，不能下载\n不会显示会员标志\n无需登录，但可登录。",
+  "lock": "0",
+  "downloadURL": "https://ipa.hxys2.xyz/mirror-apps-media/muxi/edbaabd2a1f6ef7cdc8c096f257af1387c84fa7351dc8dcb817bc35de14229c8.ipa",
+  "isLanZouCloud": "0",
+  "iconURL": "https://ipa.hxys2.xyz/mirror-apps-media/muxi/icons/7f2c64bd25002776cc7d0ac1674f85d27657ed36bf2a83fceb4a5c2eef21e4a8.png",
+  "tintColor": "#2475ef",
+  "size": "187411215"
 }
   ]
 }
