@@ -3,7 +3,7 @@
   "name": "訫云软件源",
   "message": "★★★温馨提示★★★\r\n应用均为网络搜集/搬运，非应用开发者，如有侵权\n联系我核实删除，非商业网站\r\n自用源，仅供个人使用\n请勿传播转发，谢谢\n『微信QQ同号:450000318』\r",
   "sourceURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
-  "sourceicon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0754.jpeg",
+  "sourceicon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/XYKJ.PNG",
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
@@ -65,8 +65,8 @@
       "versionDate": "2026-11-21T09:03:56+08:00",
       "versionDescription": "✅福利软件禁止传播\n✅软件需要变身（代码在安装包里）",
       "lock": "0",
-      "downloadURL": "https://wwbli.lanzouq.com/iV34C4gse0sb&pwd=edx6",
-      "isLanZouCloud": "1",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E4%B8%9C%E4%BA%AC%E7%83%AD_1.0.0_%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
+      "isLanZouCloud": "0",
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/DJR.png",
       "tintColor": "018084",
       "size": 0
@@ -91,8 +91,8 @@
       "versionDate": "2026-11-21T09:03:56+08:00",
       "versionDescription": "✅福利软件禁止传播\n✅变身代码在安装包里面",
       "lock": "0",
-      "downloadURL": "https://wwbli.lanzouq.com/i7CpX4gr3eni&pwd=72wb",
-      "isLanZouCloud": "1",
+      "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/refs/heads/main/ipa/%E9%A6%99%E8%95%89%E8%A7%86%E9%A2%91_1.2_20261120_225111.ipa",
+      "isLanZouCloud": "0",
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/f61c3480130098ddee3d0d6324d3c45022fd5d56/icons/xjsp.jpg",
       "tintColor": "018084",
       "size": 0
@@ -119,7 +119,7 @@
       "lock": "0",
       "downloadURL": "nsk-sign://web?url=https://hongguo.goforit.si",
       "isLanZouCloud": "0",
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/3bf8bc28b31192aff738049561ae736cc2e00e7e/icons/123.png.PNG",
+      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/XYKJ.PNG",
       "tintColor": "018084",
       "size": 0
     },
