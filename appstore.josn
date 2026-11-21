@@ -1,0 +1,36 @@
+{
+  "identifier": "訫云资源",
+  "name": "訫云软件源",
+  "message": "★★★温馨提示★★★\r\n自用源，仅供个人使用",
+  "sourceURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
+  "sourceicon": "https://github.com/xiaoyun1995314/my-source/blob/main/icons/123.png.PNG",
+  "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
+  "apps": [
+    {
+      "name": "东京热",
+      "type": "4",
+      "version": "1.0.0",
+      "versionDate": "2026-11-21T09:03:56+08:00",
+      "versionDescription": "变身代码在安装包里面",
+      "lock": "0",
+      "downloadURL": "https://wwbli.lanzouq.com/iV34C4gse0sb&pwd=edx6",
+      "isLanZouCloud": "1",
+      "iconURL": "https://github.com/xiaoyun1995314/my-source/blob/main/icons/123.png.PNG",
+      "tintColor": "018084",
+      "size": 0
+    },
+    {
+      "name": "香蕉视频",
+      "type": "4",
+      "version": "1.2.2",
+      "versionDate": "2026-11-21T09:03:56+08:00",
+      "versionDescription": "变身代码在安装包里面",
+      "lock": "0",
+      "downloadURL": "https://wwbli.lanzouq.com/i7CpX4gr3eni&pwd=72wb",
+      "isLanZouCloud": "1",
+      "iconURL": "https://github.com/xiaoyun1995314/my-source/blob/main/icons/123.png.PNG",
+      "tintColor": "018084",
+      "size": 0
+    }
+  ]
+}
