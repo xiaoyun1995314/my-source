@@ -1,7 +1,7 @@
 {
   "identifier": "訫云资源",
   "name": "訫云软件源",
-  "message": "★★★温馨提示★★★\r\n应用均为网络搜集/搬运，非应用开发者，如有侵权\n联系我核实删除，非商业网站\r\n自用源，仅供个人使用\n请勿传播转发，谢谢\n微信QQ同号:450000318\r",
+  "message": "★★★温馨提示★★★\r\n应用均为网络搜集/搬运，非应用开发者，如有侵权\n联系我核实删除，非商业网站\r\n自用源，仅供个人使用\n请勿传播转发，谢谢\n『微信QQ同号:450000318』\r",
   "sourceURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "sourceicon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0754.jpeg",
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
@@ -172,6 +172,32 @@
   "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/0be787717eea013b7214b0bbee73dcba43220dbb/ipa/%E7%93%9C%E5%AD%90%E5%BD%B1%E8%A7%86_2.19.ipa",
   "isLanZouCloud": "0",
   "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/3C8DAD23-26A4-4A7F-83F4-C86928B084A8.jpg",
+  "tintColor": "#2475ef",
+  "size": "0"
+},
+    {
+  "name": "Fila",
+  "type": "1",
+  "version": "0.8.2",
+  "versionDate": "2026-10-28T16:00:00+00:00",
+  "versionDescription": "沙盒文件编辑器\n",
+  "lock": "0",
+  "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/refs/heads/main/ipa/Fila_0.8.2.ipa",
+  "isLanZouCloud": "0",
+  "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0870.png",
+  "tintColor": "#2475ef",
+  "size": "0"
+},
+    {
+  "name": "Fila",
+  "type": "1",
+  "version": "5.0.1",
+  "versionDate": "2026-10-28T16:00:00+00:00",
+  "versionDescription": "完整版沙盒文件编辑器\n",
+  "lock": "0",
+  "downloadURL": "https://ykj-eos-dg5-01.eos-dongguan-6.cmecloud.cn/7b10994fc9954980b026a4ea58ef7610086?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27Filza_5.0.1_%25E8%25A7%25A3%25E9%2594%2581%25E5%25AE%258C%25E6%2595%25B4%25E7%2589%2588.ipa&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261121T175953Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=9T1UKBIX6OJSR5XN2F2T%2F20261121%2Fdefault%2Fs3%2Faws4_request&t=2&r=2079778693198174336.2079778693198174337&u=1040018548246762153&ot=personal&oi=1040018548246762153&f=FnEx9Dd9OLGoTj0VZExJB1YpAfUfRTjtq&ext=eyJ1dCI6MSwidW0iOjAsImN0Ijo5LCJjaCI6IjEwMDAwMDM0In0%3D&X-Amz-Signature=1066df14f6d141669ab1d52729e695692eeab03be8e86672151a00f83122f9e5",
+  "isLanZouCloud": "0",
+  "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0870.png",
   "tintColor": "#2475ef",
   "size": "0"
 }
