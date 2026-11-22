@@ -28,15 +28,15 @@
   .status{margin-top:14px;font-size:14px;padding:10px 12px;border-radius:10px;display:none}
   .ok{background:rgba(29,58,42,.85);color:#5fd69a;display:block}
   .err{background:rgba(58,29,29,.85);color:#f08a8a;display:block}
-  .row{display:flex;gap:10px}
-  .row>div{flex:1}
-  .app-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.15)}
+  .row{display:flex;gap:10px;min-width:0;flex-wrap:nowrap}
+  .row>div{flex:1;min-width:0}
+  .app-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.15);min-width:0}
   .thumb{width:44px;height:44px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.4);flex-shrink:0}
   .app-item:last-child{border-bottom:0}
-  .app-info{flex:1;min-width:0}
-  .app-info b{font-size:15px;display:block;color:#000;text-shadow:0 0 6px rgba(255,255,255,.8)}
-  .app-info span{font-size:12px;color:#222;text-shadow:0 0 6px rgba(255,255,255,.8)}
-  .app-btns{display:flex;gap:8px}
+  .app-info{flex:1;min-width:0;overflow:hidden}
+  .app-info b{font-size:15px;display:block;color:#000;text-shadow:0 0 6px rgba(255,255,255,.8);overflow-wrap:anywhere}
+  .app-info span{font-size:12px;color:#222;text-shadow:0 0 6px rgba(255,255,255,.8);overflow-wrap:anywhere}
+  .app-btns{display:flex;gap:8px;flex-wrap:wrap;min-width:0;justify-content:flex-end}
   details{margin-top:14px;font-size:13px;color:#000;padding-bottom:16px;text-shadow:0 0 6px rgba(255,255,255,.8)}
   summary{cursor:pointer}
   .mode{font-size:13px;color:#f0b45a;margin-bottom:8px}
