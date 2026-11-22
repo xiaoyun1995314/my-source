@@ -105,6 +105,7 @@
     <label>粘贴多个应用（JSON 数组，每项含 name / version / downloadURL）</label>
     <textarea id="f_bulk" style="min-height:120px" placeholder='[{"name":"应用A","version":"1.0","downloadURL":"https://.../a.ipa","iconURL":"https://.../a.png","description":"简介"}]'></textarea>
     <button class="ghost" onclick="bulkImport()">批量追加到列表</button>
+    <button class="ghost" onclick="document.getElementById('f_bulk').value=''">清空粘贴内容</button>
   </details>
 
   <details class="card coll">
