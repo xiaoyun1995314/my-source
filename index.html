@@ -71,10 +71,10 @@ document.getElementById('btnEsign').addEventListener('click', function(e){
   openScheme('esign://addsource?url=' + enc, '已复制，请在轻松签软件源中粘贴添加');
 });
 
-// 全能签：尝试唤起，未成功则自动复制地址手动添加
+// 全能签：官方协议 nsk-sign://addsource?url=，未安装则自动复制地址手动添加
 document.getElementById('btnQnq').addEventListener('click', function(e){
   e.preventDefault();
-  openScheme('qnq://addsource?url=' + enc, '已复制，请在全能签软件源中粘贴添加');
+  openScheme('nsk-sign://addsource?url=' + enc, '已复制，请在全能签软件源中粘贴添加');
 });
 
 function copySrc(){
