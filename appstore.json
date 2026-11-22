@@ -3,7 +3,7 @@
   "name": "訫云软件源",
   "message": "★★★温馨提示★★★\r\n应用均为网络搜集/搬运，非应用开发者，如有侵权\n联系我核实删除，非商业网站\r\n请勿使用本源安装、分发微信相关应用及文件\n账号封禁与本软件源无关。\\n遇下载慢、安装异常、资源失效等问题\n恕不单独答疑，请等待后续更新\n自用源，仅供个人使用\n请勿传播转发，谢谢\n『微信QQ同号:450000318\r\n",
   "sourceURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
-  "sourceicon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/XYKJ.PNG",
+  "sourceicon": "https://id5x6hjjd52bk0.1yunpan.com/XYKJ.PNG",
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
@@ -12,10 +12,10 @@
       "version": "訫云资源共享",
       "versionDate": "2026-11-22",
       "size": 0,
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/XYZY.PNG",
+      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/XYZY.PNG",
       "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
-      "description": "软件源主页\n收藏不迷路",
-      "developerName": "訫云科技",
+      "description": "訫云软件源主页",
+      "developerName": "",
       "category": "",
       "screenshots": [],
       "permissions": []
@@ -74,17 +74,16 @@
     },
     {
       "name": "主题版凡尔赛授权码购买",
-      "bundleID": "",
-      "version": "1.0",
-      "versionDate": "2026-11-22",
-      "size": 0,
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/XYZY.PNG",
+      "type": "0",
+      "version": "自用入口",
+      "versionDate": "2026-11-21T09:03:56+08:00",
+      "versionDescription": "☆不会用的不要买\n☆这只是一个入口\n☆注：发卡不是我的，买了自己研究",
+      "lock": "0",
       "downloadURL": "nsk-sign://web?url=https://shop.110ios.com/?#/",
-      "description": "☆不会用的不要买\\n☆这只是一个入口\\n☆注：发卡不是我的，买了自己研究",
-      "developerName": "",
-      "category": "",
-      "screenshots": [],
-      "permissions": []
+      "isLanZouCloud": "0",
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
+      "tintColor": "018084",
+      "size": 0
     },
     {
       "name": "东京热",
@@ -140,17 +139,16 @@
     },
     {
       "name": "红果短剧广告净化",
-      "bundleID": "",
+      "type": "0",
       "version": "版本更新",
-      "versionDate": "2026-11-22",
-      "size": 0,
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/XYZY.PNG",
+      "versionDate": "2026-11-21T09:03:56+08:00",
+      "versionDescription": "分享下载地址\n进去下载签名插件注入版\n注：软件不是本人开发、地址是开发者的",
+      "lock": "0",
       "downloadURL": "nsk-sign://web?url=https://hongguo.goforit.si",
-      "description": "分享下载地址\\n进去下载签名插件注入版\\n注：软件不是本人开发、地址是开发者的",
-      "developerName": "",
-      "category": "",
-      "screenshots": [],
-      "permissions": []
+      "isLanZouCloud": "0",
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
+      "tintColor": "018084",
+      "size": 0
     },
     {
       "name": "搜剧Ai",
@@ -174,7 +172,7 @@
       "lock": "0",
       "downloadURL": "nsk-sign://web?url=https://gsuu.cc",
       "isLanZouCloud": "0",
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0868.GIF",
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
       "tintColor": "018084",
       "size": 0
     },
