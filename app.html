@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IPA">
+<link rel="apple-touch-icon" href="bg.webp">
+<title>IPA</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{margin:0;padding:0;width:100%;max-width:100vw;overflow-x:hidden;background-color:#000}
+  body{color:#000;font-family:-apple-system,"PingFang SC",sans-serif;padding:24px 16px;min-height:100vh;position:relative;font-size:15px;font-weight:600}
+  .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;z-index:0}
+  .bg::after{content:"";position:absolute;inset:0;background-image:url("bg.webp");background-size:contain;background-position:center top;background-repeat:no-repeat;z-index:0}
+  .wrap{width:100%;max-width:520px;margin:0 auto;position:relative;z-index:1;overflow-x:hidden}
+  h1{font-size:24px;margin:18px 0 8px;text-align:center;font-weight:800;text-shadow:0 0 8px rgba(255,255,255,.8)}
+  .sub{text-align:center;font-size:14px;font-weight:600;color:#000;margin-bottom:28px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .card{background:transparent;border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:20px 18px;margin-bottom:16px;position:relative;z-index:1;box-shadow:0 1px 8px rgba(0,0,0,.08);max-width:100%;overflow-x:hidden}
+  a.btn{display:block;width:100%;padding:16px;border-radius:12px;background:#4d7cfe;color:#fff;font-size:17px;font-weight:700;text-align:center;text-decoration:none;margin-top:12px}
+  a.btn.ghost{background:rgba(255,255,255,.55);color:#000}
+  .tip{font-size:13.5px;color:#000;font-weight:600;line-height:2; margin-top:14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <h1>IPA</h1>
+  <div class="sub">选择要进入的页面</div>
+
+  <div class="card">
+    <a class="btn" href="index.html">打开软件源主页</a>
+    <a class="btn ghost" href="admin.html">打开后台管理</a>
+  </div>
+
+  <p class="tip">提示：本页用于在线 WebView 打包工具封装，把本页地址填进工具即可，主页和后台都能从这里进入。</p>
+</div>
+</body>
+</html>
