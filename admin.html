@@ -259,13 +259,30 @@ function resetForm(){
   $('submitBtn').textContent='添加到 appstore.json';
 }
 
+async function refreshSha(){
+  const c=cfg();
+  const res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(c.path)}?ref=${c.branch}`,{headers:authHeaders()});
+  if(!res.ok) throw new Error('刷新版本失败：'+res.status);
+  const file=await res.json();
+  fileSha=file.sha;
+}
+
 async function commitFile(message){
   const c=cfg();
-  const res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(c.path)}`,{
+  const body=JSON.stringify({message,content:b64Encode(JSON.stringify(jsonData,null,2)),sha:fileSha,branch:c.branch});
+  let res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(c.path)}`,{
     method:'PUT',
     headers:{...authHeaders(),'Content-Type':'application/json'},
-    body:JSON.stringify({message,content:b64Encode(JSON.stringify(jsonData,null,2)),sha:fileSha,branch:c.branch})
+    body
   });
+  if(res.status===409){
+    await refreshSha();
+    res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(c.path)}`,{
+      method:'PUT',
+      headers:{...authHeaders(),'Content-Type':'application/json'},
+      body:JSON.stringify({message,content:b64Encode(JSON.stringify(jsonData,null,2)),sha:fileSha,branch:c.branch})
+    });
+  }
   if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error('提交失败：'+res.status+' '+(e.message||'')); }
   const data=await res.json().catch(()=>null);
   if(data&&data.content&&data.content.sha) fileSha=data.content.sha;
