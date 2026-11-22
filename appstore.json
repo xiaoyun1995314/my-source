@@ -238,21 +238,6 @@
       "size": "0"
     },
     {
-      "name": "弹窗生成器",
-      "bundleID": "",
-      "version": "2.0.0",
-      "versionDate": "2026-11-22",
-      "size": 9.79,
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/IMG_0900.png",
-      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%BC%B9%E7%AA%97%E7%94%9F%E6%88%90%E5%99%A82.0.ipa",
-      "description": "✅弹窗引领插件\n✅永久密钥mumuios mumuios2",
-      "versionDescription": "✅弹窗引领插件\n✅永久密钥mumuios mumuios2",
-      "developerName": "訫云科技",
-      "category": "Utilities",
-      "screenshots": [],
-      "permissions": []
-    },
-    {
       "name": "Dunova VPN",
       "bundleID": "",
       "version": "9.9.9",
@@ -262,6 +247,21 @@
       "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/Dunova%20VPN_9.9.9_%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
       "description": "✅破解高级功能\n✅科学上网\n✅防止更新版本改到9.9.9",
       "versionDescription": "✅破解高级功能\n✅科学上网\n✅防止更新版本改到9.9.9",
+      "developerName": "訫云科技",
+      "category": "Utilities",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
+      "name": "弹窗生成器",
+      "bundleID": "",
+      "version": "2.0.0",
+      "versionDate": "2026-11-22",
+      "size": 9.79,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/IMG_0900.png",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%BC%B9%E7%AA%97%E7%94%9F%E6%88%90%E5%99%A82.0.ipa",
+      "description": "✅弹窗引领插件\n✅永久密钥mumuios mumuios2",
+      "versionDescription": "✅弹窗引领插件\n✅永久密钥mumuios mumuios2",
       "developerName": "訫云科技",
       "category": "Utilities",
       "screenshots": [],
