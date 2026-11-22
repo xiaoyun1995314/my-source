@@ -266,6 +266,8 @@ async function commitFile(message){
     body:JSON.stringify({message,content:b64Encode(JSON.stringify(jsonData,null,2)),sha:fileSha,branch:c.branch})
   });
   if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error('提交失败：'+res.status+' '+(e.message||'')); }
+  const data=await res.json().catch(()=>null);
+  if(data&&data.content&&data.content.sha) fileSha=data.content.sha;
 }
 
 async function submitApp(){
@@ -300,24 +302,29 @@ async function delApp(i){
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
 
-async function reorderCommit(message){
-  await commitFile(message);
-  await fetchFile(); renderList();
+let reorderTimer=null;
+function scheduleReorder(message){
+  renderList();
+  clearTimeout(reorderTimer);
+  reorderTimer=setTimeout(async()=>{
+    try{ await commitFile(message); showStatus('ok','✅ 排序已保存'); }
+    catch(e){ showStatus('err','❌ '+e.message); }
+  },1200);
 }
-async function moveUp(i){
+function moveUp(i){
   if(i<=0) return;
   [jsonData.apps[i-1],jsonData.apps[i]]=[jsonData.apps[i],jsonData.apps[i-1]];
-  await reorderCommit(`上移：${jsonData.apps[i-1].name}`);
+  scheduleReorder(`上移：${jsonData.apps[i-1].name}`);
 }
-async function moveDown(i){
+function moveDown(i){
   if(i>=jsonData.apps.length-1) return;
   [jsonData.apps[i+1],jsonData.apps[i]]=[jsonData.apps[i],jsonData.apps[i+1]];
-  await reorderCommit(`下移：${jsonData.apps[i+1].name}`);
+  scheduleReorder(`下移：${jsonData.apps[i+1].name}`);
 }
-async function pinApp(i){
+function pinApp(i){
   const [item]=jsonData.apps.splice(i,1);
   jsonData.apps.unshift(item);
-  await reorderCommit(`置顶：${item.name}`);
+  scheduleReorder(`置顶：${item.name}`);
 }
 
 async function bulkImport(){
