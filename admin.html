@@ -144,12 +144,18 @@ function showStatus(type,msg){
   const s=$('status'); s.className='status '+type; s.textContent=msg; s.style.display='block';
 }
 function b64Encode(str){ return btoa(unescape(encodeURIComponent(str))); }
-function authHeaders(){ return {Authorization:`Bearer ${cfg().token}`,Accept:'application/vnd.github+json'}; }
+function authHeaders(){
+  const h={Accept:'application/vnd.github+json'};
+  const t=cfg().token;
+  if(t) h.Authorization='Bearer '+t;
+  return h;
+}
 
 async function fetchFile(){
   const c=cfg();
+  if(!c.owner||!c.repo) throw new Error('请先填用户名和仓库名');
   const res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(c.path)}?ref=${c.branch}`,{headers:authHeaders()});
-  if(!res.ok) throw new Error('读取失败：'+res.status+'（检查仓库/路径/令牌权限）');
+  if(!res.ok) throw new Error('读取失败：'+res.status+'（401=令牌错/过期；404=仓库或路径错）');
   const file=await res.json();
   fileSha=file.sha;
   jsonData=JSON.parse(decodeURIComponent(escape(atob(file.content))));
@@ -347,6 +353,8 @@ async function exportBackup(){
     showStatus('ok','✅ appstore.json 已下载');
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
+
+window.onerror=function(msg){ showStatus('err','⚠️ 页面脚本错误：'+msg); return false; };
 
 loadConfig();
 </script>
