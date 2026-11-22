@@ -8,16 +8,17 @@
   "apps": [
     {
       "name": "訫云软件源主页",
-      "type": "0",
+      "bundleID": "",
       "version": "訫云资源共享",
-      "versionDate": "2026-11-21T09:03:56+08:00",
-      "versionDescription": "❇️保存主页不迷路\n❇️软件砸壳解密\n❇️可有偿砸壳找资源\n微信QQ同号：450000318",
-      "lock": "0",
-      "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
-      "isLanZouCloud": "0",
+      "versionDate": "2026-11-22",
+      "size": 0,
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/XYKJ.PNG",
-      "tintColor": "018084",
-      "size": 0
+      "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
+      "description": "訫云软件源主页",
+      "developerName": "",
+      "category": "",
+      "screenshots": [],
+      "permissions": []
     },
     {
       "name": "微信-官替 稳定不封号",
