@@ -213,7 +213,7 @@ function fillForm(a){
   $('f_icon').value=a.iconURL||'';
   $('f_size').value=a.size||0;
   $('f_download').value=a.downloadURL||'';
-  $('f_desc').value=a.description||'';
+  $('f_desc').value=a.versionDescription||a.description||'';
   $('f_dev').value=a.developerName||'';
   $('f_cat').value=a.category||'';
   $('f_shots').value=(a.screenshots||[]).join('\n');
@@ -229,6 +229,7 @@ function readForm(){
     iconURL:$('f_icon').value.trim(),
     downloadURL:$('f_download').value.trim(),
     description:$('f_desc').value.trim()||$('f_name').value.trim(),
+    versionDescription:$('f_desc').value.trim(),
     developerName:$('f_dev').value.trim(),
     category:$('f_cat').value.trim(),
     screenshots:$('f_shots').value.split('\n').map(s=>s.trim()).filter(Boolean),
@@ -334,6 +335,7 @@ async function bulkImport(){
         iconURL:raw.iconURL||'',
         downloadURL:raw.downloadURL,
         description:raw.description||raw.name,
+        versionDescription:raw.versionDescription||raw.description||'',
         developerName:raw.developerName||'訫云科技',
         category:raw.category||'Utilities',
         screenshots:Array.isArray(raw.screenshots)?raw.screenshots:[],
