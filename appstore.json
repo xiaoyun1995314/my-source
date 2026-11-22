@@ -7,6 +7,21 @@
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
+      "name": "訫云软件源主页",
+      "bundleID": "",
+      "version": "訫云资源共享",
+      "versionDate": "2026-11-22",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
+      "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
+      "description": "訫云软件源主页\n收藏不迷路",
+      "versionDescription": "訫云软件源主页\n收藏不迷路",
+      "developerName": "",
+      "category": "",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
       "name": "红果短剧-7.4.5净化广告",
       "type": "0",
       "version": "7.4.5",
@@ -31,21 +46,6 @@
       "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
       "tintColor": "018084",
       "size": 0
-    },
-    {
-      "name": "訫云软件源主页",
-      "bundleID": "",
-      "version": "訫云资源共享",
-      "versionDate": "2026-11-22",
-      "size": 0,
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
-      "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
-      "description": "訫云软件源主页\n收藏不迷路",
-      "versionDescription": "訫云软件源主页\n收藏不迷路",
-      "developerName": "",
-      "category": "",
-      "screenshots": [],
-      "permissions": []
     },
     {
       "name": "凡尔赛插件包",
