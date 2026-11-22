@@ -197,19 +197,6 @@
       "size": 0
     },
     {
-      "name": "闪电水印",
-      "type": "1",
-      "version": "4.9.9",
-      "versionDate": "2026-07-28T00:09:44+00:00",
-      "versionDescription": "照片视频去水印 解锁Vip 安装方法：证书签名或巨魔安装",
-      "lock": "0",
-      "downloadURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/c934d0d6a6af9c67d1105d009ba29aaa63df8d66e39273e37df624e03e5e76e6.ipa",
-      "isLanZouCloud": "0",
-      "iconURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/icons/79897efd41dec1a486c30bf9996e7aa4989468ac8076b0a1dcb7b4e16f9532c4.png",
-      "tintColor": "#2475ef",
-      "size": "20809311"
-    },
-    {
       "name": "瓜子影视",
       "type": "1",
       "version": "1.1",
@@ -221,6 +208,19 @@
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/3C8DAD23-26A4-4A7F-83F4-C86928B084A8.jpg",
       "tintColor": "#2475ef",
       "size": "0"
+    },
+    {
+      "name": "闪电水印",
+      "type": "1",
+      "version": "4.9.9",
+      "versionDate": "2026-07-28T00:09:44+00:00",
+      "versionDescription": "照片视频去水印 解锁Vip 安装方法：证书签名或巨魔安装",
+      "lock": "0",
+      "downloadURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/c934d0d6a6af9c67d1105d009ba29aaa63df8d66e39273e37df624e03e5e76e6.ipa",
+      "isLanZouCloud": "0",
+      "iconURL": "https://ipa.hxys2.xyz/mirror-apps-media/full-owned/icons/79897efd41dec1a486c30bf9996e7aa4989468ac8076b0a1dcb7b4e16f9532c4.png",
+      "tintColor": "#2475ef",
+      "size": "20809311"
     },
     {
       "name": "Fila",
