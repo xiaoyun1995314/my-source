@@ -140,16 +140,17 @@
     },
     {
       "name": "红果短剧广告净化",
-      "type": "0",
+      "bundleID": "",
       "version": "版本更新",
-      "versionDate": "2026-11-21T09:03:56+08:00",
-      "versionDescription": "分享下载地址\n进去下载签名插件注入版\n注：软件不是本人开发、地址是开发者的",
-      "lock": "0",
-      "downloadURL": "nsk-sign://web?url=https://hongguo.goforit.si",
-      "isLanZouCloud": "0",
+      "versionDate": "2026-11-22",
+      "size": 0,
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/XYZY.PNG",
-      "tintColor": "018084",
-      "size": 0
+      "downloadURL": "nsk-sign://web?url=https://hongguo.goforit.si",
+      "description": "分享下载地址\\n进去下载签名插件注入版\\n注：软件不是本人开发、地址是开发者的",
+      "developerName": "",
+      "category": "",
+      "screenshots": [],
+      "permissions": []
     },
     {
       "name": "搜剧Ai",
