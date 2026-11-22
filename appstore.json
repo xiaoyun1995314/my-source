@@ -228,19 +228,6 @@
       "size": "0"
     },
     {
-      "name": "Fila",
-      "type": "1",
-      "version": "5.0.1",
-      "versionDate": "2026-10-28T16:00:00+00:00",
-      "versionDescription": "完整版沙盒文件编辑器\n",
-      "lock": "0",
-      "downloadURL": "https://ykj-eos-dg5-01.eos-dongguan-6.cmecloud.cn/7b10994fc9954980b026a4ea58ef7610086?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27Filza_5.0.1_%25E8%25A7%25A3%25E9%2594%2581%25E5%25AE%258C%25E6%2595%25B4%25E7%2589%2588.ipa&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261121T175953Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=9T1UKBIX6OJSR5XN2F2T%2F20261121%2Fdefault%2Fs3%2Faws4_request&t=2&r=2079778693198174336.2079778693198174337&u=1040018548246762153&ot=personal&oi=1040018548246762153&f=FnEx9Dd9OLGoTj0VZExJB1YpAfUfRTjtq&ext=eyJ1dCI6MSwidW0iOjAsImN0Ijo5LCJjaCI6IjEwMDAwMDM0In0%3D&X-Amz-Signature=1066df14f6d141669ab1d52729e695692eeab03be8e86672151a00f83122f9e5",
-      "isLanZouCloud": "0",
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0870.png",
-      "tintColor": "#2475ef",
-      "size": "0"
-    },
-    {
       "name": "訫云55",
       "bundleID": "",
       "version": "1.0.0",
