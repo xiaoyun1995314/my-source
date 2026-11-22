@@ -133,16 +133,18 @@
     },
     {
       "name": "黄果短剧",
-      "type": "1",
+      "bundleID": "",
       "version": "2.1.1",
-      "versionDate": "2026-07-28T00:09:44+00:00",
-      "versionDescription": "需要VPN打开观看\n懂的都懂😂😂",
-      "lock": "0",
-      "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/refs/heads/main/ipa/%E9%BB%84%E6%9E%9C%E7%9F%AD%E5%89%A7_2.1.1_iOS%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
-      "isLanZouCloud": "0",
+      "versionDate": "2026-11-22",
+      "size": 5138022,
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0869.jpeg",
-      "tintColor": "#2475ef",
-      "size": "0"
+      "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/refs/heads/main/ipa/%E9%BB%84%E6%9E%9C%E7%9F%AD%E5%89%A7_2.1.1_iOS%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
+      "description": "需要VPN打开观看\n懂的都懂😂😂",
+      "versionDescription": "需要VPN打开观看\n懂的都懂😂😂",
+      "developerName": "",
+      "category": "",
+      "screenshots": [],
+      "permissions": []
     },
     {
       "name": "香蕉视频",
