@@ -48,20 +48,33 @@ function toast(msg){
   setTimeout(()=>t.classList.remove('show'), 2000);
 }
 
-// 轻松签 eSign：已确认的跳转协议
-document.getElementById('btnEsign').href = 'esign://addsource?url=' + enc;
+// 用隐藏 iframe 唤起协议：未安装 App 时不会弹出 Safari“网址无效”报错
+function openScheme(schemeUrl, failMsg){
+  const start = Date.now();
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.src = schemeUrl;
+  document.body.appendChild(iframe);
+  setTimeout(()=>iframe.remove(), 2500);
+  // 2 秒内页面未被切走（没跳走）= 未安装，自动复制地址
+  setTimeout(()=>{
+    if (Date.now() - start < 2500 && !document.hidden) {
+      copySrc();
+      toast(failMsg);
+    }
+  }, 2000);
+}
 
-// 全能签：尝试跳转，未成功则自动复制地址手动添加
+// 轻松签 eSign：已确认的添加源协议
+document.getElementById('btnEsign').addEventListener('click', function(e){
+  e.preventDefault();
+  openScheme('esign://addsource?url=' + enc, '已复制，请在轻松签软件源中粘贴添加');
+});
+
+// 全能签：尝试唤起，未成功则自动复制地址手动添加
 document.getElementById('btnQnq').addEventListener('click', function(e){
   e.preventDefault();
-  const start = Date.now();
-  window.location.href = 'qnq://addsource?url=' + enc;
-  setTimeout(()=>{
-    if (Date.now() - start < 2200 && !document.hidden) {
-      copySrc();
-      toast('已复制，请在全能签软件源中粘贴添加');
-    }
-  }, 1800);
+  openScheme('qnq://addsource?url=' + enc, '已复制，请在全能签软件源中粘贴添加');
 });
 
 function copySrc(){
