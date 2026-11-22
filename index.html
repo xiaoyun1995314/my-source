@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訫云软件源</title>
+<style>
+  body{margin:0;background:#0f1115;color:#e8eaed;font-family:-apple-system,"PingFang SC",sans-serif;display:flex;justify-content:center;padding:24px 16px}
+  .card{max-width:480px;width:100%;background:#1a1d24;border-radius:18px;padding:28px 22px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+  h1{font-size:22px;margin:0 0 6px}
+  p{color:#9aa0a6;font-size:14px;line-height:1.7;margin:8px 0}
+  .url{word-break:break-all;background:#11141a;border-radius:10px;padding:12px;font-size:13px;color:#8ab4f8}
+  button{width:100%;margin-top:16px;padding:13px;border:0;border-radius:12px;background:#4d7cfe;color:#fff;font-size:16px;cursor:pointer}
+  button:active{opacity:.8}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>訫云软件源</h1>
+  <p>复制下面源地址，粘贴到全能签 / 轻松签的「添加源」中即可使用。</p>
+  <div class="url" id="src">https://xiaoyun1995314.github.io/my-source/appstore.json</div>
+  <button onclick="copySrc()">复制源地址</button>
+  <p style="margin-top:18px;font-size:12px">仅供个人技术学习，请勿用于分发与商用。</p>
+</div>
+<script>
+function copySrc(){
+  const t=document.getElementById('src').textContent;
+  navigator.clipboard.writeText(t).then(()=>{alert('源地址已复制');});
+}
+</script>
+</body>
+</html>

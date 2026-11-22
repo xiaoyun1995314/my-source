@@ -1,124 +1,174 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-自用全能签软件源清单生成器（支持蓝奏云 / 本地直链双模式）
-
-两种模式：
-  模式 A - 蓝奏云：在下面 APPS 列表里手填应用名 + 蓝奏分享链接，IPA 不用上传
-  模式 B - 本地直链：把 IPA / dylib 放进 ipa/ 目录，脚本自动扫描生成
-
+訫云软件源 · appstore.json 生成脚本（GitHub Pages）
 用法：
-  1. 修改下面【配置区】和【应用列表】
-  2. 运行：python3 gen_appstore.py
-  3. 生成 appstore.json，上传到 GitHub Pages / 其他托管
+  1. 把 .ipa 文件放进 ipas/ 目录
+  2. （可选）在下方 LANZOU_MAP 里填蓝奏云直链
+  3. python3 gen_appstore.py
+  4. 提交到 GitHub，GitHub Pages 自动生效
+源地址：https://xiaoyun1995314.github.io/my-source/appstore.json
 """
 
 import os
 import json
+import plistlib
+import zipfile
+import shutil
 import datetime
+import re
 
-# ==================== 配置区（改成你的） ====================
-# 托管后 appstore.json 所在的 https 根地址，结尾不要加斜杠
-BASE_URL = "https://xiaoyun1995314.github.io/my-source"
+# ===================== 源信息配置（改这里） =====================
+SOURCE_NAME = "訫云软件源"
+# GitHub Pages：仓库名 my-source，文件放仓库根目录
+SOURCE_URL = "https://xiaoyun1995314.github.io/my-source/appstore.json"
+SOURCE_IDENTIFIER = "cn.xiaoyun.source"
+SUBTITLE = "訫云软件源 · 个人侧载源"
+DESCRIPTION = "訫云软件源，仅供个人技术学习使用"
+DEVELOPER_NAME = "訫云"
+WEBSITE = "https://xiaoyun1995314.github.io/my-source/"
 
-# 源信息
-SOURCE_NAME = "訫云科技
-自用源，请勿传播"
-SOURCE_ICON = "https://xiaoyun1995314.github.io/my-source/icons/123.png.PNG"                                # 源图标 https 地址，没有留空
-TINT_COLOR = "018084"                           # 主题色
+# 本地目录（相对本脚本）
+IPA_DIR = "ipas"
+ICON_DIR = "icons"
+OUTPUT_FILE = "appstore.json"
 
-# ---------- 应用列表（蓝奏云模式，在这里逐条加应用） ----------
-# lanzou=True  → downloadURL 是蓝奏云分享链接，isLanZouCloud=1
-# lanzou=False → downloadURL 是普通 https 直链，isLanZouCloud=0
-# iconURL 没有就留空 ""
-APPS = [
-    {
-        "name": "应用一",
-        "type": "4",            # 4=IPA 应用，5=dylib 动态库
-        "version": "1.0.0",
-        "versionDescription": "自用说明",
-        "lanzou": True,
-        "downloadURL": "https://wwbli.lanzouq.com/irH6j4grxf6h",  # 蓝奏分享地址，不带 &pwd
-        "pwd": "fceb",          # 蓝奏提取码；无密码就留空 ""
-        "iconURL": "",
-    },
+# 蓝奏云直链映射：文件名 -> 直链。留空则用 GitHub Pages 相对地址托管 IPA
+# 示例：LANZOU_MAP = {"微信.ipa": "https://xxx.lanzou.com/xxx"}
+LANZOU_MAP = {}
 
-    {
-        "name": "香蕉视频",
-        "type": "4",            # 4=IPA 应用，5=dylib 动态库
-        "version": "1.2.2",
-        "versionDescription": "自用说明",
-        "lanzou": True,
-        "downloadURL": "https://wwbli.lanzouq.com/i7CpX4gr3eni",  # 蓝奏分享地址，不带 &pwd
-        "pwd": "72wp",          # 蓝奏提取码；无密码就留空 ""
-        "iconURL": "",
-    },
+# ===================== 以下一般不用改 =====================
 
-    # 复制这一段，继续加应用：
-    # {
-    #     "name": "应用二",
-    #     "type": "4",
-    #     "version": "2.0.0",
-    #     "versionDescription": "自用说明",
-    #     "lanzou": False,
-    #     "downloadURL": "https://你的直链/app2.ipa",
-    #     "iconURL": "",
-    # },
-]
-# ==========================================================
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUT_FILE = os.path.join(SCRIPT_DIR, "appstore.json")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def iso_now():
-    return datetime.datetime.now().astimezone().isoformat(timespec="seconds")
+def resolve(path):
+    return os.path.join(BASE_DIR, path)
 
 
-def build_app(item: dict) -> dict:
-    """把一条应用配置转成全能签清单条目"""
-    is_lanzou = "1" if item.get("lanzou", False) else "0"
-    url = item["downloadURL"]
-    # 蓝奏云带密码：地址 &pwd=提取码；无密码则保持原链接
-    if item.get("lanzou", False) and item.get("pwd"):
-        sep = "&" if "?" in url else "&"
-        url = f"{url}{sep}pwd={item['pwd']}"
+def read_info_plist(ipa_path):
+    """从 IPA 里读取 Info.plist（兼容二进制/XML）"""
+    with zipfile.ZipFile(ipa_path, "r") as zf:
+        plist_name = None
+        for name in zf.namelist():
+            if re.match(r"Payload/[^/]+/Info\.plist$", name):
+                plist_name = name
+                break
+        if not plist_name:
+            return {}
+        with zf.open(plist_name) as f:
+            return plistlib.load(f)
+
+
+def extract_icon(ipa_path, out_dir):
+    """从 IPA 提取 AppIcon，返回图标文件名"""
+    with zipfile.ZipFile(ipa_path, "r") as zf:
+        plist_name = None
+        app_dir = None
+        for name in zf.namelist():
+            m = re.match(r"(Payload/[^/]+)/Info\.plist$", name)
+            if m:
+                plist_name = name
+                app_dir = m.group(1)
+                break
+        if not plist_name:
+            return ""
+        info = plistlib.load(zf.open(plist_name))
+
+        icons = info.get("CFBundleIcons", {}) or {}
+        primary = icons.get("CFBundlePrimaryIcon", {}) or {}
+        icon_files = primary.get("CFBundleIconFiles", []) or []
+        if not icon_files:
+            icon_files = info.get("CFBundleIconFiles", []) or []
+
+        candidates = []
+        for name in zf.namelist():
+            if not name.startswith(app_dir + "/"):
+                continue
+            base = os.path.basename(name)
+            for pref in icon_files:
+                if base.startswith(pref) and base.lower().endswith((".png", "@2x.png", "@3x.png")):
+                    candidates.append(name)
+        candidates.sort(key=lambda n: ("@3x" not in n, "@2x" not in n, n))
+        if not candidates:
+            return ""
+
+        icon_name = os.path.splitext(os.path.basename(ipa_path))[0] + ".png"
+        dst = os.path.join(out_dir, icon_name)
+        with zf.open(candidates[0]) as fsrc, open(dst, "wb") as fdst:
+            shutil.copyfileobj(fsrc, fdst)
+        return icon_name
+
+
+def build_app_entry(ipa_path):
+    name = os.path.basename(ipa_path)
+    info = read_info_plist(ipa_path)
+
+    bundle_id = info.get("CFBundleIdentifier", "")
+    version = info.get("CFBundleShortVersionString", info.get("CFBundleVersion", "1.0"))
+    app_name = info.get("CFBundleDisplayName") or info.get("CFBundleName") or os.path.splitext(name)[0]
+    size = os.path.getsize(ipa_path)
+
+    # 下载地址：优先蓝奏云映射，否则用 GitHub Pages 相对路径
+    if name in LANZOU_MAP:
+        download_url = LANZOU_MAP[name]
+    else:
+        download_url = SOURCE_URL.rsplit("/", 1)[0] + "/ipas/" + name
+
+    # 图标
+    icon_file = extract_icon(ipa_path, resolve(ICON_DIR))
+    icon_url = ""
+    if icon_file:
+        icon_url = SOURCE_URL.rsplit("/", 1)[0] + "/icons/" + icon_file
+
     return {
-        "name": item["name"],
-        "type": item.get("type", "4"),
-        "version": item.get("version", "1.0.0"),
-        "versionDate": iso_now(),
-        "versionDescription": item.get("versionDescription", "自用"),
-        "lock": "0",
-        "downloadURL": url,
-        "isLanZouCloud": is_lanzou,
-        "iconURL": item.get("iconURL", ""),
-        "tintColor": TINT_COLOR,
-        "size": 0,
+        "name": app_name,
+        "bundleID": bundle_id,
+        "version": version,
+        "versionDate": datetime.date.today().isoformat(),
+        "size": size,
+        "iconURL": icon_url,
+        "downloadURL": download_url,
+        "description": app_name,
+        "developerName": DEVELOPER_NAME,
+        "category": "Utilities",
+        "screenshots": [],
+        "permissions": []
     }
 
 
 def main():
-    apps = [build_app(item) for item in APPS]
+    os.makedirs(resolve(IPA_DIR), exist_ok=True)
+    os.makedirs(resolve(ICON_DIR), exist_ok=True)
 
-    manifest = {
-        "identifier": SOURCE_NAME,
-        "sourceURL": f"{BASE_URL}/appstore.json",
-        "sourceicon": SOURCE_ICON,
-        "unlockURL": f"{BASE_URL}/appstore.json",
-        "apps": apps,
+    ipa_dir = resolve(IPA_DIR)
+    ipa_files = sorted(f for f in os.listdir(ipa_dir) if f.lower().endswith(".ipa"))
+
+    apps = []
+    for f in ipa_files:
+        print("处理:", f)
+        try:
+            apps.append(build_app_entry(os.path.join(ipa_dir, f)))
+        except Exception as e:
+            print("  跳过（解析失败）:", f, "->", e)
+
+    source = {
+        "name": SOURCE_NAME,
+        "identifier": SOURCE_IDENTIFIER,
+        "subtitle": SUBTITLE,
+        "description": DESCRIPTION,
+        "iconURL": "",
+        "sourceURL": SOURCE_URL,
+        "website": WEBSITE,
+        "apps": apps
     }
 
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=2)
+    out_path = resolve(OUTPUT_FILE)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(source, f, ensure_ascii=False, indent=2)
 
-    print(f"[完成] 已生成 {OUT_FILE}")
-    print(f"[收录] {len(apps)} 个包：")
-    for a in apps:
-        cloud = "蓝奏云" if a["isLanZouCloud"] == "1" else "直链"
-        print(f"  - {a['name']} ({cloud}, v{a['version']})")
-    print(f"\n[下一步] 把 appstore.json 上传到托管，")
-    print(f"         全能签添加源：{BASE_URL}/appstore.json")
+    print(f"\n完成！共 {len(apps)} 个应用，已生成: {out_path}")
+    print("源地址:", SOURCE_URL)
 
 
 if __name__ == "__main__":
