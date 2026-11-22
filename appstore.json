@@ -268,21 +268,6 @@
       "permissions": []
     },
     {
-      "name": "万年历",
-      "bundleID": "",
-      "version": "7.5.9",
-      "versionDate": "2026-11-22",
-      "size": 119852237,
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/%E4%B8%87%E5%B9%B4%E5%8E%86.png",
-      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E4%B8%87%E5%B9%B4%E5%8E%86_7.5.9_iOS%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
-      "description": "✅解锁永久会员\n✅去除广告、\n✅可看天气预报、农历",
-      "versionDescription": "✅解锁永久会员\n✅去除广告、\n✅可看天气预报、农历",
-      "developerName": "",
-      "category": "Utilities",
-      "screenshots": [],
-      "permissions": []
-    },
-    {
       "name": "格式转换工具-音视频格式转换视频提取音频音乐拼接剪辑工具",
       "bundleID": "",
       "version": "1.2.5",
@@ -293,6 +278,21 @@
       "description": "✅视频转换mp3,照片转格式,图片压缩工具.PDF文件转换器\n✅解锁VIP会员\n✅免登录,但可以登",
       "versionDescription": "✅视频转换mp3,照片转格式,图片压缩工具.PDF文件转换器\n✅解锁VIP会员\n✅免登录,但可以登",
       "developerName": "訫云科技",
+      "category": "Utilities",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
+      "name": "万年历",
+      "bundleID": "",
+      "version": "7.5.9",
+      "versionDate": "2026-11-22",
+      "size": 119852237,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/%E4%B8%87%E5%B9%B4%E5%8E%86.png",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E4%B8%87%E5%B9%B4%E5%8E%86_7.5.9_iOS%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
+      "description": "✅解锁永久会员\n✅去除广告、\n✅可看天气预报、农历",
+      "versionDescription": "✅解锁永久会员\n✅去除广告、\n✅可看天气预报、农历",
+      "developerName": "",
       "category": "Utilities",
       "screenshots": [],
       "permissions": []
