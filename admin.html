@@ -81,7 +81,7 @@
     <input id="f_bundle" placeholder="com.example.app">
     <div class="row">
       <div><label>图标 URL</label><input id="f_icon"></div>
-      <div><label>大小（字节，可留 0）</label><input id="f_size" type="number" value="0"></div>
+      <div><label>大小（MB，可留 0）</label><input id="f_size" type="number" step="0.1" value="0"></div>
     </div>
     <label>下载 URL（IPA 直链）*</label>
     <input id="f_download" placeholder="https://.../xxx.ipa 或蓝奏云直链">
@@ -217,7 +217,7 @@ function fillForm(a){
   $('f_version').value=a.version||'';
   $('f_bundle').value=a.bundleID||'';
   $('f_icon').value=a.iconURL||'';
-  $('f_size').value=a.size||0;
+  $('f_size').value=a.size?+(a.size/1048576).toFixed(2):0;
   $('f_download').value=a.downloadURL||'';
   $('f_desc').value=a.versionDescription||a.description||'';
   $('f_dev').value=a.developerName||'';
@@ -231,7 +231,7 @@ function readForm(){
     bundleID:$('f_bundle').value.trim(),
     version:$('f_version').value.trim(),
     versionDate:new Date().toISOString().slice(0,10),
-    size:Number($('f_size').value)||0,
+    size:Math.round((Number($('f_size').value)||0)*1048576),
     iconURL:$('f_icon').value.trim(),
     downloadURL:$('f_download').value.trim(),
     description:$('f_desc').value.trim()||$('f_name').value.trim(),
