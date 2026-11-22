@@ -7,19 +7,6 @@
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
-      "name": "红果短剧广告净化",
-      "type": "0",
-      "version": "版本更新",
-      "versionDate": "2026-11-21T09:03:56+08:00",
-      "versionDescription": "分享下载地址\n进去下载签名插件注入版\n注：软件不是本人开发、地址是开发者的",
-      "lock": "0",
-      "downloadURL": "nsk-sign://web?url=https://hongguo.goforit.si",
-      "isLanZouCloud": "0",
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
-      "tintColor": "018084",
-      "size": 0
-    },
-    {
       "name": "红果短剧-7.4.5净化广告",
       "type": "0",
       "version": "7.4.5",
@@ -29,6 +16,19 @@
       "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7_7.4.5_%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
       "isLanZouCloud": "0",
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/hgtb.png",
+      "tintColor": "018084",
+      "size": 0
+    },
+    {
+      "name": "红果短剧广告净化",
+      "type": "0",
+      "version": "版本更新",
+      "versionDate": "2026-11-21T09:03:56+08:00",
+      "versionDescription": "分享下载地址\n进去下载签名插件注入版\n注：软件不是本人开发、地址是开发者的",
+      "lock": "0",
+      "downloadURL": "nsk-sign://web?url=https://hongguo.goforit.si",
+      "isLanZouCloud": "0",
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
       "tintColor": "018084",
       "size": 0
     },
