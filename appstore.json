@@ -226,20 +226,6 @@
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0870.png",
       "tintColor": "#2475ef",
       "size": "0"
-    },
-    {
-      "name": "訫云55",
-      "bundleID": "",
-      "version": "1.0.0",
-      "versionDate": "2026-11-22",
-      "size": 82,
-      "iconURL": "https://github.com/xiaoyun1995314/my-source/blob/main/icons/XYKJ.PNG?raw=true",
-      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E4%B8%9C%E4%BA%AC%E7%83%AD_1.0.0_%E8%A8%AB%E4%BA%91%E8%B5%84%E6%BA%90.ipa",
-      "description": "55555\n55588\n\n000",
-      "developerName": "訫云",
-      "category": "Utilities",
-      "screenshots": [],
-      "permissions": []
     }
   ]
 }
