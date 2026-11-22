@@ -9,7 +9,6 @@
   html,body{margin:0;padding:0;width:100%;max-width:100vw;overflow-x:hidden;background-color:#000}
   body{color:#000;font-family:-apple-system,"PingFang SC",sans-serif;padding:20px 14px;min-height:100vh;position:relative;background-color:#000;overflow-x:hidden;font-size:15px;font-weight:600}
   .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;z-index:0}
-  .bg::after{content:"";position:absolute;inset:0;background-image:url("bg.webp");background-size:contain;background-position:center top;background-repeat:no-repeat;z-index:0}
   body::before{content:"";position:fixed;inset:0;background:transparent;z-index:0}
   .wrap{width:100%;max-width:520px;margin:0 auto;position:relative;z-index:1;overflow-x:hidden}
   h1{font-size:22px;margin:6px 0 16px;text-align:center;font-weight:800;text-shadow:0 0 8px rgba(255,255,255,.8)}
@@ -40,6 +39,11 @@
   .app-btns{display:flex;gap:8px;flex-wrap:wrap;min-width:0;justify-content:flex-end}
   details{margin-top:14px;font-size:14px;font-weight:600;color:#000;padding-bottom:16px;text-shadow:0 0 6px rgba(255,255,255,.8)}
   summary{cursor:pointer;font-weight:700}
+  details.coll{display:block;margin-bottom:16px}
+  details.coll summary{list-style:none;font-size:17px;font-weight:800;color:#000;text-shadow:0 0 8px rgba(255,255,255,.8);margin-bottom:14px}
+  details.coll summary::-webkit-details-marker{display:none}
+  details.coll summary::before{content:"▸ ";font-weight:800}
+  details.coll[open] summary::before{content:"▾ "}
   .mode{font-size:14px;font-weight:700;color:#f0b45a;margin-bottom:8px}
 </style>
 </head>
@@ -49,17 +53,19 @@
   <h1>訫云软件源 · 后台管理</h1>
 
   <div class="card">
-    <h2>① 仓库连接（本地保存，不上传）</h2>
-    <label>GitHub 用户名</label>
-    <input id="owner" placeholder="xiaoyun1995314">
-    <label>仓库名</label>
-    <input id="repo" placeholder="my-source">
-    <label>分支</label>
-    <input id="branch" value="main">
-    <label>appstore.json 路径</label>
-    <input id="path" value="appstore.json">
-    <label>个人访问令牌 PAT（fine-grained，仅给本仓库 contents 写权限）</label>
-    <input id="token" type="password" placeholder="ghp_... 或 github_pat_...">
+    <details class="coll">
+      <summary>① 仓库连接（本地保存，不上传）</summary>
+      <label>GitHub 用户名</label>
+      <input id="owner" placeholder="xiaoyun1995314">
+      <label>仓库名</label>
+      <input id="repo" placeholder="my-source">
+      <label>分支</label>
+      <input id="branch" value="main">
+      <label>appstore.json 路径</label>
+      <input id="path" value="appstore.json">
+      <label>个人访问令牌 PAT（fine-grained，仅给本仓库 contents 写权限）</label>
+      <input id="token" type="password" placeholder="ghp_... 或 github_pat_...">
+    </details>
     <button class="ghost" onclick="saveConfig()">保存连接配置</button>
     <button class="ghost" onclick="loadApps()">读取现有应用列表</button>
   </div>
@@ -94,20 +100,20 @@
     <div id="status" class="status"></div>
   </div>
 
-  <div class="card">
-    <h2>②b 批量导入（粘贴 JSON 数组）</h2>
+  <details class="card coll">
+    <summary>②b 批量导入（粘贴 JSON 数组）</summary>
     <label>粘贴多个应用（JSON 数组，每项含 name / version / downloadURL）</label>
     <textarea id="f_bulk" style="min-height:120px" placeholder='[{"name":"应用A","version":"1.0","downloadURL":"https://.../a.ipa","iconURL":"https://.../a.png","description":"简介"}]'></textarea>
     <button class="ghost" onclick="bulkImport()">批量追加到列表</button>
-  </div>
+  </details>
 
-  <div class="card">
-    <h2>③ 现有应用（读取后可搜索 / 排序 / 编辑 / 删除）</h2>
+  <details class="card coll">
+    <summary>③ 现有应用（读取后可搜索 / 排序 / 编辑 / 删除）</summary>
     <label>搜索（名称 / 包名）</label>
     <input id="f_search" oninput="renderList()" placeholder="输入关键词过滤">
     <button class="ghost" onclick="exportBackup()">导出备份 appstore.json</button>
     <div id="appList" style="margin-top:10px"><p class="tip">点上方「读取现有应用列表」加载。</p></div>
-  </div>
+  </details>
 
   <details>
     <summary>使用说明 / 安全提示</summary>
