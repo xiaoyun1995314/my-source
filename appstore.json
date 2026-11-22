@@ -225,19 +225,6 @@
       "permissions": []
     },
     {
-      "name": "Fila",
-      "type": "1",
-      "version": "0.8.2",
-      "versionDate": "2026-10-28T16:00:00+00:00",
-      "versionDescription": "沙盒文件编辑器\n",
-      "lock": "0",
-      "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/refs/heads/main/ipa/Fila_0.8.2.ipa",
-      "isLanZouCloud": "0",
-      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0870.png",
-      "tintColor": "#2475ef",
-      "size": "0"
-    },
-    {
       "name": "Dunova VPN",
       "bundleID": "",
       "version": "9.9.9",
@@ -251,6 +238,19 @@
       "category": "Utilities",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "Fila",
+      "type": "1",
+      "version": "0.8.2",
+      "versionDate": "2026-10-28T16:00:00+00:00",
+      "versionDescription": "沙盒文件编辑器\n",
+      "lock": "0",
+      "downloadURL": "https://github.com/xiaoyun1995314/my-source/raw/refs/heads/main/ipa/Fila_0.8.2.ipa",
+      "isLanZouCloud": "0",
+      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/IMG_0870.png",
+      "tintColor": "#2475ef",
+      "size": "0"
     },
     {
       "name": "弹窗生成器",
