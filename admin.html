@@ -189,6 +189,20 @@
       <input id="bn_url" placeholder="https://...">
       <label><input type="checkbox" id="bn_ext" style="width:auto;transform:scale(1.2);margin-right:8px">新窗口打开</label>
     </div>
+    <div class="row">
+      <div>
+        <label>选项</label>
+        <label style="display:block;margin-top:6px"><input type="checkbox" id="bn_copy" style="width:auto;transform:scale(1.2);margin-right:8px">点击文字复制链接 / 源地址</label>
+        <label style="display:block;margin-top:6px"><input type="checkbox" id="bn_scroll" style="width:auto;transform:scale(1.2);margin-right:8px">文字横向滚动（跑马灯）</label>
+      </div>
+      <div>
+        <label>文字颜色（调色）</label>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+          <input type="color" id="bn_color" value="#1a56db" style="width:48px;height:38px;border:1px solid rgba(0,0,0,.25);border-radius:10px;padding:2px;background:transparent">
+          <button class="ghost" type="button" style="margin-top:0" onclick="$('bn_color').value='#1a56db'">重置默认色</button>
+        </div>
+      </div>
+    </div>
     <div class="row" style="margin-top:6px">
       <div><button class="ghost" onclick="addBanner()" style="margin-top:0">添加一行</button></div>
       <div><button class="ghost" onclick="saveBannerEdit()" style="margin-top:0;background:#34a06a;color:#fff">保存修改</button></div>
@@ -655,7 +669,7 @@ function renderBannerAdmin(){
         ${iconImg}
         <div class="app-info">
           <b>${esc(r.text||'')}</b>
-          <span>${BN_TYPES[r.type]||r.type}${r.url?' · 链接已填':''}</span>
+          <span>${BN_TYPES[r.type]||r.type}${r.url?' · 链接已填':''}${r.copy?' · 可复制':''}${r.scroll?' · 滚动':''}${r.color?` · <span style="color:${esc(r.color)}">调色</span>`:''}</span>
         </div>
       </div>
       <div class="app-btns">
@@ -670,6 +684,9 @@ function renderBannerAdmin(){
 let bnEditIndex=-1;
 function bnReadForm(){
   const row={type:$('bn_type').value,icon:$('bn_icon').value.trim()||'ℹ️',text:$('bn_text').value.trim()};
+  row.copy=$('bn_copy').checked;
+  row.scroll=$('bn_scroll').checked;
+  row.color=$('bn_color').value||'';
   if(row.type==='link'){
     row.url=$('bn_url').value.trim();
     row.external=$('bn_ext').checked;
@@ -693,6 +710,9 @@ function bnEdit(i){
   $('bn_text').value=r.text||'';
   $('bn_url').value=r.url||'';
   $('bn_ext').checked=!!r.external;
+  $('bn_copy').checked=!!r.copy;
+  $('bn_scroll').checked=!!r.scroll;
+  $('bn_color').value=r.color||'#1a56db';
   $('bn_text').focus();
 }
 // 保存编辑：替换当前正在编辑的那一行

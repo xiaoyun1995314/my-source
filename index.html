@@ -18,6 +18,10 @@
   .banner{border-radius:14px;padding:15px 16px;margin-bottom:14px;font-weight:800;font-size:17px;line-height:2;text-shadow:0 0 6px rgba(255,255,255,.8)}
   .banner .row{display:block;margin:8px 0}
   .banner a{color:#1a56db;text-decoration:underline;word-break:break-all;font-weight:800}
+  .banner .bncopy{cursor:pointer;color:#1a56db;text-decoration:underline;font-weight:800}
+  .marquee{overflow:hidden;white-space:nowrap}
+  .marquee span{display:inline-block;padding-left:100%;animation:mqm 12s linear infinite}
+  @keyframes mqm{from{transform:translateX(0)}to{transform:translateX(-100%)}}
   .notebox{background:rgba(40,60,90,.85);color:#e8f0ff;border-radius:14px;padding:16px;font-size:16px;line-height:1.9;font-weight:700}
   .folder{display:flex;align-items:center;gap:14px;padding:16px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
   .folder:last-child{border-bottom:0}
@@ -225,6 +229,10 @@ function openCat(name){currentCat=name;render();window.scrollTo({top:0});}
 function goList(){currentCat='';render();}
 
 // 主页横幅（后台 ⑥ 管理）
+function bannerCopyText(r){
+  if(r.type==='link') return r.url||'';
+  return SRC_URL;
+}
 function renderBanner(){
   const box=document.getElementById('bannerBox');
   const rows=Array.isArray(data&&data.banner)?data.banner:[];
@@ -235,17 +243,59 @@ function renderBanner(){
       ? `<img src="${esc(icon)}" style="width:20px;height:20px;vertical-align:-4px;margin-right:6px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'">`
       : (icon||'ℹ️')+' ';
     const text=r.text||'';
+    const color=r.color||'#1a56db';
+    const style=`color:${esc(color)}`;
+    const copyVal=bannerCopyText(r);
+    // 复制开关：点文字复制链接/源地址（源类型仍触发添加源，松手同时复制）
+    if(r.copy){
+      let inner;
+      if(r.type==='source-qnq'||r.type==='source-esign'){
+        inner=`<a href="javascript:addSource('${r.type==='source-qnq'?'qnq':'esign'}')" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</a>`;
+      }else{
+        inner=`<span class="bncopy" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</span>`;
+      }
+      return wrapBanner(iconHtml,inner,r);
+    }
     if(r.type==='source-qnq'){
-      return `<div class="row">${iconHtml}<a href="javascript:addSource('qnq')">${esc(text)}</a></div>`;
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('qnq')" style="${style}">${esc(text)}</a>`,r);
     }
     if(r.type==='source-esign'){
-      return `<div class="row">${iconHtml}<a href="javascript:addSource('esign')">${esc(text)}</a></div>`;
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('esign')" style="${style}">${esc(text)}</a>`,r);
     }
     if(r.type==='link'&&r.url){
-      return `<div class="row">${iconHtml}<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}">${esc(text)}</a></div>`;
+      return wrapBanner(iconHtml,`<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}" style="${style}">${esc(text)}</a>`,r);
     }
-    return `<div class="row">${iconHtml}${esc(text)}</div>`;
+    const plainStyle=r.color?` style="color:${esc(r.color)}"`:'';
+    return wrapBanner(iconHtml,`<span${plainStyle}>${esc(text)}</span>`,r);
   }).join('');
+  // 委托处理复制：点带 data-copy 的元素复制
+  box.querySelectorAll('[data-copy]').forEach(el=>{
+    el.addEventListener('click',ev=>{
+      const v=el.getAttribute('data-copy');
+      // 源类型：先让 addSource 走，复制在稍后执行
+      if(el.tagName==='A'){ setTimeout(()=>copyBanner(v),400); }
+      else{ ev.preventDefault(); copyBanner(v); }
+    });
+  });
+}
+// 跑马灯滚动包裹
+function wrapBanner(iconHtml,inner,r){
+  if(r.scroll){
+    return `<div class="row marquee">${iconHtml}<span>${inner}</span></div>`;
+  }
+  return `<div class="row">${iconHtml}${inner}</div>`;
+}
+function copyBanner(str){
+  if(!str){toast('没有可复制的内容');return;}
+  const done=()=>toast('已复制：'+str);
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(str).then(done).catch(()=>fallbackCopy(str,done));
+  }else{fallbackCopy(str,done);}
+}
+function fallbackCopy(str,cb){
+  const ta=document.createElement('textarea');ta.value=str;document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');cb();}catch(e){toast('复制失败');}
+  document.body.removeChild(ta);
 }
 
 // 公告弹窗
