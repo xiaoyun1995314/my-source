@@ -531,6 +531,8 @@ async function exportBackup(){
 function ensureCategories(){
   jsonData.categories=Array.isArray(jsonData.categories)?jsonData.categories:[];
 }
+// 已删除、需从列表隐藏的分类名（防止应用里同名又自动冒出）
+const hiddenCats=new Set();
 // 汇总所有出现过的分类名：优先 categories 配置顺序，再追加应用里出现的新分类
 function catNames(){
   ensureCategories();
@@ -538,6 +540,7 @@ function catNames(){
   const extra=[];
   jsonData.apps.forEach(a=>{
     const n=(a.category||'未分类').trim()||'未分类';
+    if(hiddenCats.has(n)) return;
     if(!ordered.includes(n)&&!extra.includes(n)) extra.push(n);
   });
   return ordered.concat(extra);
@@ -649,21 +652,25 @@ async function catRename(oldName){
 
 // 清空：把该分类下文件全部归到「未分类」，文件夹随之消失
 async function catClear(name){
-  if(name==='未分类'){showStatus('err','❌ 「未分类」不能删除','listStatus');return;}
+  const nm=name.trim();
+  if(nm==='未分类'){showStatus('err','❌ 「未分类」不能删除','listStatus');return;}
   const cnt=countInCat(name);
-  if(!confirm(`「${name}」下 ${cnt} 个文件将全部归到「未分类」，此文件夹消失。文件不会被删除。`))return;
+  if(!confirm(`「${nm}」下 ${cnt} 个文件将全部归到「未分类」，此文件夹消失。文件不会被删除。`))return;
   try{
     showStatus('ok','正在处理 ...','listStatus');
     if(!jsonData) await fetchFile();
     ensureCategories();
-    // trim 后匹配，避免空格/全角导致删不掉
+    // 该名加入隐藏集，防止应用里同名又自动冒出第二个
+    hiddenCats.add(nm);
+    // 把该类下文件全部归到「未分类」（trim 匹配，避免空格/全角删不掉）
     jsonData.apps.forEach(a=>{
-      if((a.category||'').trim()===name.trim()) a.category='未分类';
+      if((a.category||'').trim()===nm) a.category='未分类';
     });
-    jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name)!==name.trim());
-    await commitFile(`清空分类：${name}`);
+    jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name).trim()!==nm);
+    await commitFile(`清空分类：${nm}`);
     showStatus('ok','✅ 已清空，文件夹已移除','listStatus');
-    await fetchFile(); renderCats(); renderList();
+    // 不再重新拉取，避免旧数据覆盖导致同名又冒出
+    renderCats(); renderList();
   }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 
@@ -959,6 +966,7 @@ async function addCategory(){
   const name=$('c_name').value.trim();
   if(!name){showStatus('err','请填分类名称','listStatus');return;}
   ensureCategories();
+  hiddenCats.delete(name); // 重新新增，解除隐藏
   if(catNames().includes(name)){showStatus('err','该分类已存在','listStatus');return;}
   try{
     showStatus('ok','正在新增分类 ...','listStatus');
