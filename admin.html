@@ -283,14 +283,14 @@ async function fetchFile(){
 
 async function loadApps(){
   try{
-    showStatus('ok','正在读取 ...');
+    showStatus('ok','正在读取 ...','listStatus');
     await fetchFile();
     renderList();
     renderCats();
     fillPopup();
     renderBannerAdmin();
-    showStatus('ok',`已读取 ${jsonData.apps.length} 个应用`);
-  }catch(e){ showStatus('err','❌ '+e.message); }
+    showStatus('ok',`已读取 ${jsonData.apps.length} 个应用`,'listStatus');
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
 
 function renderList(){
@@ -494,7 +494,7 @@ async function bulkImport(){
 
 async function exportBackup(){
   try{
-    showStatus('ok','正在读取 ...');
+    showStatus('ok','正在读取 ...','listStatus');
     if(!jsonData) await fetchFile();
     const blob=new Blob([JSON.stringify(jsonData,null,2)],{type:'application/json'});
     const a=document.createElement('a');
@@ -502,8 +502,8 @@ async function exportBackup(){
     a.download='appstore.json';
     a.click();
     URL.revokeObjectURL(a.href);
-    showStatus('ok','✅ appstore.json 已下载');
-  }catch(e){ showStatus('err','❌ '+e.message); }
+    showStatus('ok','✅ appstore.json 已下载','listStatus');
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
 
 // ========== ④ 分类文件夹（自动从已有应用的 category 汇总） ==========
@@ -568,16 +568,16 @@ async function catRename(oldName){
   const name=nn.trim();
   if(!name||name===oldName)return;
   try{
-    showStatus('ok','正在改名 ...');
+    showStatus('ok','正在改名 ...','listStatus');
     if(!jsonData) await fetchFile();
     ensureCategories();
     jsonData.apps.forEach(a=>{if((a.category||'未分类')===oldName)a.category=name;});
     // 同步 categories 配置里的名字
     jsonData.categories.forEach(c=>{if((typeof c==='string'?c:c.name)===oldName){if(typeof c==='string')c=name;else c.name=name;}});
     await commitFile(`分类改名：${oldName} → ${name}`);
-    showStatus('ok','✅ 已改名');
+    showStatus('ok','✅ 已改名','listStatus');
     await fetchFile(); renderCats(); renderList();
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 
 // 清空：把该分类下文件全部归到「未分类」，文件夹随之消失
@@ -585,15 +585,15 @@ async function catClear(name){
   const cnt=countInCat(name);
   if(!confirm(`「${name}」下 ${cnt} 个文件将全部归到「未分类」，此文件夹消失。文件不会被删除。`))return;
   try{
-    showStatus('ok','正在处理 ...');
+    showStatus('ok','正在处理 ...','listStatus');
     if(!jsonData) await fetchFile();
     ensureCategories();
     jsonData.apps.forEach(a=>{if((a.category||'')===name)a.category='未分类';});
     jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name)!==name);
     await commitFile(`清空分类：${name}`);
-    showStatus('ok','✅ 已清空，文件夹已移除');
+    showStatus('ok','✅ 已清空，文件夹已移除','listStatus');
     await fetchFile(); renderCats(); renderList();
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 
 // ========== ⑤ 主页公告弹窗 ==========
@@ -678,8 +678,8 @@ function bnReadForm(){
 }
 function addBanner(){
   const row=bnReadForm();
-  if(!row.text){showStatus('err','请填文字');return;}
-  if(row.type==='link'&&!row.url){showStatus('err','普通链接需填链接地址');return;}
+  if(!row.text){showStatus('err','请填文字','listStatus');return;}
+  if(row.type==='link'&&!row.url){showStatus('err','普通链接需填链接地址','listStatus');return;}
   jsonData.banner=Array.isArray(jsonData.banner)?jsonData.banner:[];
   jsonData.banner.push(row);
   bnEditIndex=-1;
@@ -697,15 +697,15 @@ function bnEdit(i){
 }
 // 保存编辑：替换当前正在编辑的那一行
 async function saveBannerEdit(){
-  if(bnEditIndex<0){showStatus('err','先点某行的「编辑」再保存修改');return;}
+  if(bnEditIndex<0){showStatus('err','先点某行的「编辑」再保存修改','listStatus');return;}
   const row=bnReadForm();
-  if(!row.text){showStatus('err','请填文字');return;}
-  if(row.type==='link'&&!row.url){showStatus('err','普通链接需填链接地址');return;}
+  if(!row.text){showStatus('err','请填文字','listStatus');return;}
+  if(row.type==='link'&&!row.url){showStatus('err','普通链接需填链接地址','listStatus');return;}
   try{
     jsonData.banner[bnEditIndex]=row;
     await saveBanner('修改横幅行：'+row.text);
     bnEditIndex=-1;
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 function bnDel(i){
   if(!confirm(`删除「${jsonData.banner[i].text}」？`))return;
@@ -874,19 +874,19 @@ function pickCat(name){
 // 手动新增分类文件夹，写入 categories
 async function addCategory(){
   const name=$('c_name').value.trim();
-  if(!name){showStatus('err','请填分类名称');return;}
+  if(!name){showStatus('err','请填分类名称','listStatus');return;}
   ensureCategories();
-  if(catNames().includes(name)){showStatus('err','该分类已存在');return;}
+  if(catNames().includes(name)){showStatus('err','该分类已存在','listStatus');return;}
   try{
-    showStatus('ok','正在新增分类 ...');
+    showStatus('ok','正在新增分类 ...','listStatus');
     if(!jsonData) await fetchFile();
     ensureCategories();
     jsonData.categories.push({name,icon:$('c_icon').value.trim()||'📁'});
     await commitFile(`新增分类文件夹：${name}`);
-    showStatus('ok',`✅ 已新增文件夹「${name}」`);
+    showStatus('ok',`✅ 已新增文件夹「${name}」`,'listStatus');
     $('c_name').value='';
     await fetchFile(); renderCats();
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 
 window.onerror=function(msg){ showStatus('err','⚠️ 页面脚本错误：'+msg); return false; };
