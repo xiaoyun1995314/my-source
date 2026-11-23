@@ -243,7 +243,7 @@
       "description": "✅破解高级功能\n✅科学上网\n✅防止更新版本改到9.9.9",
       "versionDescription": "✅破解高级功能\n✅科学上网\n✅防止更新版本改到9.9.9",
       "developerName": "訫云科技",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -258,7 +258,7 @@
       "description": "✅视频转换mp3,照片转格式,图片压缩工具.PDF文件转换器\n✅解锁VIP会员\n✅免登录,但可以登",
       "versionDescription": "✅视频转换mp3,照片转格式,图片压缩工具.PDF文件转换器\n✅解锁VIP会员\n✅免登录,但可以登",
       "developerName": "訫云科技",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -288,7 +288,7 @@
       "description": "✅弹窗引领插件\n✅永久密钥mumuios mumuios2",
       "versionDescription": "✅弹窗引领插件\n✅永久密钥mumuios mumuios2",
       "developerName": "訫云科技",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -303,7 +303,7 @@
       "description": "✅解锁永久会员\n✅去除广告、\n✅可看天气预报、农历",
       "versionDescription": "✅解锁永久会员\n✅去除广告、\n✅可看天气预报、农历",
       "developerName": "",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -318,7 +318,7 @@
       "description": "❇️解压插件注入红果短剧即可\n❇️去广告解锁VIP",
       "versionDescription": "❇️解压插件注入红果短剧即可\n❇️去广告解锁VIP",
       "developerName": "訫云科技",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -333,7 +333,7 @@
       "description": "❇️解压插件注入红果漫剧即可\n❇️去广告解锁VIP",
       "versionDescription": "❇️解压插件注入红果漫剧即可\n❇️去广告解锁VIP",
       "developerName": "訫云科技",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -348,7 +348,7 @@
       "description": "❇️视频转换实况-相册里面一键批量转换\n✅破解高级功能功能",
       "versionDescription": "❇️视频转换实况-相册里面一键批量转换\n✅破解高级功能功能",
       "developerName": "訫云科技",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     },
@@ -363,9 +363,10 @@
       "description": "✅看全网VIP电影",
       "versionDescription": "✅看全网VIP电影",
       "developerName": "",
-      "category": "Utilities",
+      "category": "未分类",
       "screenshots": [],
       "permissions": []
     }
-  ]
+  ],
+  "categories": []
 }
