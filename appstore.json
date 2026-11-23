@@ -47,7 +47,7 @@
       "description": "✅红果短剧-漫剧通用-注入可解锁VIP\n✅分享下载地址\n✅我的-设置-红果净化\n✅进去下载签名插件注入版\n✅注：软件不是本人开发、地址是开发者的",
       "versionDescription": "✅红果短剧-漫剧通用-注入可解锁VIP\n✅分享下载地址\n✅我的-设置-红果净化\n✅进去下载签名插件注入版\n✅注：软件不是本人开发、地址是开发者的",
       "developerName": "",
-      "category": "网页入口",
+      "category": "影视软件-工具",
       "screenshots": [],
       "permissions": []
     },
@@ -187,17 +187,18 @@
     },
     {
       "name": "怪兽聚合",
-      "type": "0",
+      "bundleID": "",
       "version": "版本更新",
-      "versionDate": "2026-11-21T09:03:56+08:00",
-      "versionDescription": "福利软件下载地址\n进去下载签名安装\n注：软件不是本人开发、地址是开发者的",
-      "lock": "0",
-      "downloadURL": "nsk-sign://web?url=https://gsuu.cc",
-      "isLanZouCloud": "0",
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
-      "tintColor": "018084",
+      "versionDate": "2026-11-23",
       "size": 0,
-      "category": "影视软件-工具"
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
+      "downloadURL": "nsk-sign://web?url=https://gsuu.cc",
+      "description": "福利软件下载地址\n进去下载签名安装\n注：软件不是本人开发、地址是开发者的",
+      "versionDescription": "福利软件下载地址\n进去下载签名安装\n注：软件不是本人开发、地址是开发者的",
+      "developerName": "",
+      "category": "网页入口",
+      "screenshots": [],
+      "permissions": []
     },
     {
       "name": "电影猎手",
