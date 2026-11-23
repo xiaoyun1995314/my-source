@@ -381,7 +381,7 @@
       "text": "↓↓复制下面软件源去添加↓↓"
     },
     {
-      "type": "text",
+      "type": "source-esign",
       "icon": "ℹ️",
       "text": "https://xiaoyun1995314.github.io/my-source/appstore.json"
     }
