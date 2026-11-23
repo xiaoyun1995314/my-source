@@ -379,11 +379,11 @@
   "banner": [
     {
       "type": "text",
-      "icon": "♻️",
+      "icon": "ℹ️",
       "text": "訫云资源-可有偿砸壳\\解密软件——微信QQ同号：450000318",
       "copy": false,
       "scroll": true,
-      "speed": "fast",
+      "speed": "slow",
       "color": "#ee001a"
     },
     {
