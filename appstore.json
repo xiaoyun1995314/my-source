@@ -321,6 +321,21 @@
       "category": "Utilities",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "红果漫剧VIP插件.zip",
+      "bundleID": "",
+      "version": "1.0.0",
+      "versionDate": "2026-11-23",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/CJ.png",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/%E7%BA%A2%E6%9E%9C%E6%BC%AB%E5%89%A7VIP%E6%8F%92%E4%BB%B6.zip",
+      "description": "❇️解压插件注入红果漫剧即可\n❇️去广告解锁VIP",
+      "versionDescription": "❇️解压插件注入红果漫剧即可\n❇️去广告解锁VIP",
+      "developerName": "訫云科技",
+      "category": "Utilities",
+      "screenshots": [],
+      "permissions": []
     }
   ]
 }
