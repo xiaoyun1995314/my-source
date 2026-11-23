@@ -220,18 +220,22 @@ function renderBanner(){
   const box=document.getElementById('bannerBox');
   const rows=Array.isArray(data&&data.banner)?data.banner:[];
   box.innerHTML=rows.map(r=>{
-    const icon=r.icon||'ℹ️';
+    // 图标：http 开头当图片直链，否则当 emoji
+    const icon=(r.icon||'').trim();
+    const iconHtml=/^https?:\/\//.test(icon)
+      ? `<img src="${esc(icon)}" style="width:20px;height:20px;vertical-align:-4px;margin-right:6px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'">`
+      : (icon||'ℹ️')+' ';
     const text=r.text||'';
     if(r.type==='source-qnq'){
-      return `<div class="row">${icon} <a href="javascript:addSource('qnq')">${esc(text)}</a></div>`;
+      return `<div class="row">${iconHtml}<a href="javascript:addSource('qnq')">${esc(text)}</a></div>`;
     }
     if(r.type==='source-esign'){
-      return `<div class="row">${icon} <a href="javascript:addSource('esign')">${esc(text)}</a></div>`;
+      return `<div class="row">${iconHtml}<a href="javascript:addSource('esign')">${esc(text)}</a></div>`;
     }
     if(r.type==='link'&&r.url){
-      return `<div class="row">${icon} <a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}">${esc(text)}</a></div>`;
+      return `<div class="row">${iconHtml}<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}">${esc(text)}</a></div>`;
     }
-    return `<div class="row">${icon} ${esc(text)}</div>`;
+    return `<div class="row">${iconHtml}${esc(text)}</div>`;
   }).join('');
 }
 
