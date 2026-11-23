@@ -375,7 +375,12 @@
       "permissions": []
     }
   ],
-  "categories": [],
+  "categories": [
+    {
+      "name": "微信系列",
+      "icon": "❇️"
+    }
+  ],
   "banner": [
     {
       "type": "text",
