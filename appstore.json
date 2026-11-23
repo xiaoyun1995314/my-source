@@ -394,6 +394,15 @@
       "scroll": false,
       "speed": "normal",
       "color": "#83008d"
+    },
+    {
+      "type": "text",
+      "icon": "ℹ️",
+      "text": "訫云资源-可有偿砸壳\\解密软件——微信QQ同号：450000318",
+      "copy": false,
+      "scroll": true,
+      "speed": "normal",
+      "color": "#ee001a"
     }
   ]
 }
