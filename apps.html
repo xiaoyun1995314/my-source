@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訫云软件源 · 资源分类</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{color:#000;font-family:-apple-system,"PingFang SC",sans-serif;min-height:100vh;position:relative;background:transparent}
+  .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;transform:translateZ(0)}
+  body::before{content:"";position:fixed;inset:0;background:rgba(255,255,255,.18);z-index:0}
+  .wrap{max-width:520px;margin:0 auto;position:relative;z-index:1;padding:18px 14px 40px}
+  .topbar{display:flex;align-items:center;gap:10px;margin:6px 0 14px}
+  .back{width:38px;height:38px;border-radius:12px;border:0;background:rgba(255,255,255,.55);font-size:19px;cursor:pointer;flex-shrink:0}
+  h1{font-size:20px;font-weight:800;text-shadow:0 0 8px rgba(255,255,255,.8)}
+  .crumbs{font-size:14px;font-weight:700;margin:4px 0 14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .crumbs a{color:#2b5fd9;text-decoration:none}
+  .card{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.5);border-radius:16px;padding:18px 16px;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+  .banner{border-radius:14px;padding:14px 16px;margin-bottom:14px;font-weight:700;font-size:15px;line-height:1.9;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .banner .row{display:block;margin:6px 0}
+  .banner a{color:#1a56db;text-decoration:underline;word-break:break-all}
+  .notebox{background:rgba(40,60,90,.85);color:#e8f0ff;border-radius:14px;padding:16px;font-size:14.5px;line-height:1.9;font-weight:600}
+  .folder{display:flex;align-items:center;gap:14px;padding:15px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
+  .folder:last-child{border-bottom:0}
+  .folder .ficon{font-size:30px;flex-shrink:0}
+  .folder .fname{flex:1;min-width:0;font-size:17px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .folder .fcount{font-size:13.5px;font-weight:600;color:#333}
+  .folder .arrow{font-size:18px;color:#555}
+  .file{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid rgba(0,0,0,.12)}
+  .file:last-child{border-bottom:0}
+  .file .fthumb{width:42px;height:42px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.5);flex-shrink:0}
+  .file .fbody{flex:1;min-width:0}
+  .file .fname{font-size:16px;font-weight:800;overflow-wrap:anywhere}
+  .file .fmeta{font-size:13px;font-weight:600;color:#333;margin-top:2px}
+  .file .dl{flex-shrink:0;border:0;border-radius:10px;background:#34a06a;color:#fff;font-size:14px;font-weight:700;padding:9px 14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+  .empty{padding:24px;text-align:center;font-size:14.5px;font-weight:600;color:#333}
+  .search{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.2);border-radius:12px;padding:11px 14px;font-size:15px;font-weight:600;color:#000;margin-bottom:12px}
+  .search::placeholder{color:#555}
+  .search:focus{outline:none;border-color:#4d7cfe}
+  .foot{margin-top:22px;font-size:13px;font-weight:600;line-height:1.9;text-align:center;color:#222;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back" onclick="goHome()">←</button>
+    <h1>訫云软件源 · 资源分类</h1>
+  </div>
+  <div class="crumbs" id="crumbs"><a href="index.html">主页</a> / 苹果应用</div>
+
+  <div class="banner card" style="background:rgba(180,230,200,.55)">
+    <div class="row">📦 <a href="javascript:addSource('qnq')">点击此处添加全能签软件源</a></div>
+    <div class="row">📦 <a href="javascript:addSource('esign')">点击此处添加轻松签软件源</a></div>
+    <div class="row">ℹ️ 本站收录正版 / 自有授权资源，IPA 文件请导入自签工具后签名安装。</div>
+  </div>
+
+  <div class="card" id="listCard">
+    <input class="search" id="searchBox" oninput="render()" placeholder="🔍 搜索资源名称 / 分类">
+    <div id="list"><div class="empty">正在读取资源...</div></div>
+  </div>
+
+  <div class="notebox">
+    📌 使用说明：<br>
+    1. 找到需要的资源后，点右侧「下载」按钮，不要直接点文件名。<br>
+    2. 下载 IPA 后导入自签工具（全能签 / 轻松签）签名再安装。<br>
+    3. 本站仅收录正版或已获授权的资源，请勿用于分发与商用。
+  </div>
+
+  <div class="foot">訫云软件源 · 仅供个人技术学习使用</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SRC_URL = 'https://xiaoyun1995314.github.io/my-source/appstore.json';
+let data = null;
+let currentCat = '';
+
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function fmtSize(bytes){
+  if(!bytes) return '-';
+  const mb = bytes/1048576;
+  return mb>=1 ? mb.toFixed(1)+' MB' : Math.max(1,Math.round(bytes/1024))+' KB';
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+async function load(){
+  try{
+    const res=await fetch(SRC_URL+'?t='+Date.now());
+    data=await res.json();
+    data.categories=Array.isArray(data.categories)?data.categories:[];
+    data.apps=Array.isArray(data.apps)?data.apps:[];
+    render();
+  }catch(e){
+    document.getElementById('list').innerHTML='<div class="empty">读取失败：'+esc(e.message)+'</div>';
+  }
+}
+
+function appsIn(cat){
+  const kw=(document.getElementById('searchBox').value||'').toLowerCase();
+  return data.apps.filter(a=>{
+    if(cat && (a.category||'')!==cat) return false;
+    if(kw && !(a.name||'').toLowerCase().includes(kw) && !(a.category||'').toLowerCase().includes(kw)) return false;
+    return true;
+  });
+}
+
+function render(){
+  const box=document.getElementById('list');
+  const cr=document.getElementById('crumbs');
+  if(!data){box.innerHTML='<div class="empty">暂无数据</div>';return;}
+
+  if(!currentCat){
+    cr.innerHTML='<a href="index.html">主页</a> / 苹果应用';
+    // 从已有应用的 category 自动汇总文件夹
+    const seen=new Set();
+    const folders=[];
+    data.apps.forEach(a=>{
+      const name=(a.category||'未分类').trim()||'未分类';
+      if(!seen.has(name)){seen.add(name);folders.push({name,icon:'📁',cnt:appsIn(name).length});}
+    });
+    if(!folders.length){box.innerHTML='<div class="empty">暂无资源，请到后台添加。</div>';return;}
+    box.innerHTML=folders.map(f=>`
+      <div class="folder" onclick="openCat('${esc(f.name)}')">
+        <span class="ficon">${f.icon}</span>
+        <div style="flex:1;min-width:0">
+          <div class="fname">${esc(f.name)}</div>
+          <div class="fcount">${f.cnt} 项</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>`).join('');
+    return;
+  }
+
+  cr.innerHTML='<a href="index.html">主页</a> / <a href="javascript:goList()">苹果应用</a> / '+esc(currentCat);
+  const items=appsIn(currentCat);
+  if(!items.length){box.innerHTML='<div class="empty">此分类暂无资源。</div>';return;}
+  box.innerHTML=items.map(a=>`
+    <div class="file">
+      ${a.iconURL?`<img class="fthumb" src="${esc(a.iconURL)}" onerror="this.style.visibility='hidden'">`:'<div class="fthumb"></div>'}
+      <div class="fbody">
+        <div class="fname">${esc(a.name)}</div>
+        <div class="fmeta">v${esc(a.version||'')} · ${fmtSize(a.size)}</div>
+      </div>
+      <a class="dl" href="${esc(a.downloadURL)}" target="_blank" rel="noopener">下载</a>
+    </div>`).join('');
+}
+
+function openCat(name){currentCat=name;render();window.scrollTo({top:0});}
+function goList(){currentCat='';render();}
+function goHome(){location.href='index.html';}
+
+function addSource(tool){
+  const enc=encodeURIComponent(SRC_URL);
+  if(tool==='qnq') location.href='nsk-sign://addsource?url='+enc;
+  else location.href='esign://addsource?url='+enc;
+  setTimeout(()=>{if(!document.hidden){navigator.clipboard&&navigator.clipboard.writeText(SRC_URL);toast('已复制源地址，请在签名工具内粘贴添加');}},2500);
+}
+
+load();
+</script>
+</body>
+</html>

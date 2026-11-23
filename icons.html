@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图标打包工具</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  body{margin:0;font-family:-apple-system,"PingFang SC",sans-serif;background:#f2f3f5;color:#111;padding:24px 16px;min-height:100vh}
+  .box{max-width:480px;margin:0 auto;background:#fff;border-radius:16px;padding:22px 18px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+  h1{font-size:20px;text-align:center;margin:0 0 16px}
+  label{display:block;font-size:14px;font-weight:700;margin:14px 0 6px}
+  input[type=file]{width:100%;padding:10px;border:1px dashed #aaa;border-radius:10px;background:#fafafa}
+  button{width:100%;padding:14px;border:0;border-radius:12px;background:#4d7cfe;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-top:16px}
+  button:disabled{background:#9bb4e8}
+  .tip{font-size:13px;color:#555;line-height:1.8;margin-top:14px}
+  .preview{display:none;margin:12px auto;width:160px;height:160px;border-radius:24px;overflow:hidden;border:1px solid #eee}
+  .preview img{width:100%;height:100%;object-fit:contain}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>图标一键打包</h1>
+  <label>选择方形 Logo 图片</label>
+  <input type="file" id="file" accept="image/*">
+  <div class="preview" id="preview"><img id="pv" alt=""></div>
+  <button id="go" disabled>开始生成 AppIcons.zip</button>
+  <p class="tip">选好图片后点按钮，自动按图里的文件名和尺寸生成全部图标并打包成 zip，下载即可。建议源图 1024×1024 以上、方形、白底。</p>
+</div>
+<script>
+const ICONS = [
+  ['app.png',1024],
+  ['AppIcon1024x1024.png',1024],
+  ['AppIcon20x20@2x.png',40],
+  ['AppIcon20x20@2x~ipad.png',40],
+  ['AppIcon20x20@3x.png',60],
+  ['AppIcon20x20~ipad.png',20],
+  ['AppIcon29x29@2x.png',58],
+  ['AppIcon29x29@2x~ipad.png',58],
+  ['AppIcon29x29@3x.png',87],
+  ['AppIcon29x29~ipad.png',29],
+  ['AppIcon40x40@2x.png',80],
+  ['AppIcon40x40@2x~ipad.png',80],
+  ['AppIcon40x40@3x.png',120],
+  ['AppIcon40x40~ipad.png',40]
+];
+let img=null;
+const fileInput=document.getElementById('file');
+const go=document.getElementById('go');
+fileInput.addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const url=URL.createObjectURL(f);
+  img=new Image();
+  img.onload=()=>{
+    document.getElementById('preview').style.display='block';
+    document.getElementById('pv').src=url;
+    go.disabled=false;
+  };
+  img.src=url;
+});
+function resizeCanvas(size){
+  const c=document.createElement('canvas');
+  c.width=size;c.height=size;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,size,size);
+  ctx.drawImage(img,0,0,size,size);
+  return c;
+}
+go.addEventListener('click',async()=>{
+  if(!img){alert('请先选择图片');return;}
+  go.disabled=true;go.textContent='生成中...';
+  try{
+    const zip=new JSZip();
+    for(const [name,size] of ICONS){
+      const blob=await new Promise(res=>resizeCanvas(size).toBlob(res,'image/png'));
+      zip.file(name,blob);
+    }
+    const out=await zip.generateAsync({type:'blob'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(out);
+    a.download='AppIcons.zip';
+    a.click();
+    go.textContent='完成，已下载';
+  }catch(err){
+    alert('生成失败：'+err.message);
+    go.textContent='开始生成 AppIcons.zip';go.disabled=false;
+  }
+});
+</script>
+</body>
+</html>

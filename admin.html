@@ -45,6 +45,10 @@
   details.coll summary::before{content:"▸ ";font-weight:800}
   details.coll[open] summary::before{content:"▾ "}
   .mode{font-size:14px;font-weight:700;color:#f0b45a;margin-bottom:8px}
+  .catpick{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .catpick .chip{padding:7px 13px;border-radius:20px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.18);font-size:14px;font-weight:700;cursor:pointer;color:#000}
+  .catpick .chip.sel{background:#4d7cfe;color:#fff;border-color:#4d7cfe}
+  .catpick .none{font-size:13px;font-weight:600;color:#444;width:100%}
 </style>
 </head>
 <body>
@@ -89,7 +93,7 @@
     <textarea id="f_desc" placeholder="应用简介"></textarea>
     <div class="row">
       <div><label>开发者</label><input id="f_dev" value="訫云科技"></div>
-      <div><label>分类</label><input id="f_cat" value="Utilities"></div>
+      <div><label>分类（点下面已有分类直接选，或输入新分类）</label><input id="f_cat" oninput="renderCats()" placeholder="如：工具杂项"><div id="catPick" class="catpick"></div></div>
     </div>
     <label>截图 URL（每行一个，可选）</label>
     <textarea id="f_shots" placeholder="https://.../1.png"></textarea>
@@ -114,6 +118,12 @@
     <input id="f_search" oninput="renderList()" placeholder="输入关键词过滤">
     <button class="ghost" onclick="exportBackup()">导出备份 appstore.json</button>
     <div id="appList" style="margin-top:10px"><p class="tip">点上方「读取现有应用列表」加载。</p></div>
+  </details>
+
+  <details class="card coll">
+    <summary>④ 分类文件夹（自动从已有应用的所属分类汇总）</summary>
+    <p class="tip" style="margin-top:0">分类不需要手动建：添加应用时填/选「所属分类」，这里会自动生成对应文件夹。下方列表可改名（批量改该类下所有文件）、清空后文件夹自动消失。</p>
+    <div id="catList" style="margin-top:14px"></div>
   </details>
 
   <details>
@@ -182,6 +192,7 @@ async function loadApps(){
     showStatus('ok','正在读取 ...');
     await fetchFile();
     renderList();
+    renderCats();
     showStatus('ok',`已读取 ${jsonData.apps.length} 个应用`);
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
@@ -199,7 +210,7 @@ function renderList(){
         ${a.iconURL?`<img class="thumb" src="${esc(a.iconURL)}" onerror="this.style.visibility='hidden'">`:'<div class="thumb"></div>'}
         <div class="app-info">
           <b>${esc(a.name)}</b>
-          <span>v${esc(a.version||'')} · ${esc(a.developerName||'')}</span>
+          <span>v${esc(a.version||'')} · ${esc(a.developerName||'')} · ${esc(a.category||'未分类')}</span>
         </div>
       </div>
       <div class="app-btns">
@@ -238,7 +249,7 @@ function readForm(){
     description:$('f_desc').value.trim()||$('f_name').value.trim(),
     versionDescription:$('f_desc').value.trim(),
     developerName:$('f_dev').value.trim(),
-    category:$('f_cat').value.trim(),
+    category:$('f_cat').value.trim()||'未分类',
     screenshots:$('f_shots').value.split('\n').map(s=>s.trim()).filter(Boolean),
     permissions:$('f_perm').value.split(/[,，]/).map(s=>s.trim()).filter(Boolean)
   };
@@ -247,6 +258,7 @@ function readForm(){
 function editApp(i){
   editIndex=i;
   fillForm(jsonData.apps[i]);
+  renderCats();
   $('modeTip').textContent='当前：编辑「'+jsonData.apps[i].name+'」';
   $('submitBtn').textContent='保存修改';
   window.scrollTo({top:0,behavior:'smooth'});
@@ -254,9 +266,10 @@ function editApp(i){
 function resetForm(){
   editIndex=-1;
   ['f_name','f_version','f_bundle','f_icon','f_download','f_desc','f_shots','f_perm'].forEach(id=>$(id).value='');
-  $('f_size').value=0; $('f_dev').value='訫云科技'; $('f_cat').value='Utilities';
+  $('f_size').value=0; $('f_dev').value='訫云科技'; $('f_cat').value='';
   $('modeTip').textContent='当前：添加新应用';
   $('submitBtn').textContent='添加到 appstore.json';
+  renderCats();
 }
 
 async function refreshSha(){
@@ -304,7 +317,7 @@ async function submitApp(){
       showStatus('ok',`✅ 已添加「${entry.name}」`);
     }
     resetForm();
-    await fetchFile(); renderList();
+    await fetchFile(); renderList(); renderCats();
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
 
@@ -316,7 +329,7 @@ async function delApp(i){
     jsonData.apps.splice(i,1);
     await commitFile(`删除应用：${name}`);
     showStatus('ok','✅ 已删除');
-    await fetchFile(); renderList();
+    await fetchFile(); renderList(); renderCats();
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
 
@@ -378,7 +391,7 @@ async function bulkImport(){
     await commitFile(`批量导入 ${added.length} 个应用`);
     showStatus('ok',`✅ 已批量追加 ${added.length} 个应用`);
     $('f_bulk').value='';
-    await fetchFile(); renderList();
+    await fetchFile(); renderList(); renderCats();
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
 
@@ -394,6 +407,99 @@ async function exportBackup(){
     URL.revokeObjectURL(a.href);
     showStatus('ok','✅ appstore.json 已下载');
   }catch(e){ showStatus('err','❌ '+e.message); }
+}
+
+// ========== ④ 分类文件夹（自动从已有应用的 category 汇总） ==========
+function ensureCategories(){
+  jsonData.categories=Array.isArray(jsonData.categories)?jsonData.categories:[];
+}
+// 汇总所有出现过的分类名：优先 categories 配置顺序，再追加应用里出现的新分类
+function catNames(){
+  ensureCategories();
+  const ordered=jsonData.categories.map(c=>typeof c==='string'?c:c.name);
+  const extra=[];
+  jsonData.apps.forEach(a=>{
+    const n=(a.category||'未分类').trim()||'未分类';
+    if(!ordered.includes(n)&&!extra.includes(n)) extra.push(n);
+  });
+  return ordered.concat(extra);
+}
+function catIcon(name){
+  ensureCategories();
+  const c=jsonData.categories.find(x=>(typeof x==='string'?x:x.name)===name);
+  return typeof c==='object'?(c.icon||'📁'):'📁';
+}
+function countInCat(name){
+  return jsonData.apps.filter(a=>(a.category||'未分类')===name).length;
+}
+function renderCats(){
+  const box=$('catList');
+  ensureCategories();
+  const names=catNames();
+  // 同步表单里的「已有分类点选按钮组」
+  const pick=$('catPick');
+  if(pick){
+    const cur=($('f_cat').value||'').trim();
+    pick.innerHTML=names.length
+      ? names.map(n=>`<span class="chip ${n===cur?'sel':''}" onclick="pickCat('${esc(n)}')">${esc(n)}</span>`).join('')
+      : '<span class="none">暂无已有分类，直接在上方输入新分类名即可。</span>';
+  }
+  if(!names.length){box.innerHTML='<p class="tip">还没有应用，先在 ② 添加应用并填写「所属分类」，这里会自动生成文件夹。</p>';return;}
+  box.innerHTML=names.map((name,i)=>`
+    <div class="app-item">
+      <div class="app-top">
+        <div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:22px">${esc(catIcon(name))}</div>
+        <div class="app-info">
+          <b>${esc(name)}</b>
+          <span>${countInCat(name)} 个文件</span>
+        </div>
+      </div>
+      <div class="app-btns">
+        <button class="sm" onclick="catRename('${esc(name)}')">改名</button>
+        <button class="sm del" onclick="catClear('${esc(name)}')">清空归未分类</button>
+      </div>
+    </div>`).join('');
+}
+
+// 改名：批量把该分类下所有文件的 category 改成新名
+async function catRename(oldName){
+  const nn=prompt(`把分类「${oldName}」改名为（同步修改该类下所有文件）：`,oldName);
+  if(nn===null)return;
+  const name=nn.trim();
+  if(!name||name===oldName)return;
+  try{
+    showStatus('ok','正在改名 ...');
+    if(!jsonData) await fetchFile();
+    ensureCategories();
+    jsonData.apps.forEach(a=>{if((a.category||'未分类')===oldName)a.category=name;});
+    // 同步 categories 配置里的名字
+    jsonData.categories.forEach(c=>{if((typeof c==='string'?c:c.name)===oldName){if(typeof c==='string')c=name;else c.name=name;}});
+    await commitFile(`分类改名：${oldName} → ${name}`);
+    showStatus('ok','✅ 已改名');
+    await fetchFile(); renderCats(); renderList();
+  }catch(e){showStatus('err','❌ '+e.message);}
+}
+
+// 清空：把该分类下文件全部归到「未分类」，文件夹随之消失
+async function catClear(name){
+  const cnt=countInCat(name);
+  if(!confirm(`「${name}」下 ${cnt} 个文件将全部归到「未分类」，此文件夹消失。文件不会被删除。`))return;
+  try{
+    showStatus('ok','正在处理 ...');
+    if(!jsonData) await fetchFile();
+    ensureCategories();
+    jsonData.apps.forEach(a=>{if((a.category||'')===name)a.category='未分类';});
+    jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name)!==name);
+    await commitFile(`清空分类：${name}`);
+    showStatus('ok','✅ 已清空，文件夹已移除');
+    await fetchFile(); renderCats(); renderList();
+  }catch(e){showStatus('err','❌ '+e.message);}
+}
+
+// 点选已有分类填入表单
+function pickCat(name){
+  $('f_cat').value=name;
+  renderCats();
 }
 
 window.onerror=function(msg){ showStatus('err','⚠️ 页面脚本错误：'+msg); return false; };

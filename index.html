@@ -22,14 +22,25 @@
   .tip{color:#e8eaed;font-size:12px;margin-top:14px;line-height:1.7;text-shadow:0 1px 4px rgba(0,0,0,.6)}
   .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
   .toast.show{opacity:1}
-  .bgm-fab{position:fixed;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(26,29,36,.85);color:#fff;font-size:18px;cursor:pointer;z-index:3;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .bgm-fab{position:fixed;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(26,29,36,.85);color:#fff;font-size:18px;cursor:pointer;z-index:4;box-shadow:0 2px 10px rgba(0,0,0,.4)}
   .bgm-name{position:fixed;top:64px;right:16px;font-size:11px;color:#e8eaed;z-index:3;max-width:150px;text-align:right;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+  .bgm-panel{position:fixed;top:66px;right:16px;width:220px;max-height:260px;overflow-y:auto;background:rgba(26,29,36,.95);border-radius:14px;padding:10px;z-index:4;display:none;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+  .bgm-panel.open{display:block}
+  .bgm-panel h3{font-size:13px;color:#e8eaed;margin:4px 6px 8px}
+  .bgm-item{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:10px;font-size:13px;color:#e8eaed;cursor:pointer;margin-top:4px}
+  .bgm-item:active{background:rgba(255,255,255,.1)}
+  .bgm-item.cur{background:#4d7cfe;color:#fff}
+  .bgm-item .st{font-size:11px;opacity:.7}
 </style>
 </head>
 <body>
 <div class="bg"></div>
-<button class="bgm-fab" id="bgmBtn" onclick="toggleBgm()">🔇</button>
+<button class="bgm-fab" id="bgmBtn" onclick="togglePanel()">🎶</button>
 <div class="bgm-name" id="bgmName"></div>
+<div class="bgm-panel" id="bgmPanel">
+  <h3>播放列表</h3>
+  <div id="bgmList"></div>
+</div>
 <audio id="bgm" preload="auto"></audio>
 <div class="card">
   <h1>訫云软件源</h1>
@@ -39,6 +50,7 @@
   <a class="btn btn-esign" id="btnEsign" href="#">📲 一键添加到轻松签</a>
   <button class="btn btn-copy" onclick="copySrc()">📋 复制源地址（手动添加）</button>
   <a class="btn btn-submit" href="submit.html">📮 应用投稿</a>
+  <a class="btn" href="apps.html" style="background:#0ea5e9">📂 浏览资源分类</a>
 
   <div class="url" id="src">https://xiaoyun1995314.github.io/my-source/appstore.json</div>
   <p class="tip">
@@ -58,28 +70,42 @@ const bgm = document.getElementById('bgm');
 const bgmBtn = document.getElementById('bgmBtn');
 const bgmName = document.getElementById('bgmName');
 let ti = 0, playing = false;
+const panel = document.getElementById('bgmPanel');
 
 function loadTrack(){
   bgm.src = tracks[ti];
   bgmName.textContent = '♪ ' + tracks[ti];
+  renderList();
 }
+function renderList(){
+  document.getElementById('bgmList').innerHTML = tracks.map((t,i)=>
+    `<div class="bgm-item ${i===ti?'cur':''}" onclick="playTrack(${i})"><span>${t}</span><span class="st">${i===ti?(playing?'▶':'⏸'):'▶'}</span></div>`
+  ).join('');
+}
+function playTrack(i){
+  if(i===ti && playing){ bgm.pause(); playing=false; renderList(); return; }
+  ti = i; loadTrack();
+  bgm.muted = false;
+  bgm.play().then(()=>{ playing=true; renderList(); })
+    .catch(()=>toast('浏览器拦截了播放，再点一次'));
+}
+function togglePanel(){ panel.classList.toggle('open'); renderList(); }
 bgm.addEventListener('ended', ()=>{
   ti = (ti+1) % tracks.length;
   loadTrack();
   if(playing) bgm.play().catch(()=>{});
 });
-function toggleBgm(){
-  if(playing){
-    bgm.pause(); playing = false; bgmBtn.textContent = '🔇';
-  }else{
-    if(!bgm.src) loadTrack();
-    bgm.play().then(()=>{ playing = true; bgmBtn.textContent = '🔊'; })
-      .catch(()=>toast('浏览器拦截了播放，点右上角按钮手动开启'));
-  }
-}
+
+// 进入自动播放列表：先静音尝试自动播放，首次点屏幕时取消静音
+loadTrack();
+bgm.muted = true;
+bgm.play().then(()=>{ playing = true; }).catch(()=>{});
+
 document.addEventListener('touchstart', function once(){
   if(!bgm.src) loadTrack();
-  bgm.play().then(()=>{ playing = true; bgmBtn.textContent = '🔊'; }).catch(()=>{});
+  bgm.muted = false;
+  bgm.play().then(()=>{ playing = true; })
+    .catch(()=>{});
   document.removeEventListener('touchstart', once);
 }, {once:true});
 
