@@ -375,7 +375,12 @@
       "permissions": []
     }
   ],
-  "categories": [],
+  "categories": [
+    {
+      "name": "工具杂项",
+      "icon": "📁"
+    }
+  ],
   "banner": [
     {
       "type": "source-qnq",
