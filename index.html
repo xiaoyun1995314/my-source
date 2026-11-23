@@ -10,41 +10,44 @@
   .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;transform:translateZ(0)}
   body::before{content:"";position:fixed;inset:0;background:rgba(255,255,255,.18);z-index:0}
   .wrap{max-width:520px;margin:0 auto;position:relative;z-index:1;padding:18px 14px 40px}
-  h1{font-size:21px;font-weight:800;text-align:center;margin:8px 0 4px;text-shadow:0 0 8px rgba(255,255,255,.8)}
-  .sub{text-align:center;font-size:13.5px;font-weight:600;margin-bottom:14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
-  .crumbs{font-size:14px;font-weight:700;margin:4px 0 14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  h1{font-size:26px;font-weight:900;text-align:center;margin:8px 0 4px;text-shadow:0 0 8px rgba(255,255,255,.8)}
+  .sub{text-align:center;font-size:15.5px;font-weight:700;margin-bottom:14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .crumbs{font-size:16px;font-weight:800;margin:4px 0 14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
   .crumbs a{color:#2b5fd9;text-decoration:none}
   .card{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.5);border-radius:16px;padding:18px 16px;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
-  .banner{border-radius:14px;padding:14px 16px;margin-bottom:14px;font-weight:700;font-size:15px;line-height:1.9;text-shadow:0 0 6px rgba(255,255,255,.8)}
-  .banner .row{display:block;margin:6px 0}
-  .banner a{color:#1a56db;text-decoration:underline;word-break:break-all}
-  .notebox{background:rgba(40,60,90,.85);color:#e8f0ff;border-radius:14px;padding:16px;font-size:14.5px;line-height:1.9;font-weight:600}
-  .folder{display:flex;align-items:center;gap:14px;padding:15px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
+  .banner{border-radius:14px;padding:15px 16px;margin-bottom:14px;font-weight:800;font-size:17px;line-height:2;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .banner .row{display:block;margin:8px 0}
+  .banner a{color:#1a56db;text-decoration:underline;word-break:break-all;font-weight:800}
+  .notebox{background:rgba(40,60,90,.85);color:#e8f0ff;border-radius:14px;padding:16px;font-size:16px;line-height:1.9;font-weight:700}
+  .folder{display:flex;align-items:center;gap:14px;padding:16px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
   .folder:last-child{border-bottom:0}
-  .folder .ficon{font-size:30px;flex-shrink:0}
-  .folder .fname{flex:1;min-width:0;font-size:17px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .folder .fcount{font-size:13.5px;font-weight:600;color:#333}
-  .folder .arrow{font-size:18px;color:#555}
-  .file{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid rgba(0,0,0,.12)}
+  .folder .ficon{font-size:32px;flex-shrink:0}
+  .folder .fname{flex:1;min-width:0;font-size:19px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .folder .fcount{font-size:15px;font-weight:700;color:#333}
+  .folder .arrow{font-size:20px;color:#555}
+  .file{display:flex;align-items:center;gap:12px;padding:15px 4px;border-bottom:1px solid rgba(0,0,0,.12)}
   .file:last-child{border-bottom:0}
-  .file .fthumb{width:42px;height:42px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.5);flex-shrink:0}
+  .file .fthumb{width:46px;height:46px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.5);flex-shrink:0}
   .file .fbody{flex:1;min-width:0}
-  .file .fname{font-size:16px;font-weight:800;overflow-wrap:anywhere}
-  .file .fmeta{font-size:13px;font-weight:600;color:#333;margin-top:2px}
-  .file .dl{flex-shrink:0;border:0;border-radius:10px;background:#34a06a;color:#fff;font-size:14px;font-weight:700;padding:9px 14px;cursor:pointer;text-decoration:none;white-space:nowrap}
-  .empty{padding:24px;text-align:center;font-size:14.5px;font-weight:600;color:#333}
-  .search{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.2);border-radius:12px;padding:11px 14px;font-size:15px;font-weight:600;color:#000;margin-bottom:12px}
+  .file .fname{font-size:17.5px;font-weight:900;overflow-wrap:anywhere}
+  .file .fmeta{font-size:14.5px;font-weight:700;color:#333;margin-top:2px}
+  .file .dl{flex-shrink:0;border:0;border-radius:10px;background:#34a06a;color:#fff;font-size:15px;font-weight:800;padding:10px 16px;cursor:pointer;text-decoration:none;white-space:nowrap}
+  .empty{padding:24px;text-align:center;font-size:16px;font-weight:700;color:#333}
+  .search{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.2);border-radius:12px;padding:12px 14px;font-size:16px;font-weight:700;color:#000;margin-bottom:12px}
   .search::placeholder{color:#555}
   .search:focus{outline:none;border-color:#4d7cfe}
-  .btn{display:block;width:100%;padding:13px;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;color:#fff;margin-top:12px}
+  .btn{display:block;width:100%;padding:15px;border:0;border-radius:12px;font-size:18px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;color:#fff;margin-top:12px}
   .btn-submit{background:#8b5cf6}
-  .foot{margin-top:22px;font-size:13px;font-weight:600;line-height:1.9;text-align:center;color:#222;text-shadow:0 0 6px rgba(255,255,255,.8)}
-  .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
+  .foot{margin-top:22px;font-size:14.5px;font-weight:700;line-height:1.9;text-align:center;color:#222;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:10px;font-size:15px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
   .toast.show{opacity:1}
   .zone-tabs{display:flex;gap:10px;margin:4px 0 14px}
-  .zone-tab{flex:1;padding:13px;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;background:rgba(255,255,255,.45);color:#000}
+  .zone-tab{flex:1;padding:15px;border:0;border-radius:12px;font-size:18px;font-weight:800;cursor:pointer;background:rgba(255,255,255,.45);color:#000}
   .zone-tab.sel{background:#4d7cfe;color:#fff}
-  .zone-icon{width:22px;height:22px;vertical-align:-5px;margin-right:7px;border-radius:5px;object-fit:cover}
+  .zone-icon{width:24px;height:24px;vertical-align:-6px;margin-right:8px;border-radius:5px;object-fit:cover}
+  .qrcard{text-align:center;padding:18px 16px}
+  .qr-title{font-size:17px;font-weight:800;margin-bottom:12px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .qr-img{width:200px;max-width:70%;border-radius:14px;object-fit:cover;background:#fff;padding:8px}
 </style>
 </head>
 <body>
@@ -68,6 +71,11 @@
 
   <a class="btn btn-submit" href="submit.html">📮 应用投稿</a>
 
+  <div class="card qrcard" id="qrCard">
+    <div class="qr-title">💬 联系 / 扫码添加</div>
+    <img class="qr-img" src="icons/wechat.png" alt="微信二维码">
+  </div>
+
   <div class="notebox">
     <img src="icons/ios.png" alt="iOS" style="width:22px;height:22px;vertical-align:-5px;margin-right:6px">使用说明：<br>
     1. 找到需要的资源后，点右侧「下载」按钮，不要直接点文件名。<br>
@@ -82,8 +90,9 @@
 <!-- 公告弹窗 -->
 <div id="popMask" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;align-items:center;justify-content:center;padding:20px">
   <div style="background:#fff;border-radius:18px;max-width:400px;width:100%;padding:30px 24px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)">
-    <div style="width:64px;height:64px;border-radius:50%;background:#e8f5ec;margin:0 auto 14px;display:flex;align-items:center;justify-content:center">
-      <span style="font-size:34px;color:#4caf7d">✓</span>
+    <div id="popIcon" style="width:64px;height:64px;border-radius:50%;background:#e8f5ec;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+      <span id="popIconDef" style="font-size:34px;color:#4caf7d">✓</span>
+      <img id="popIconImg" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%">
     </div>
     <div id="popTitle" style="font-size:20px;font-weight:800;color:#333;margin-bottom:14px"></div>
     <div id="popBody" style="font-size:15.5px;font-weight:600;color:#444;line-height:1.9;text-align:left;white-space:pre-line"></div>
@@ -245,6 +254,17 @@ function showPopup(){
   if(!p||!p.on) return;
   document.getElementById('popTitle').textContent=p.title||'温馨提示';
   document.getElementById('popBody').textContent=p.body||'';
+  // 弹窗图标：图片直链显示图，留空用默认 ✓
+  const pIcon=p.icon&&/^https?:\/\//.test(p.icon.trim());
+  const pDef=document.getElementById('popIconDef');
+  const pImg=document.getElementById('popIconImg');
+  if(pIcon){
+    pDef.style.display='none'; pImg.style.display='block';
+    pImg.src=p.icon.trim();
+    pImg.onerror=()=>{pImg.style.display='none';pDef.style.display='block';};
+  }else{
+    pImg.style.display='none'; pDef.style.display='block';
+  }
   const mask=document.getElementById('popMask');
   // 左按钮（取消）
   const left=document.getElementById('popLeft');

@@ -150,6 +150,8 @@
   <details class="card coll">
     <summary>⑤ 主页公告弹窗（进主页弹出，可编辑 / 开关）</summary>
     <label><input type="checkbox" id="pop_on"> 开启弹窗</label>
+    <label>弹窗图标（图片直链，留空用默认 ✓）</label>
+    <input id="pop_icon" placeholder="https://.../图标.png">
     <label>弹窗标题</label>
     <input id="pop_title" placeholder="如：温馨提示">
     <label>弹窗正文（多行）</label>
@@ -186,7 +188,10 @@
       <input id="bn_url" placeholder="https://...">
       <label><input type="checkbox" id="bn_ext" style="width:auto;transform:scale(1.2);margin-right:8px">新窗口打开</label>
     </div>
-    <button class="ghost" onclick="addBanner()">添加一行</button>
+    <div class="row" style="margin-top:6px">
+      <div><button class="ghost" onclick="addBanner()" style="margin-top:0">添加一行</button></div>
+      <div><button class="ghost" onclick="saveBannerEdit()" style="margin-top:0;background:#34a06a;color:#fff">保存修改</button></div>
+    </div>
     <div id="bnList" style="margin-top:14px"></div>
   </details>
 
@@ -590,6 +595,7 @@ async function catClear(name){
 function fillPopup(){
   const p=(jsonData&&jsonData.popup)||{};
   $('pop_on').checked=!!p.on;
+  $('pop_icon').value=p.icon||'';
   $('pop_title').value=p.title||'';
   $('pop_body').value=p.body||'';
   $('pop_link').value=p.link||'';
@@ -604,6 +610,7 @@ async function savePopup(){
     if(!jsonData) await fetchFile();
     jsonData.popup={
       on:$('pop_on').checked,
+      icon:$('pop_icon').value.trim(),
       title:$('pop_title').value.trim(),
       body:$('pop_body').value.trim(),
       link:$('pop_link').value.trim(),
@@ -634,13 +641,16 @@ function renderBannerAdmin(){
   const box=$('bnList');
   const rows=Array.isArray(jsonData&&jsonData.banner)?jsonData.banner:[];
   if(!rows.length){box.innerHTML='<p class="tip">还没有横幅行，先在上方添加。</p>';return;}
-  box.innerHTML=rows.map((r,i)=>`
-    <div class="app-item">
+  box.innerHTML=rows.map((r,i)=>{
+    const iconImg=/^https?:\/\//.test((r.icon||'').trim())
+      ? `<img src="${esc(r.icon)}" style="width:34px;height:34px;border-radius:8px;object-fit:cover" onerror="this.style.visibility='hidden'">`
+      : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px">${esc(r.icon||'ℹ️')}</div>`;
+    return `<div class="app-item">
       <div class="app-top">
-        <div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px">${esc(r.icon||'ℹ️')}</div>
+        ${iconImg}
         <div class="app-info">
           <b>${esc(r.text||'')}</b>
-          <span>${BN_TYPES[r.type]||r.type}${r.url?' · '+esc(r.url):''}</span>
+          <span>${BN_TYPES[r.type]||r.type}${r.url?' · 链接已填':''}</span>
         </div>
       </div>
       <div class="app-btns">
@@ -649,23 +659,29 @@ function renderBannerAdmin(){
         <button class="sm" onclick="bnEdit(${i})">编辑</button>
         <button class="sm del" onclick="bnDel(${i})">删除</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
-function addBanner(){
-  const text=$('bn_text').value.trim();
-  const type=$('bn_type').value;
-  if(!text){showStatus('err','请填文字');return;}
-  const row={type,icon:$('bn_icon').value.trim()||'ℹ️',text};
-  if(type==='link'){
+let bnEditIndex=-1;
+function bnReadForm(){
+  const row={type:$('bn_type').value,icon:$('bn_icon').value.trim()||'ℹ️',text:$('bn_text').value.trim()};
+  if(row.type==='link'){
     row.url=$('bn_url').value.trim();
     row.external=$('bn_ext').checked;
-    if(!row.url){showStatus('err','普通链接需填链接地址');return;}
   }
+  return row;
+}
+function addBanner(){
+  const row=bnReadForm();
+  if(!row.text){showStatus('err','请填文字');return;}
+  if(row.type==='link'&&!row.url){showStatus('err','普通链接需填链接地址');return;}
   jsonData.banner=Array.isArray(jsonData.banner)?jsonData.banner:[];
   jsonData.banner.push(row);
-  saveBanner('添加横幅行：'+text);
+  bnEditIndex=-1;
+  saveBanner('添加横幅行：'+row.text);
 }
 function bnEdit(i){
+  bnEditIndex=i;
   const r=jsonData.banner[i];
   $('bn_type').value=r.type; bnTypeChange();
   $('bn_icon').value=r.icon||'ℹ️';
@@ -674,9 +690,22 @@ function bnEdit(i){
   $('bn_ext').checked=!!r.external;
   $('bn_text').focus();
 }
+// 保存编辑：替换当前正在编辑的那一行
+async function saveBannerEdit(){
+  if(bnEditIndex<0){showStatus('err','先点某行的「编辑」再保存修改');return;}
+  const row=bnReadForm();
+  if(!row.text){showStatus('err','请填文字');return;}
+  if(row.type==='link'&&!row.url){showStatus('err','普通链接需填链接地址');return;}
+  try{
+    jsonData.banner[bnEditIndex]=row;
+    await saveBanner('修改横幅行：'+row.text);
+    bnEditIndex=-1;
+  }catch(e){showStatus('err','❌ '+e.message);}
+}
 function bnDel(i){
   if(!confirm(`删除「${jsonData.banner[i].text}」？`))return;
   jsonData.banner.splice(i,1);
+  if(bnEditIndex===i) bnEditIndex=-1;
   saveBanner('删除横幅行');
 }
 function bnMove(i,dir){
