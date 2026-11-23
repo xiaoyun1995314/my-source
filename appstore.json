@@ -378,15 +378,6 @@
   "categories": [],
   "banner": [
     {
-      "type": "source-qnq",
-      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
-      "text": "点击这里添加全能签",
-      "copy": false,
-      "scroll": false,
-      "speed": "normal",
-      "color": "#7300a1"
-    },
-    {
       "type": "text",
       "icon": "♻️",
       "text": "訫云资源-可有偿砸壳\\解密软件——微信QQ同号：450000318",
@@ -394,6 +385,15 @@
       "scroll": true,
       "speed": "fast",
       "color": "#ee001a"
+    },
+    {
+      "type": "source-qnq",
+      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "text": "点击这里添加全能签",
+      "copy": false,
+      "scroll": false,
+      "speed": "normal",
+      "color": "#7300a1"
     },
     {
       "type": "source-qnq",
