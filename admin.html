@@ -576,10 +576,31 @@ function renderCats(){
         </div>
       </div>
       <div class="app-btns">
+        <button class="sm" onclick="catMove(${i},-1)">↑</button>
+        <button class="sm" onclick="catMove(${i},1)">↓</button>
         <button class="sm" onclick="catRename('${esc(name)}')">改名</button>
         <button class="sm del" onclick="catClear('${esc(name)}')">清空归未分类</button>
       </div>
     </div>`).join('');
+}
+
+// 分类文件夹排序：重排 categories 配置项
+async function catMove(i,dir){
+  const names=catNames();
+  const name=names[i];
+  ensureCategories();
+  // 找到该名在 categories 配置里的位置
+  const idx=jsonData.categories.findIndex(c=>(typeof c==='string'?c:c.name)===name);
+  if(idx<0){ showStatus('err','❌ 该分类未在配置里，请先在列表里新增/保存后再排序','listStatus'); return; }
+  const j=idx+dir;
+  if(j<0||j>=jsonData.categories.length) return;
+  [jsonData.categories[idx],jsonData.categories[j]]=[jsonData.categories[j],jsonData.categories[idx]];
+  try{
+    showStatus('ok','正在保存排序 ...','listStatus');
+    await commitFile(`分类排序：${names[i+dir]||''} / ${name}`);
+    showStatus('ok','✅ 分类顺序已保存','listStatus');
+    await fetchFile(); renderCats(); renderList();
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
 
 // 改名：批量把该分类下所有文件的 category 改成新名
