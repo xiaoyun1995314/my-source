@@ -6,148 +6,261 @@
 <title>訫云软件源</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{color:#e8eaed;font-family:-apple-system,"PingFang SC",sans-serif;display:flex;justify-content:center;padding:24px 16px;min-height:100vh;position:relative}
-  /* 固定背景层：滚动时图片不动 */
-  .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;z-index:0}
-  body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.11);backdrop-filter:blur(2px);z-index:0}
-  .card{max-width:480px;width:100%;background:rgba(26,29,36,.27);border-radius:18px;padding:28px 22px;box-shadow:0 8px 30px rgba(0,0,0,.3);align-self:flex-start;position:relative;z-index:1}
-  h1{font-size:22px;margin:0 0 6px;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.6)}
-  p.sub{color:#e8eaed;font-size:14px;line-height:1.7;text-align:center;margin:8px 0 20px;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-  .btn{display:block;width:100%;padding:14px;border:0;border-radius:12px;font-size:16px;cursor:pointer;margin-top:12px;text-align:center;text-decoration:none;color:#fff}
-  .btn-esign{background:#4d7cfe}
-  .btn-qnq{background:#34a06a}
-  .btn-copy{background:#2a2e38;color:#e8eaed}
-  .btn-submit{background:#8b5cf6;color:#fff}
-  .url{word-break:break-all;background:#11141a;border-radius:10px;padding:12px;font-size:13px;color:#8ab4f8;margin-top:18px}
-  .tip{color:#e8eaed;font-size:12px;margin-top:14px;line-height:1.7;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-  .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+  body{color:#000;font-family:-apple-system,"PingFang SC",sans-serif;min-height:100vh;position:relative;background:transparent}
+  .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;transform:translateZ(0)}
+  body::before{content:"";position:fixed;inset:0;background:rgba(255,255,255,.18);z-index:0}
+  .wrap{max-width:520px;margin:0 auto;position:relative;z-index:1;padding:18px 14px 40px}
+  h1{font-size:21px;font-weight:800;text-align:center;margin:8px 0 4px;text-shadow:0 0 8px rgba(255,255,255,.8)}
+  .sub{text-align:center;font-size:13.5px;font-weight:600;margin-bottom:14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .crumbs{font-size:14px;font-weight:700;margin:4px 0 14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .crumbs a{color:#2b5fd9;text-decoration:none}
+  .card{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.5);border-radius:16px;padding:18px 16px;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+  .banner{border-radius:14px;padding:14px 16px;margin-bottom:14px;font-weight:700;font-size:15px;line-height:1.9;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .banner .row{display:block;margin:6px 0}
+  .banner a{color:#1a56db;text-decoration:underline;word-break:break-all}
+  .notebox{background:rgba(40,60,90,.85);color:#e8f0ff;border-radius:14px;padding:16px;font-size:14.5px;line-height:1.9;font-weight:600}
+  .folder{display:flex;align-items:center;gap:14px;padding:15px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
+  .folder:last-child{border-bottom:0}
+  .folder .ficon{font-size:30px;flex-shrink:0}
+  .folder .fname{flex:1;min-width:0;font-size:17px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .folder .fcount{font-size:13.5px;font-weight:600;color:#333}
+  .folder .arrow{font-size:18px;color:#555}
+  .file{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid rgba(0,0,0,.12)}
+  .file:last-child{border-bottom:0}
+  .file .fthumb{width:42px;height:42px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.5);flex-shrink:0}
+  .file .fbody{flex:1;min-width:0}
+  .file .fname{font-size:16px;font-weight:800;overflow-wrap:anywhere}
+  .file .fmeta{font-size:13px;font-weight:600;color:#333;margin-top:2px}
+  .file .dl{flex-shrink:0;border:0;border-radius:10px;background:#34a06a;color:#fff;font-size:14px;font-weight:700;padding:9px 14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+  .empty{padding:24px;text-align:center;font-size:14.5px;font-weight:600;color:#333}
+  .search{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.2);border-radius:12px;padding:11px 14px;font-size:15px;font-weight:600;color:#000;margin-bottom:12px}
+  .search::placeholder{color:#555}
+  .search:focus{outline:none;border-color:#4d7cfe}
+  .btn{display:block;width:100%;padding:13px;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;color:#fff;margin-top:12px}
+  .btn-submit{background:#8b5cf6}
+  .foot{margin-top:22px;font-size:13px;font-weight:600;line-height:1.9;text-align:center;color:#222;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
   .toast.show{opacity:1}
-  .bgm-fab{position:fixed;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(26,29,36,.85);color:#fff;font-size:18px;cursor:pointer;z-index:4;box-shadow:0 2px 10px rgba(0,0,0,.4)}
-  .bgm-name{position:fixed;top:64px;right:16px;font-size:11px;color:#e8eaed;z-index:3;max-width:150px;text-align:right;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-  .bgm-panel{position:fixed;top:66px;right:16px;width:220px;max-height:260px;overflow-y:auto;background:rgba(26,29,36,.95);border-radius:14px;padding:10px;z-index:4;display:none;box-shadow:0 4px 18px rgba(0,0,0,.5)}
-  .bgm-panel.open{display:block}
-  .bgm-panel h3{font-size:13px;color:#e8eaed;margin:4px 6px 8px}
-  .bgm-item{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:10px;font-size:13px;color:#e8eaed;cursor:pointer;margin-top:4px}
-  .bgm-item:active{background:rgba(255,255,255,.1)}
-  .bgm-item.cur{background:#4d7cfe;color:#fff}
-  .bgm-item .st{font-size:11px;opacity:.7}
+  .zone-tabs{display:flex;gap:10px;margin:4px 0 14px}
+  .zone-tab{flex:1;padding:13px;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;background:rgba(255,255,255,.45);color:#000}
+  .zone-tab.sel{background:#4d7cfe;color:#fff}
+  .zone-icon{width:22px;height:22px;vertical-align:-5px;margin-right:7px;border-radius:5px;object-fit:cover}
 </style>
 </head>
 <body>
 <div class="bg"></div>
-<button class="bgm-fab" id="bgmBtn" onclick="togglePanel()">🎶</button>
-<div class="bgm-name" id="bgmName"></div>
-<div class="bgm-panel" id="bgmPanel">
-  <h3>播放列表</h3>
-  <div id="bgmList"></div>
-</div>
-<audio id="bgm" preload="auto"></audio>
-<div class="card">
+<div class="wrap">
   <h1>訫云软件源</h1>
-  <p class="sub">点击下方按钮，一键把源添加到签名工具</p>
+  <div class="sub">资源分类 · 点文件夹浏览，点下载获取</div>
 
-  <a class="btn btn-qnq" id="btnQnq" href="#">📲 一键添加到全能签</a>
-  <a class="btn btn-esign" id="btnEsign" href="#">📲 一键添加到轻松签</a>
-  <button class="btn btn-copy" onclick="copySrc()">📋 复制源地址（手动添加）</button>
+  <div class="banner card" id="bannerBox" style="background:rgba(180,230,200,.55)"></div>
+
+  <div class="zone-tabs">
+    <button class="zone-tab sel" id="tabApple" onclick="switchZone('apple')"><img class="zone-icon" src="icons/ios.png" alt="iOS">苹果区</button>
+    <button class="zone-tab" id="tabAndroid" onclick="switchZone('android')"><img class="zone-icon" src="icons/android.png" alt="Android">安卓专区</button>
+  </div>
+
+  <div class="card" id="listCard">
+    <div class="crumbs" id="crumbs">苹果应用</div>
+    <input class="search" id="searchBox" oninput="render()" placeholder="🔍 搜索资源名称 / 分类">
+    <div id="list"><div class="empty">正在读取资源...</div></div>
+  </div>
+
   <a class="btn btn-submit" href="submit.html">📮 应用投稿</a>
-  <a class="btn" href="apps.html" style="background:#0ea5e9">📂 浏览资源分类</a>
 
-  <div class="url" id="src">https://xiaoyun1995314.github.io/my-source/appstore.json</div>
-  <p class="tip">
-    若一键添加未成功：复制上方地址，打开签名工具 → 软件源 / 源 → 点「+」粘贴即可。<br><br>
-    仅供个人技术学习，请勿用于分发与商用。
-  </p>
+  <div class="notebox">
+    <img src="icons/ios.png" alt="iOS" style="width:22px;height:22px;vertical-align:-5px;margin-right:6px">使用说明：<br>
+    1. 找到需要的资源后，点右侧「下载」按钮，不要直接点文件名。<br>
+    2. 下载 IPA 后导入自签工具（全能签 / 轻松签）签名再安装。<br>
+    3. 本站仅收录正版或已获授权的资源，请勿用于分发与商用。
+  </div>
+
+  <div class="foot">訫云软件源 · 仅供个人技术学习使用</div>
 </div>
 <div class="toast" id="toast"></div>
 
+<!-- 公告弹窗 -->
+<div id="popMask" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:18px;max-width:400px;width:100%;padding:30px 24px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)">
+    <div style="width:64px;height:64px;border-radius:50%;background:#e8f5ec;margin:0 auto 14px;display:flex;align-items:center;justify-content:center">
+      <span style="font-size:34px;color:#4caf7d">✓</span>
+    </div>
+    <div id="popTitle" style="font-size:20px;font-weight:800;color:#333;margin-bottom:14px"></div>
+    <div id="popBody" style="font-size:15.5px;font-weight:600;color:#444;line-height:1.9;text-align:left;white-space:pre-line"></div>
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button id="popLeft" style="flex:1;padding:12px;border:0;border-radius:12px;background:#e2e6ec;color:#333;font-size:16px;font-weight:700;cursor:pointer">取消</button>
+      <button id="popRight" style="flex:1;padding:12px;border:0;border-radius:12px;background:#7cc6f5;color:#fff;font-size:16px;font-weight:700;cursor:pointer">确定</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const SOURCE_URL = document.getElementById('src').textContent.trim();
-const enc = encodeURIComponent(SOURCE_URL);
+const SRC_URL = 'https://xiaoyun1995314.github.io/my-source/appstore.json';
+const ANDROID_URL = 'https://xiaoyun1995314.github.io/my-source/android.json';
+let data = null;
+let android = null;
+let currentCat = '';
+let zone = 'apple';
 
-// 背景音乐播放列表：在这里加更多音频文件，循环播放
-const tracks = ['bgm1.mp3', 'bgm2.mp3'];
-const bgm = document.getElementById('bgm');
-const bgmBtn = document.getElementById('bgmBtn');
-const bgmName = document.getElementById('bgmName');
-let ti = 0, playing = false;
-const panel = document.getElementById('bgmPanel');
-
-function loadTrack(){
-  bgm.src = tracks[ti];
-  bgmName.textContent = '♪ ' + tracks[ti];
-  renderList();
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function fmtSize(bytes){
+  if(!bytes) return '-';
+  const mb = bytes/1048576;
+  return mb>=1 ? mb.toFixed(1)+' MB' : Math.max(1,Math.round(bytes/1024))+' KB';
 }
-function renderList(){
-  document.getElementById('bgmList').innerHTML = tracks.map((t,i)=>
-    `<div class="bgm-item ${i===ti?'cur':''}" onclick="playTrack(${i})"><span>${t}</span><span class="st">${i===ti?(playing?'▶':'⏸'):'▶'}</span></div>`
-  ).join('');
-}
-function playTrack(i){
-  if(i===ti && playing){ bgm.pause(); playing=false; renderList(); return; }
-  ti = i; loadTrack();
-  bgm.muted = false;
-  bgm.play().then(()=>{ playing=true; renderList(); })
-    .catch(()=>toast('浏览器拦截了播放，再点一次'));
-}
-function togglePanel(){ panel.classList.toggle('open'); renderList(); }
-bgm.addEventListener('ended', ()=>{
-  ti = (ti+1) % tracks.length;
-  loadTrack();
-  if(playing) bgm.play().catch(()=>{});
-});
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
 
-// 进入自动播放列表：先静音尝试自动播放，首次点屏幕时取消静音
-loadTrack();
-bgm.muted = true;
-bgm.play().then(()=>{ playing = true; }).catch(()=>{});
-
-document.addEventListener('touchstart', function once(){
-  if(!bgm.src) loadTrack();
-  bgm.muted = false;
-  bgm.play().then(()=>{ playing = true; })
-    .catch(()=>{});
-  document.removeEventListener('touchstart', once);
-}, {once:true});
-
-function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2000);
+async function load(){
+  try{
+    const res=await fetch(SRC_URL+'?t='+Date.now());
+    data=await res.json();
+    data.categories=Array.isArray(data.categories)?data.categories:[];
+    data.apps=Array.isArray(data.apps)?data.apps:[];
+    // 安卓区独立读取 android.json
+    try{
+      const ar=await fetch(ANDROID_URL+'?t='+Date.now());
+      android=await ar.json();
+      android.apps=Array.isArray(android.apps)?android.apps:[];
+    }catch(e){ android={apps:[]}; }
+    render();
+    showPopup();
+    renderBanner();
+  }catch(e){
+    document.getElementById('list').innerHTML='<div class="empty">读取失败：'+esc(e.message)+'</div>';
+  }
 }
 
-// 直接用原生 <a> 顶层跳转（iOS Safari 最可靠的唤起方式）
-// 页面被切走（document.hidden）说明已成功唤起；否则 2.5 秒后自动复制地址
-const btnEsign = document.getElementById('btnEsign');
-const btnQnq = document.getElementById('btnQnq');
+function switchZone(z){
+  zone=z; currentCat='';
+  document.getElementById('tabApple').classList.toggle('sel',z==='apple');
+  document.getElementById('tabAndroid').classList.toggle('sel',z==='android');
+  render();
+  window.scrollTo({top:0});
+}
 
-btnEsign.href = 'esign://addsource?url=' + enc;
-btnQnq.href = 'nsk-sign://addsource?url=' + enc;
+function renderAndroid(){
+  const box=document.getElementById('list');
+  const cr=document.getElementById('crumbs');
+  cr.textContent='安卓专区';
+  const kw=(document.getElementById('searchBox').value||'').toLowerCase();
+  const apps=(android&&android.apps||[]).filter(a=>!kw||(a.name||'').toLowerCase().includes(kw));
+  if(!apps.length){box.innerHTML='<div class="empty">安卓专区暂无资源。</div>';return;}
+  box.innerHTML=apps.map(a=>`
+    <div class="file">
+      ${a.iconURL?`<img class="fthumb" src="${esc(a.iconURL)}" onerror="this.style.visibility='hidden'">`:'<div class="fthumb"></div>'}
+      <div class="fbody">
+        <div class="fname">${esc(a.name)}</div>
+        <div class="fmeta">v${esc(a.version||'')} · ${fmtSize(a.size)}</div>
+        ${a.description?`<div class="fmeta">${esc(a.description)}</div>`:''}
+      </div>
+      <a class="dl" href="${esc(a.downloadURL)}" target="_blank" rel="noopener">下载</a>
+    </div>`).join('');
+}
 
-function armFallback(failMsg){
-  const start = Date.now();
-  const timer = setTimeout(()=>{
-    if (!document.hidden) {
-      copySrc();
-      toast(failMsg);
+function appsIn(cat){
+  const kw=(document.getElementById('searchBox').value||'').toLowerCase();
+  return data.apps.filter(a=>{
+    if(cat && (a.category||'')!==cat) return false;
+    if(kw && !(a.name||'').toLowerCase().includes(kw) && !(a.category||'').toLowerCase().includes(kw)) return false;
+    return true;
+  });
+}
+
+function render(){
+  if(zone==='android'){ renderAndroid(); return; }
+  const box=document.getElementById('list');
+  const cr=document.getElementById('crumbs');
+  if(!data){box.innerHTML='<div class="empty">暂无数据</div>';return;}
+
+  if(!currentCat){
+    cr.textContent='苹果应用';
+    const seen=new Set();
+    const folders=[];
+    data.categories.forEach(c=>{
+      const name=(typeof c==='string'?c:c.name)||'未分类';
+      const icon=(typeof c==='object'&&c.icon)||'📁';
+      if(!seen.has(name)){seen.add(name);folders.push({name,icon,cnt:appsIn(name).length});}
+    });
+    data.apps.forEach(a=>{
+      const name=(a.category||'未分类').trim()||'未分类';
+      if(!seen.has(name)){seen.add(name);folders.push({name,icon:'📁',cnt:appsIn(name).length});}
+    });
+    if(!folders.length){box.innerHTML='<div class="empty">暂无资源，请到后台添加。</div>';return;}
+    box.innerHTML=folders.map(f=>`
+      <div class="folder" onclick="openCat('${esc(f.name)}')">
+        <span class="ficon">${f.icon}</span>
+        <div style="flex:1;min-width:0">
+          <div class="fname">${esc(f.name)}</div>
+          <div class="fcount">${f.cnt} 项</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>`).join('');
+    return;
+  }
+
+  cr.innerHTML='<a href="javascript:goList()">苹果应用</a> / '+esc(currentCat);
+  const items=appsIn(currentCat);
+  if(!items.length){box.innerHTML='<div class="empty">此分类暂无资源。</div>';return;}
+  box.innerHTML=items.map(a=>`
+    <div class="file">
+      ${a.iconURL?`<img class="fthumb" src="${esc(a.iconURL)}" onerror="this.style.visibility='hidden'">`:'<div class="fthumb"></div>'}
+      <div class="fbody">
+        <div class="fname">${esc(a.name)}</div>
+        <div class="fmeta">v${esc(a.version||'')} · ${fmtSize(a.size)}</div>
+      </div>
+      <a class="dl" href="${esc(a.downloadURL)}" target="_blank" rel="noopener">下载</a>
+    </div>`).join('');
+}
+
+function openCat(name){currentCat=name;render();window.scrollTo({top:0});}
+function goList(){currentCat='';render();}
+
+// 主页横幅（后台 ⑥ 管理）
+function renderBanner(){
+  const box=document.getElementById('bannerBox');
+  const rows=Array.isArray(data&&data.banner)?data.banner:[];
+  box.innerHTML=rows.map(r=>{
+    const icon=r.icon||'ℹ️';
+    const text=r.text||'';
+    if(r.type==='source-qnq'){
+      return `<div class="row">${icon} <a href="javascript:addSource('qnq')">${esc(text)}</a></div>`;
     }
-  }, 2500);
-  document.addEventListener('visibilitychange', ()=>{
-    if (document.hidden) clearTimeout(timer);
-  }, {once:true});
+    if(r.type==='source-esign'){
+      return `<div class="row">${icon} <a href="javascript:addSource('esign')">${esc(text)}</a></div>`;
+    }
+    if(r.type==='link'&&r.url){
+      return `<div class="row">${icon} <a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}">${esc(text)}</a></div>`;
+    }
+    return `<div class="row">${icon} ${esc(text)}</div>`;
+  }).join('');
 }
 
-btnEsign.addEventListener('click', ()=>{
-  armFallback('已复制，请在轻松签软件源中粘贴添加');
-});
-
-btnQnq.addEventListener('click', ()=>{
-  armFallback('已复制，请在全能签软件源中粘贴添加');
-});
-
-function copySrc(){
-  navigator.clipboard.writeText(SOURCE_URL).then(()=>toast('源地址已复制'));
+// 公告弹窗
+function showPopup(){
+  const p=data&&data.popup;
+  if(!p||!p.on) return;
+  document.getElementById('popTitle').textContent=p.title||'温馨提示';
+  document.getElementById('popBody').textContent=p.body||'';
+  const mask=document.getElementById('popMask');
+  // 左按钮（取消）
+  const left=document.getElementById('popLeft');
+  left.textContent=(p.leftText)||'取消';
+  left.onclick=()=>{ mask.style.display='none'; if(p.leftLink) location.href=p.leftLink; };
+  // 右按钮（确定）
+  const right=document.getElementById('popRight');
+  right.textContent=(p.rightText)||'确定';
+  right.onclick=()=>{ mask.style.display='none'; if(p.rightLink) location.href=p.rightLink; };
+  mask.style.display='flex';
 }
+
+function addSource(tool){
+  const enc=encodeURIComponent(SRC_URL);
+  if(tool==='qnq') location.href='nsk-sign://addsource?url='+enc;
+  else location.href='esign://addsource?url='+enc;
+  setTimeout(()=>{if(!document.hidden){navigator.clipboard&&navigator.clipboard.writeText(SRC_URL);toast('已复制源地址，请在签名工具内粘贴添加');}},2500);
+}
+
+load();
 </script>
 </body>
 </html>

@@ -114,9 +114,14 @@ function render(){
 
   if(!currentCat){
     cr.innerHTML='<a href="index.html">主页</a> / 苹果应用';
-    // 从已有应用的 category 自动汇总文件夹
+    // 合并：手动建的 categories + 应用里出现的分类
     const seen=new Set();
     const folders=[];
+    data.categories.forEach(c=>{
+      const name=(typeof c==='string'?c:c.name)||'未分类';
+      const icon=(typeof c==='object'&&c.icon)||'📁';
+      if(!seen.has(name)){seen.add(name);folders.push({name,icon,cnt:appsIn(name).length});}
+    });
     data.apps.forEach(a=>{
       const name=(a.category||'未分类').trim()||'未分类';
       if(!seen.has(name)){seen.add(name);folders.push({name,icon:'📁',cnt:appsIn(name).length});}

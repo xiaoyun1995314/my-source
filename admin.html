@@ -45,6 +45,8 @@
   details.coll summary::before{content:"▸ ";font-weight:800}
   details.coll[open] summary::before{content:"▾ "}
   .mode{font-size:14px;font-weight:700;color:#f0b45a;margin-bottom:8px}
+  #pop_on{width:auto;margin-right:8px;transform:scale(1.2)}
+  #nav_ext{width:auto;margin-right:8px;transform:scale(1.2)}
   .catpick{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
   .catpick .chip{padding:7px 13px;border-radius:20px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.18);font-size:14px;font-weight:700;cursor:pointer;color:#000}
   .catpick .chip.sel{background:#4d7cfe;color:#fff;border-color:#4d7cfe}
@@ -145,6 +147,70 @@
     <div id="catList" style="margin-top:14px"></div>
   </details>
 
+  <details class="card coll">
+    <summary>⑤ 主页公告弹窗（进主页弹出，可编辑 / 开关）</summary>
+    <label><input type="checkbox" id="pop_on"> 开启弹窗</label>
+    <label>弹窗标题</label>
+    <input id="pop_title" placeholder="如：温馨提示">
+    <label>弹窗正文（多行）</label>
+    <textarea id="pop_body" style="min-height:90px" placeholder="公告内容，每行一段"></textarea>
+    <label>可选：跳转链接（点正文链接或按钮跳转，留空则无）</label>
+    <input id="pop_link" placeholder="https://...">
+    <div class="row">
+      <div><label>左按钮文字</label><input id="pop_leftText" placeholder="取消"></div>
+      <div><label>左按钮链接</label><input id="pop_leftLink" placeholder="留空则关闭"></div>
+    </div>
+    <div class="row">
+      <div><label>右按钮文字</label><input id="pop_rightText" placeholder="确定"></div>
+      <div><label>右按钮链接</label><input id="pop_rightLink" placeholder="留空则关闭"></div>
+    </div>
+    <button onclick="savePopup()">保存公告弹窗</button>
+    <div id="popStatus" class="status"></div>
+  </details>
+
+  <details class="card coll">
+    <summary>⑥ 主页横幅（添加源 / 链接 / 说明，增删 / 排序）</summary>
+    <label>行类型</label>
+    <select id="bn_type" onchange="bnTypeChange()" style="width:100%;background:transparent;border:1px solid rgba(0,0,0,.25);border-radius:10px;padding:11px 12px;font-size:15.5px;font-weight:600;color:#000;font-family:inherit">
+      <option value="source-qnq">添加全能签软件源</option>
+      <option value="source-esign">添加轻松签软件源</option>
+      <option value="link">普通链接</option>
+      <option value="text">纯说明文字</option>
+    </select>
+    <div class="row">
+      <div><label>图标（emoji）</label><input id="bn_icon" placeholder="📦" value="📦"></div>
+      <div><label>文字 *</label><input id="bn_text" placeholder="如：点击此处添加全能签软件源"></div>
+    </div>
+    <div id="bnLinkBox">
+      <label>链接（普通链接类型填写）</label>
+      <input id="bn_url" placeholder="https://...">
+      <label><input type="checkbox" id="bn_ext" style="width:auto;transform:scale(1.2);margin-right:8px">新窗口打开</label>
+    </div>
+    <button class="ghost" onclick="addBanner()">添加一行</button>
+    <div id="bnList" style="margin-top:14px"></div>
+  </details>
+
+  <details class="card coll">
+    <summary>🤖 安卓专区管理（独立 android.json，不和苹果源共用）</summary>
+    <p class="tip" style="margin-top:0">安卓应用单独存到 android.json，与苹果 appstore.json 完全分开。先在上方「①」读取后，点下面读取安卓列表。</p>
+    <button class="ghost" onclick="loadAndroid()">读取安卓列表</button>
+    <div class="row" style="margin-top:12px">
+      <div><label>应用名称 *</label><input id="an_name"></div>
+      <div><label>版本号</label><input id="an_version" placeholder="1.0"></div>
+    </div>
+    <div class="row">
+      <div><label>图标 URL</label><input id="an_icon"></div>
+      <div><label>大小（MB，可留 0）</label><input id="an_size" type="number" step="0.1" value="0"></div>
+    </div>
+    <label>下载 URL（APK 直链）*</label>
+    <input id="an_download" placeholder="https://.../xxx.apk">
+    <label>应用描述</label>
+    <textarea id="an_desc" placeholder="应用简介"></textarea>
+    <button onclick="submitAndroid()" id="anSubmitBtn">添加到安卓专区</button>
+    <button class="ghost" onclick="resetAndroid()">清空 / 切回添加</button>
+    <div id="anList" style="margin-top:14px"></div>
+  </details>
+
   <details>
     <summary>使用说明 / 安全提示</summary>
     <p class="tip">
@@ -212,6 +278,8 @@ async function loadApps(){
     await fetchFile();
     renderList();
     renderCats();
+    fillPopup();
+    renderBannerAdmin();
     showStatus('ok',`已读取 ${jsonData.apps.length} 个应用`);
   }catch(e){ showStatus('err','❌ '+e.message); }
 }
@@ -515,6 +583,239 @@ async function catClear(name){
     await commitFile(`清空分类：${name}`);
     showStatus('ok','✅ 已清空，文件夹已移除');
     await fetchFile(); renderCats(); renderList();
+  }catch(e){showStatus('err','❌ '+e.message);}
+}
+
+// ========== ⑤ 主页公告弹窗 ==========
+function fillPopup(){
+  const p=(jsonData&&jsonData.popup)||{};
+  $('pop_on').checked=!!p.on;
+  $('pop_title').value=p.title||'';
+  $('pop_body').value=p.body||'';
+  $('pop_link').value=p.link||'';
+  $('pop_leftText').value=p.leftText||'';
+  $('pop_leftLink').value=p.leftLink||'';
+  $('pop_rightText').value=p.rightText||'';
+  $('pop_rightLink').value=p.rightLink||'';
+}
+async function savePopup(){
+  try{
+    showStatus('ok','正在保存公告 ...');
+    if(!jsonData) await fetchFile();
+    jsonData.popup={
+      on:$('pop_on').checked,
+      title:$('pop_title').value.trim(),
+      body:$('pop_body').value.trim(),
+      link:$('pop_link').value.trim(),
+      leftText:$('pop_leftText').value.trim(),
+      leftLink:$('pop_leftLink').value.trim(),
+      rightText:$('pop_rightText').value.trim(),
+      rightLink:$('pop_rightLink').value.trim()
+    };
+    await commitFile('保存主页公告弹窗');
+    const ps=$('popStatus'); ps.className='status ok'; ps.textContent='✅ 公告弹窗已保存'; ps.style.display='block';
+  }catch(e){
+    const ps=$('popStatus'); ps.className='status err'; ps.textContent='❌ '+e.message; ps.style.display='block';
+  }
+}
+
+// ========== ⑥ 主页横幅管理 ==========
+const BN_TYPES={
+  'source-qnq':'添加全能签软件源',
+  'source-esign':'添加轻松签软件源',
+  'link':'普通链接',
+  'text':'纯说明文字'
+};
+function bnTypeChange(){
+  const t=$('bn_type').value;
+  document.getElementById('bnLinkBox').style.display=(t==='link')?'block':'none';
+}
+function renderBannerAdmin(){
+  const box=$('bnList');
+  const rows=Array.isArray(jsonData&&jsonData.banner)?jsonData.banner:[];
+  if(!rows.length){box.innerHTML='<p class="tip">还没有横幅行，先在上方添加。</p>';return;}
+  box.innerHTML=rows.map((r,i)=>`
+    <div class="app-item">
+      <div class="app-top">
+        <div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px">${esc(r.icon||'ℹ️')}</div>
+        <div class="app-info">
+          <b>${esc(r.text||'')}</b>
+          <span>${BN_TYPES[r.type]||r.type}${r.url?' · '+esc(r.url):''}</span>
+        </div>
+      </div>
+      <div class="app-btns">
+        <button class="sm" onclick="bnMove(${i},-1)">↑</button>
+        <button class="sm" onclick="bnMove(${i},1)">↓</button>
+        <button class="sm" onclick="bnEdit(${i})">编辑</button>
+        <button class="sm del" onclick="bnDel(${i})">删除</button>
+      </div>
+    </div>`).join('');
+}
+function addBanner(){
+  const text=$('bn_text').value.trim();
+  const type=$('bn_type').value;
+  if(!text){showStatus('err','请填文字');return;}
+  const row={type,icon:$('bn_icon').value.trim()||'ℹ️',text};
+  if(type==='link'){
+    row.url=$('bn_url').value.trim();
+    row.external=$('bn_ext').checked;
+    if(!row.url){showStatus('err','普通链接需填链接地址');return;}
+  }
+  jsonData.banner=Array.isArray(jsonData.banner)?jsonData.banner:[];
+  jsonData.banner.push(row);
+  saveBanner('添加横幅行：'+text);
+}
+function bnEdit(i){
+  const r=jsonData.banner[i];
+  $('bn_type').value=r.type; bnTypeChange();
+  $('bn_icon').value=r.icon||'ℹ️';
+  $('bn_text').value=r.text||'';
+  $('bn_url').value=r.url||'';
+  $('bn_ext').checked=!!r.external;
+  $('bn_text').focus();
+}
+function bnDel(i){
+  if(!confirm(`删除「${jsonData.banner[i].text}」？`))return;
+  jsonData.banner.splice(i,1);
+  saveBanner('删除横幅行');
+}
+function bnMove(i,dir){
+  const j=i+dir;
+  if(j<0||j>=jsonData.banner.length)return;
+  [jsonData.banner[i],jsonData.banner[j]]=[jsonData.banner[j],jsonData.banner[i]];
+  renderBannerAdmin();
+  saveBanner('调整横幅顺序');
+}
+async function saveBanner(msg){
+  try{
+    showStatus('ok','正在保存横幅 ...');
+    if(!jsonData) await fetchFile();
+    jsonData.banner=Array.isArray(jsonData.banner)?jsonData.banner:[];
+    await commitFile(msg||'保存主页横幅');
+    showStatus('ok','✅ 横幅已保存');
+    await fetchFile(); renderBannerAdmin();
+  }catch(e){showStatus('err','❌ '+e.message);}
+}
+
+// ========== 🤖 安卓专区（独立 android.json） ==========
+const ANDROID_PATH = 'android.json';
+let androidData = null;
+let androidSha = null;
+let androidEdit = -1;
+
+async function loadAndroid(){
+  try{
+    const c=cfg();
+    if(!c.owner||!c.repo) throw new Error('请先在 ① 填用户名和仓库名');
+    showStatus('ok','正在读取安卓列表 ...');
+    const res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(ANDROID_PATH)}?ref=${c.branch}`,{headers:authHeaders()});
+    if(!res.ok) throw new Error('读取 android.json 失败：'+res.status+'（404=文件还没上传，先添加一条会自动创建）');
+    const file=await res.json();
+    androidSha=file.sha;
+    androidData=JSON.parse(decodeURIComponent(escape(atob(file.content))));
+    androidData.apps=Array.isArray(androidData.apps)?androidData.apps:[];
+    renderAndroidAdmin();
+    showStatus('ok',`已读取 ${androidData.apps.length} 个安卓应用`);
+  }catch(e){ showStatus('err','❌ '+e.message); }
+}
+
+function renderAndroidAdmin(){
+  const box=$('anList');
+  if(!androidData||!androidData.apps.length){box.innerHTML='<p class="tip">暂无安卓应用。</p>';return;}
+  box.innerHTML=androidData.apps.map((a,i)=>`
+    <div class="app-item">
+      <div class="app-top">
+        ${a.iconURL?`<img class="thumb" src="${esc(a.iconURL)}" onerror="this.style.visibility='hidden'">`:'<div class="thumb"></div>'}
+        <div class="app-info">
+          <b>${esc(a.name)}</b>
+          <span>v${esc(a.version||'')} · ${fmtSizeMb(a.size)}</span>
+        </div>
+      </div>
+      <div class="app-btns">
+        <button class="sm" onclick="androidEditItem(${i})">编辑</button>
+        <button class="sm del" onclick="androidDel(${i})">删除</button>
+      </div>
+    </div>`).join('');
+}
+function fmtSizeMb(bytes){return bytes?(bytes/1048576).toFixed(1)+' MB':'-';}
+
+function androidReadForm(){
+  return {
+    name:$('an_name').value.trim(),
+    version:$('an_version').value.trim(),
+    size:Math.round((Number($('an_size').value)||0)*1048576),
+    iconURL:$('an_icon').value.trim(),
+    downloadURL:$('an_download').value.trim(),
+    description:$('an_desc').value.trim()
+  };
+}
+function resetAndroid(){
+  androidEdit=-1;
+  ['an_name','an_version','an_icon','an_download','an_desc'].forEach(id=>$(id).value='');
+  $('an_size').value=0;
+  $('anSubmitBtn').textContent='添加到安卓专区';
+}
+function androidEditItem(i){
+  androidEdit=i;
+  const a=androidData.apps[i];
+  $('an_name').value=a.name||'';
+  $('an_version').value=a.version||'';
+  $('an_icon').value=a.iconURL||'';
+  $('an_size').value=a.size?(a.size/1048576).toFixed(2):0;
+  $('an_download').value=a.downloadURL||'';
+  $('an_desc').value=a.description||'';
+  $('anSubmitBtn').textContent='保存修改';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function commitAndroid(message){
+  const c=cfg();
+  const body=JSON.stringify({message,content:b64Encode(JSON.stringify(androidData,null,2)),sha:androidSha,branch:c.branch});
+  let res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(ANDROID_PATH)}`,{
+    method:'PUT',headers:{...authHeaders(),'Content-Type':'application/json'},body
+  });
+  if(res.status===409){
+    const rf=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(ANDROID_PATH)}?ref=${c.branch}`,{headers:authHeaders()});
+    const f=await rf.json(); androidSha=f.sha;
+    res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(ANDROID_PATH)}`,{
+      method:'PUT',headers:{...authHeaders(),'Content-Type':'application/json'},
+      body:JSON.stringify({message,content:b64Encode(JSON.stringify(androidData,null,2)),sha:androidSha,branch:c.branch})
+    });
+  }
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('提交失败：'+res.status+' '+(e.message||''));}
+  const d=await res.json().catch(()=>null);
+  if(d&&d.content&&d.content.sha) androidSha=d.content.sha;
+}
+
+async function submitAndroid(){
+  const entry=androidReadForm();
+  if(!entry.name||!entry.downloadURL){showStatus('err','名称和下载链接必填');return;}
+  try{
+    showStatus('ok','正在提交 ...');
+    if(!androidData) await loadAndroid().catch(()=>{});
+    if(!androidData){ androidData={name:'訫云安卓专区',apps:[]}; androidSha=null; }
+    if(androidEdit>=0){
+      androidData.apps[androidEdit]=entry;
+      await commitAndroid('修改安卓应用：'+entry.name);
+    }else{
+      androidData.apps.push(entry);
+      await commitAndroid('添加安卓应用：'+entry.name);
+    }
+    showStatus('ok','✅ 已保存');
+    resetAndroid();
+    await loadAndroid();
+  }catch(e){showStatus('err','❌ '+e.message);}
+}
+
+async function androidDel(i){
+  const name=androidData.apps[i].name;
+  if(!confirm(`删除「${name}」？`))return;
+  try{
+    showStatus('ok','正在删除 ...');
+    androidData.apps.splice(i,1);
+    await commitAndroid('删除安卓应用：'+name);
+    showStatus('ok','✅ 已删除');
+    await loadAndroid();
   }catch(e){showStatus('err','❌ '+e.message);}
 }
 
