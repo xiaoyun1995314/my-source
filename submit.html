@@ -49,20 +49,22 @@
     <label>截图 URL（每行一个，可选）</label>
     <textarea id="f_shots" placeholder="https://.../1.png"></textarea>
 
-    <button onclick="submitMail()">提交投稿</button>
-    <button class="ghost" onclick="document.getElementById('f_name').value='';document.getElementById('f_version').value='';document.getElementById('f_download').value='';document.getElementById('f_icon').value='';document.getElementById('f_desc').value='';document.getElementById('f_dev').value='';document.getElementById('f_shots').value=''">清空重填</button>
+    <button onclick="copySubmit()">📋 复制投稿内容（推荐）</button>
+    <button class="ghost" onclick="submitMail()">✉️ 邮件发送</button>
+    <button class="ghost" onclick="clearForm()">清空重填</button>
   </div>
 
-  <p class="tip">提示：提交后会打开系统邮件，确认内容点发送即可。只接受自有或已授权、无侵权的正规应用。</p>
+  <p class="tip">提示：全能签内打不开邮件，先点「复制投稿内容」，粘贴发给站长 QQ/微信；邮件方式在 Safari 系统浏览器里可用。只接受自有或已授权、无侵权的正规应用。</p>
 </div>
 
 <script>
 function $(id){return document.getElementById(id);}
-function submitMail(){
+function gather(){
   const name=$('f_name').value.trim();
   const download=$('f_download').value.trim();
-  if(!name||!download){alert('应用名称和下载直链为必填');return;}
-  const lines=[
+  if(!name||!download){alert('应用名称和下载直链为必填');return null;}
+  return [
+    '【应用投稿】',
     '应用名称：'+name,
     '版本号：'+($('f_version').value.trim()||'未填'),
     '下载直链：'+download,
@@ -70,11 +72,29 @@ function submitMail(){
     '应用简介：'+($('f_desc').value.trim()||'无'),
     '作者/来源：'+($('f_dev').value.trim()||'无'),
     '截图URL：'+($('f_shots').value.trim()||'无')
-  ];
-  const subject='投稿：'+name;
-  const body=encodeURIComponent(lines.join('\n'));
-  const href='mailto:450000318@qq.com?subject='+encodeURIComponent(subject)+'&body='+body;
+  ].join('\n');
+}
+function copySubmit(){
+  const text=gather(); if(!text) return;
+  const done=()=>alert('已复制！粘贴发给站长即可');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done));
+  }else{ fallbackCopy(text,done); }
+}
+function fallbackCopy(text,done){
+  const ta=document.createElement('textarea');
+  ta.value=text; document.body.appendChild(ta); ta.select();
+  try{document.execCommand('copy');done();}catch(e){alert('复制失败，请手动长按选择复制');}
+  document.body.removeChild(ta);
+}
+function submitMail(){
+  const text=gather(); if(!text) return;
+  const name=$('f_name').value.trim();
+  const href='mailto:450000318@qq.com?subject='+encodeURIComponent('投稿：'+name)+'&body='+encodeURIComponent(text);
   window.location.href=href;
+}
+function clearForm(){
+  ['f_name','f_version','f_download','f_icon','f_desc','f_dev','f_shots'].forEach(id=>$(id).value='');
 }
 </script>
 </body>
