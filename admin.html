@@ -548,7 +548,7 @@ function catIcon(name){
   return typeof c==='object'?(c.icon||'📁'):'📁';
 }
 function countInCat(name){
-  return jsonData.apps.filter(a=>(a.category||'未分类')===name).length;
+  return jsonData.apps.filter(a=>(a.category||'未分类').trim()===name.trim()).length;
 }
 function renderCats(){
   const box=$('catList');
@@ -649,14 +649,18 @@ async function catRename(oldName){
 
 // 清空：把该分类下文件全部归到「未分类」，文件夹随之消失
 async function catClear(name){
+  if(name==='未分类'){showStatus('err','❌ 「未分类」不能删除','listStatus');return;}
   const cnt=countInCat(name);
   if(!confirm(`「${name}」下 ${cnt} 个文件将全部归到「未分类」，此文件夹消失。文件不会被删除。`))return;
   try{
     showStatus('ok','正在处理 ...','listStatus');
     if(!jsonData) await fetchFile();
     ensureCategories();
-    jsonData.apps.forEach(a=>{if((a.category||'')===name)a.category='未分类';});
-    jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name)!==name);
+    // trim 后匹配，避免空格/全角导致删不掉
+    jsonData.apps.forEach(a=>{
+      if((a.category||'').trim()===name.trim()) a.category='未分类';
+    });
+    jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name)!==name.trim());
     await commitFile(`清空分类：${name}`);
     showStatus('ok','✅ 已清空，文件夹已移除','listStatus');
     await fetchFile(); renderCats(); renderList();
