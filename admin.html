@@ -134,6 +134,7 @@
     <input id="f_search" oninput="renderList()" placeholder="输入关键词过滤">
     <button class="ghost" onclick="exportBackup()">导出备份 appstore.json</button>
     <div id="appList" style="margin-top:10px"><p class="tip">点上方「读取现有应用列表」加载。</p></div>
+    <div id="listStatus" class="status"></div>
   </details>
 
   <details class="card coll">
@@ -214,6 +215,7 @@
     <button onclick="submitAndroid()" id="anSubmitBtn">添加到安卓专区</button>
     <button class="ghost" onclick="resetAndroid()">清空 / 切回添加</button>
     <div id="anList" style="margin-top:14px"></div>
+    <div id="anStatus" class="status"></div>
   </details>
 
   <details>
@@ -254,8 +256,10 @@ function cfg(){
   return {owner:$('owner').value.trim(),repo:$('repo').value.trim(),
     branch:$('branch').value.trim(),path:$('path').value.trim(),token:$('token').value.trim()};
 }
-function showStatus(type,msg){
-  const s=$('status'); s.className='status '+type; s.textContent=msg; s.style.display='block';
+function showStatus(type,msg,slot){
+  const el=$(slot||'status');
+  if(!el) return;
+  el.className='status '+type; el.textContent=msg; el.style.display='block';
 }
 function b64Encode(str){ return btoa(unescape(encodeURIComponent(str))); }
 function authHeaders(){
@@ -396,34 +400,34 @@ async function commitFile(message){
 
 async function submitApp(){
   const entry=readForm();
-  if(!entry.name||!entry.downloadURL||!entry.version){ showStatus('err','名称、版本、下载链接为必填'); return; }
+  if(!entry.name||!entry.downloadURL||!entry.version){ showStatus('err','名称、版本、下载链接为必填','listStatus'); return; }
   try{
-    showStatus('ok','正在提交 ...');
+    showStatus('ok','正在提交 ...','listStatus');
     if(!jsonData) await fetchFile();
     if(editIndex>=0){
       jsonData.apps[editIndex]=entry;
       await commitFile(`修改应用：${entry.name}`);
-      showStatus('ok',`✅ 已保存「${entry.name}」`);
+      showStatus('ok',`✅ 已保存「${entry.name}」`,'listStatus');
     }else{
       jsonData.apps.push(entry);
       await commitFile(`添加应用：${entry.name}`);
-      showStatus('ok',`✅ 已添加「${entry.name}」`);
+      showStatus('ok',`✅ 已添加「${entry.name}」`,'listStatus');
     }
     resetForm();
     await fetchFile(); renderList(); renderCats();
-  }catch(e){ showStatus('err','❌ '+e.message); }
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
 
 async function delApp(i){
   const name=jsonData.apps[i].name;
   if(!confirm(`确定删除「${name}」？`)) return;
   try{
-    showStatus('ok','正在删除 ...');
+    showStatus('ok','正在删除 ...','listStatus');
     jsonData.apps.splice(i,1);
     await commitFile(`删除应用：${name}`);
-    showStatus('ok','✅ 已删除');
+    showStatus('ok','✅ 已删除','listStatus');
     await fetchFile(); renderList(); renderCats();
-  }catch(e){ showStatus('err','❌ '+e.message); }
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
 
 let reorderTimer=null;
@@ -431,8 +435,8 @@ function scheduleReorder(message){
   renderList();
   clearTimeout(reorderTimer);
   reorderTimer=setTimeout(async()=>{
-    try{ await commitFile(message); showStatus('ok','✅ 排序已保存'); }
-    catch(e){ showStatus('err','❌ '+e.message); }
+    try{ await commitFile(message); showStatus('ok','✅ 排序已保存','listStatus'); }
+    catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
   },1200);
 }
 function moveUp(i){
@@ -454,10 +458,10 @@ function pinApp(i){
 async function bulkImport(){
   let arr;
   try{ arr=JSON.parse($('f_bulk').value); }
-  catch(e){ showStatus('err','❌ JSON 解析失败：'+e.message); return; }
-  if(!Array.isArray(arr)||!arr.length){ showStatus('err','请粘贴非空的 JSON 数组'); return; }
+  catch(e){ showStatus('err','❌ JSON 解析失败：'+e.message,'listStatus'); return; }
+  if(!Array.isArray(arr)||!arr.length){ showStatus('err','请粘贴非空的 JSON 数组','listStatus'); return; }
   try{
-    showStatus('ok','正在导入 ...');
+    showStatus('ok','正在导入 ...','listStatus');
     if(!jsonData) await fetchFile();
     const today=new Date().toISOString().slice(0,10);
     const added=[];
@@ -479,13 +483,13 @@ async function bulkImport(){
         permissions:Array.isArray(raw.permissions)?raw.permissions:[]
       });
     }
-    if(!added.length){ showStatus('err','没有可导入的有效条目（需要 name + downloadURL）'); return; }
+    if(!added.length){ showStatus('err','没有可导入的有效条目（需要 name + downloadURL）','listStatus'); return; }
     jsonData.apps.push(...added);
     await commitFile(`批量导入 ${added.length} 个应用`);
-    showStatus('ok',`✅ 已批量追加 ${added.length} 个应用`);
+    showStatus('ok',`✅ 已批量追加 ${added.length} 个应用`,'listStatus');
     $('f_bulk').value='';
     await fetchFile(); renderList(); renderCats();
-  }catch(e){ showStatus('err','❌ '+e.message); }
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
 
 async function exportBackup(){
@@ -718,13 +722,13 @@ function bnMove(i,dir){
 }
 async function saveBanner(msg){
   try{
-    showStatus('ok','正在保存横幅 ...');
+    showStatus('ok','正在保存横幅 ...','listStatus');
     if(!jsonData) await fetchFile();
     jsonData.banner=Array.isArray(jsonData.banner)?jsonData.banner:[];
     await commitFile(msg||'保存主页横幅');
-    showStatus('ok','✅ 横幅已保存');
+    showStatus('ok','✅ 横幅已保存','listStatus');
     await fetchFile(); renderBannerAdmin();
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 
 // ========== 🤖 安卓专区（独立 android.json） ==========
@@ -737,7 +741,7 @@ async function loadAndroid(){
   try{
     const c=cfg();
     if(!c.owner||!c.repo) throw new Error('请先在 ① 填用户名和仓库名');
-    showStatus('ok','正在读取安卓列表 ...');
+    showStatus('ok','正在读取安卓列表 ...','anStatus');
     const res=await fetch(`${API}/repos/${c.owner}/${c.repo}/contents/${encodeURI(ANDROID_PATH)}?ref=${c.branch}`,{headers:authHeaders()});
     if(!res.ok) throw new Error('读取 android.json 失败：'+res.status+'（404=文件还没上传，先添加一条会自动创建）');
     const file=await res.json();
@@ -745,8 +749,8 @@ async function loadAndroid(){
     androidData=JSON.parse(decodeURIComponent(escape(atob(file.content))));
     androidData.apps=Array.isArray(androidData.apps)?androidData.apps:[];
     renderAndroidAdmin();
-    showStatus('ok',`已读取 ${androidData.apps.length} 个安卓应用`);
-  }catch(e){ showStatus('err','❌ '+e.message); }
+    showStatus('ok',`已读取 ${androidData.apps.length} 个安卓应用`,'anStatus');
+  }catch(e){ showStatus('err','❌ '+e.message,'anStatus'); }
 }
 
 function renderAndroidAdmin(){
@@ -819,9 +823,9 @@ async function commitAndroid(message){
 
 async function submitAndroid(){
   const entry=androidReadForm();
-  if(!entry.name||!entry.downloadURL){showStatus('err','名称和下载链接必填');return;}
+  if(!entry.name||!entry.downloadURL){showStatus('err','名称和下载链接必填','anStatus');return;}
   try{
-    showStatus('ok','正在提交 ...');
+    showStatus('ok','正在提交 ...','anStatus');
     if(!androidData) await loadAndroid().catch(()=>{});
     if(!androidData){ androidData={name:'訫云安卓专区',apps:[]}; androidSha=null; }
     if(androidEdit>=0){
@@ -831,22 +835,22 @@ async function submitAndroid(){
       androidData.apps.push(entry);
       await commitAndroid('添加安卓应用：'+entry.name);
     }
-    showStatus('ok','✅ 已保存');
+    showStatus('ok','✅ 已保存','anStatus');
     resetAndroid();
     await loadAndroid();
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'anStatus');}
 }
 
 async function androidDel(i){
   const name=androidData.apps[i].name;
   if(!confirm(`删除「${name}」？`))return;
   try{
-    showStatus('ok','正在删除 ...');
+    showStatus('ok','正在删除 ...','anStatus');
     androidData.apps.splice(i,1);
     await commitAndroid('删除安卓应用：'+name);
-    showStatus('ok','✅ 已删除');
+    showStatus('ok','✅ 已删除','anStatus');
     await loadAndroid();
-  }catch(e){showStatus('err','❌ '+e.message);}
+  }catch(e){showStatus('err','❌ '+e.message,'anStatus');}
 }
 
 // 展开 / 收起分类选择面板
