@@ -531,8 +531,9 @@ async function exportBackup(){
 function ensureCategories(){
   jsonData.categories=Array.isArray(jsonData.categories)?jsonData.categories:[];
 }
-// 已删除、需从列表隐藏的分类名（防止应用里同名又自动冒出）
-const hiddenCats=new Set();
+// 已删除、需从列表隐藏的分类名（持久化，防止应用里同名又自动冒出）
+const hiddenCats=new Set(JSON.parse(localStorage.getItem('hiddenCats')||'[]'));
+function saveHiddenCats(){localStorage.setItem('hiddenCats',JSON.stringify([...hiddenCats]));}
 // 汇总所有出现过的分类名：优先 categories 配置顺序，再追加应用里出现的新分类
 function catNames(){
   ensureCategories();
@@ -660,8 +661,8 @@ async function catClear(name){
     showStatus('ok','正在处理 ...','listStatus');
     if(!jsonData) await fetchFile();
     ensureCategories();
-    // 该名加入隐藏集，防止应用里同名又自动冒出第二个
-    hiddenCats.add(nm);
+    // 该名加入隐藏集（持久化），防止应用里同名又自动冒出第二个
+    hiddenCats.add(nm); saveHiddenCats();
     // 把该类下文件全部归到「未分类」（trim 匹配，避免空格/全角删不掉）
     jsonData.apps.forEach(a=>{
       if((a.category||'').trim()===nm) a.category='未分类';
@@ -669,8 +670,7 @@ async function catClear(name){
     jsonData.categories=jsonData.categories.filter(c=>(typeof c==='string'?c:c.name).trim()!==nm);
     await commitFile(`清空分类：${nm}`);
     showStatus('ok','✅ 已清空，文件夹已移除','listStatus');
-    // 不再重新拉取，避免旧数据覆盖导致同名又冒出
-    renderCats(); renderList();
+    await fetchFile(); renderCats(); renderList();
   }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
 }
 
@@ -966,7 +966,7 @@ async function addCategory(){
   const name=$('c_name').value.trim();
   if(!name){showStatus('err','请填分类名称','listStatus');return;}
   ensureCategories();
-  hiddenCats.delete(name); // 重新新增，解除隐藏
+  hiddenCats.delete(name); saveHiddenCats(); // 重新新增，解除隐藏
   if(catNames().includes(name)){showStatus('err','该分类已存在','listStatus');return;}
   try{
     showStatus('ok','正在新增分类 ...','listStatus');
