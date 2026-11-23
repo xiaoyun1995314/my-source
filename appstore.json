@@ -367,5 +367,13 @@
       "screenshots": [],
       "permissions": []
     }
+  ],
+  "categories": [],
+  "banner": [
+    {
+      "type": "source-qnq",
+      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "text": "点此处添加全能签"
+    }
   ]
 }
