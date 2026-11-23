@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="投稿">
+<title>投稿 · 訫云软件源</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{margin:0;padding:0;width:100%;max-width:100vw;overflow-x:hidden;background-color:transparent}
+  body{color:#000;font-family:-apple-system,"PingFang SC",sans-serif;padding:24px 16px;min-height:100vh;position:relative;font-size:15px;font-weight:600}
+  .bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("bg.webp");background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;transform:translateZ(0)}
+  .wrap{width:100%;max-width:520px;margin:0 auto;position:relative;z-index:1;overflow-x:hidden}
+  h1{font-size:24px;margin:18px 0 8px;text-align:center;font-weight:800;text-shadow:0 0 8px rgba(255,255,255,.8)}
+  .sub{text-align:center;font-size:14px;font-weight:600;color:#000;margin-bottom:24px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .card{background:transparent;border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:20px 18px;margin-bottom:16px;position:relative;z-index:1;box-shadow:0 1px 8px rgba(0,0,0,.08);max-width:100%;overflow-x:hidden}
+  label{display:block;font-size:14.5px;color:#000;font-weight:700;margin:12px 0 5px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  input,textarea{width:100%;max-width:100%;background:transparent;border:1px solid rgba(0,0,0,.25);border-radius:10px;color:#000;padding:11px 12px;font-size:15.5px;font-weight:600;font-family:inherit}
+  input::placeholder,textarea::placeholder{color:#555}
+  textarea{min-height:80px;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:#4d7cfe;background:rgba(255,255,255,.25)}
+  button{width:100%;padding:16px;border:0;border-radius:12px;background:#4d7cfe;color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-top:16px}
+  button.ghost{background:rgba(255,255,255,.55);color:#000;margin-top:10px}
+  .tip{font-size:13.5px;color:#000;font-weight:600;line-height:2;margin-top:14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <h1>应用投稿</h1>
+  <div class="sub">填写后点提交，邮件发送给站长审核</div>
+
+  <div class="card">
+    <label>应用名称 *</label>
+    <input id="f_name" placeholder="应用名称">
+    <label>版本号</label>
+    <input id="f_version" placeholder="1.0">
+    <label>下载直链（IPA）*</label>
+    <input id="f_download" placeholder="https://.../xxx.ipa">
+    <label>图标 URL（可选）</label>
+    <input id="f_icon" placeholder="https://.../icon.png">
+    <label>应用简介</label>
+    <textarea id="f_desc" placeholder="介绍应用功能、说明"></textarea>
+    <label>作者 / 来源（可选）</label>
+    <input id="f_dev" placeholder="你的昵称或来源">
+    <label>截图 URL（每行一个，可选）</label>
+    <textarea id="f_shots" placeholder="https://.../1.png"></textarea>
+
+    <button onclick="submitMail()">提交投稿</button>
+    <button class="ghost" onclick="document.getElementById('f_name').value='';document.getElementById('f_version').value='';document.getElementById('f_download').value='';document.getElementById('f_icon').value='';document.getElementById('f_desc').value='';document.getElementById('f_dev').value='';document.getElementById('f_shots').value=''">清空重填</button>
+  </div>
+
+  <p class="tip">提示：提交后会打开系统邮件，确认内容点发送即可。只接受自有或已授权、无侵权的正规应用。</p>
+</div>
+
+<script>
+function $(id){return document.getElementById(id);}
+function submitMail(){
+  const name=$('f_name').value.trim();
+  const download=$('f_download').value.trim();
+  if(!name||!download){alert('应用名称和下载直链为必填');return;}
+  const lines=[
+    '应用名称：'+name,
+    '版本号：'+($('f_version').value.trim()||'未填'),
+    '下载直链：'+download,
+    '图标URL：'+($('f_icon').value.trim()||'无'),
+    '应用简介：'+($('f_desc').value.trim()||'无'),
+    '作者/来源：'+($('f_dev').value.trim()||'无'),
+    '截图URL：'+($('f_shots').value.trim()||'无')
+  ];
+  const subject='投稿：'+name;
+  const body=encodeURIComponent(lines.join('\n'));
+  const href='mailto:450000318@qq.com?subject='+encodeURIComponent(subject)+'&body='+body;
+  window.location.href=href;
+}
+</script>
+</body>
+</html>
