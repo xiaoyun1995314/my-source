@@ -578,27 +578,52 @@ function renderCats(){
       <div class="app-btns">
         <button class="sm" onclick="catMove(${i},-1)">↑</button>
         <button class="sm" onclick="catMove(${i},1)">↓</button>
+        <button class="sm" style="background:#e25555;color:#fff" onclick="catPin(${i})">置顶</button>
         <button class="sm" onclick="catRename('${esc(name)}')">改名</button>
         <button class="sm del" onclick="catClear('${esc(name)}')">清空归未分类</button>
       </div>
     </div>`).join('');
 }
 
-// 分类文件夹排序：重排 categories 配置项
+// 分类文件夹排序：重排 categories 配置项；未入配置的先自动补入
 async function catMove(i,dir){
   const names=catNames();
   const name=names[i];
   ensureCategories();
-  // 找到该名在 categories 配置里的位置
-  const idx=jsonData.categories.findIndex(c=>(typeof c==='string'?c:c.name)===name);
-  if(idx<0){ showStatus('err','❌ 该分类未在配置里，请先在列表里新增/保存后再排序','listStatus'); return; }
+  // 找到该名在 categories 配置里的位置；没有则自动补入
+  let idx=jsonData.categories.findIndex(c=>(typeof c==='string'?c:c.name)===name);
+  if(idx<0){
+    jsonData.categories.push({name,icon:catIcon(name)});
+    idx=jsonData.categories.length-1;
+  }
   const j=idx+dir;
   if(j<0||j>=jsonData.categories.length) return;
   [jsonData.categories[idx],jsonData.categories[j]]=[jsonData.categories[j],jsonData.categories[idx]];
   try{
     showStatus('ok','正在保存排序 ...','listStatus');
-    await commitFile(`分类排序：${names[i+dir]||''} / ${name}`);
+    await commitFile(`分类排序：${name}`);
     showStatus('ok','✅ 分类顺序已保存','listStatus');
+    await fetchFile(); renderCats(); renderList();
+  }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
+}
+
+// 文件夹置顶：提到 categories 最前；未入配置先自动补入
+async function catPin(i){
+  const names=catNames();
+  const name=names[i];
+  ensureCategories();
+  let idx=jsonData.categories.findIndex(c=>(typeof c==='string'?c:c.name)===name);
+  if(idx<0){
+    jsonData.categories.push({name,icon:catIcon(name)});
+    idx=jsonData.categories.length-1;
+  }
+  if(idx===0) return;
+  const [item]=jsonData.categories.splice(idx,1);
+  jsonData.categories.unshift(item);
+  try{
+    showStatus('ok','正在置顶 ...','listStatus');
+    await commitFile(`分类置顶：${name}`);
+    showStatus('ok','✅ 已置顶「'+name+'」','listStatus');
     await fetchFile(); renderCats(); renderList();
   }catch(e){ showStatus('err','❌ '+e.message,'listStatus'); }
 }
