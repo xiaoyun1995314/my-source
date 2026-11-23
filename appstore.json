@@ -379,6 +379,11 @@
       "type": "text",
       "icon": "ℹ️",
       "text": "↓↓复制下面软件源去添加↓↓"
+    },
+    {
+      "type": "text",
+      "icon": "ℹ️",
+      "text": "訫云软件源 https://xiaoyun1995314.github.io/my-source/appstore.json"
     }
   ]
 }
