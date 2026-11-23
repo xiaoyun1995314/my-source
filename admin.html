@@ -80,6 +80,7 @@
     </details>
     <button class="ghost" onclick="saveConfig()">保存连接配置</button>
     <button class="ghost" onclick="loadApps()">读取现有应用列表</button>
+    <div id="listStatus" class="status"></div>
   </div>
 
   <details class="card coll" id="appInfoBox">
@@ -134,7 +135,6 @@
     <input id="f_search" oninput="renderList()" placeholder="输入关键词过滤">
     <button class="ghost" onclick="exportBackup()">导出备份 appstore.json</button>
     <div id="appList" style="margin-top:10px"><p class="tip">点上方「读取现有应用列表」加载。</p></div>
-    <div id="listStatus" class="status"></div>
   </details>
 
   <details class="card coll">
@@ -193,7 +193,14 @@
       <div>
         <label>选项</label>
         <label style="display:block;margin-top:6px"><input type="checkbox" id="bn_copy" style="width:auto;transform:scale(1.2);margin-right:8px">点击文字复制链接 / 源地址</label>
-        <label style="display:block;margin-top:6px"><input type="checkbox" id="bn_scroll" style="width:auto;transform:scale(1.2);margin-right:8px">文字横向滚动（跑马灯）</label>
+        <label style="display:block;margin-top:6px"><input type="checkbox" id="bn_scroll" style="width:auto;transform:scale(1.2);margin-right:8px" onchange="bnScrollToggle()">文字横向滚动（跑马灯）</label>
+        <label id="bnSpeedBox" style="display:block;margin-top:6px">滚动速度：
+          <select id="bn_speed" style="background:transparent;border:1px solid rgba(0,0,0,.25);border-radius:8px;padding:4px 8px;font-weight:600">
+            <option value="slow">慢（20s）</option>
+            <option value="normal" selected>中（12s）</option>
+            <option value="fast">快（7s）</option>
+          </select>
+        </label>
       </div>
       <div>
         <label>文字颜色（调色）</label>
@@ -656,6 +663,9 @@ function bnTypeChange(){
   const t=$('bn_type').value;
   document.getElementById('bnLinkBox').style.display=(t==='link')?'block':'none';
 }
+function bnScrollToggle(){
+  document.getElementById('bnSpeedBox').style.display=$('bn_scroll').checked?'block':'none';
+}
 function renderBannerAdmin(){
   const box=$('bnList');
   const rows=Array.isArray(jsonData&&jsonData.banner)?jsonData.banner:[];
@@ -669,7 +679,7 @@ function renderBannerAdmin(){
         ${iconImg}
         <div class="app-info">
           <b>${esc(r.text||'')}</b>
-          <span>${BN_TYPES[r.type]||r.type}${r.url?' · 链接已填':''}${r.copy?' · 可复制':''}${r.scroll?' · 滚动':''}${r.color?` · <span style="color:${esc(r.color)}">调色</span>`:''}</span>
+          <span>${BN_TYPES[r.type]||r.type}${r.url?' · 链接已填':''}${r.copy?' · 可复制':''}${r.scroll?' · 滚动'+(r.speed==='slow'?'慢':r.speed==='fast'?'快':'中'):''}${r.color?` · <span style="color:${esc(r.color)}">调色</span>`:''}</span>
         </div>
       </div>
       <div class="app-btns">
@@ -686,6 +696,7 @@ function bnReadForm(){
   const row={type:$('bn_type').value,icon:$('bn_icon').value.trim()||'ℹ️',text:$('bn_text').value.trim()};
   row.copy=$('bn_copy').checked;
   row.scroll=$('bn_scroll').checked;
+  row.speed=$('bn_speed').value;
   row.color=$('bn_color').value||'';
   if(row.type==='link'){
     row.url=$('bn_url').value.trim();
@@ -712,6 +723,8 @@ function bnEdit(i){
   $('bn_ext').checked=!!r.external;
   $('bn_copy').checked=!!r.copy;
   $('bn_scroll').checked=!!r.scroll;
+  $('bn_speed').value=r.speed||'normal';
+  bnScrollToggle();
   $('bn_color').value=r.color||'#1a56db';
   $('bn_text').focus();
 }
