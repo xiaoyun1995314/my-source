@@ -351,6 +351,21 @@
       "category": "Utilities",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "荐片影视",
+      "bundleID": "",
+      "version": "1.0",
+      "versionDate": "2026-11-23",
+      "size": 2936013,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/IMG_0944.png",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E8%8D%90%E7%89%87%E5%BD%B1%E8%A7%86.ipa",
+      "description": "✅看全网VIP电影",
+      "versionDescription": "✅看全网VIP电影",
+      "developerName": "",
+      "category": "Utilities",
+      "screenshots": [],
+      "permissions": []
     }
   ]
 }
