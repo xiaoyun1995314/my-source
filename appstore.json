@@ -398,7 +398,7 @@
   "categories": [
     {
       "name": "影视软件-工具",
-      "icon": "<img src="icons/ios.png">"
+      "icon": <img src="icons/ios.png">
     },
     {
       "name": "微信系列",
