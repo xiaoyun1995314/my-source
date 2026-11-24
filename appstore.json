@@ -378,6 +378,21 @@
       "category": "影视软件-工具",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "测试",
+      "bundleID": "",
+      "version": "1.0",
+      "versionDate": "2026-11-24",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "downloadURL": "https://xiaoyun1995314.github.io/my-source/index.html",
+      "description": "测试？？？？",
+      "versionDescription": "测试？？？？",
+      "developerName": "訫云科技",
+      "category": "网页入口",
+      "screenshots": [],
+      "permissions": []
     }
   ],
   "categories": [
