@@ -16,6 +16,9 @@
   .crumbs a{color:#2b5fd9;text-decoration:none}
   .card{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.5);border-radius:16px;padding:18px 16px;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
   .banner{border-radius:14px;padding:15px 16px;margin-bottom:14px;font-weight:800;font-size:17px;line-height:2;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .banner.has-img{display:flex;align-items:center;gap:14px}
+  .banner .bn-rows{flex:1;min-width:0}
+  .banner .bn-img{flex-shrink:0;width:96px;height:96px;border-radius:12px;object-fit:cover;background:#fff;padding:6px}
   .banner .row{display:block;margin:8px 0}
   .banner a{color:#1a56db;text-decoration:underline;word-break:break-all;font-weight:800}
   .banner .bncopy{cursor:pointer;color:#1a56db;text-decoration:underline;font-weight:800}
@@ -62,6 +65,8 @@
 
   <div class="banner card" id="bannerBox" style="background:rgba(180,230,200,.55)"></div>
 
+  <button id="copySrcBtn" onclick="copySourceUrl()" style="display:block;width:100%;padding:15px;border:0;border-radius:14px;background:#2f8f5b;color:#fff;font-size:17px;font-weight:800;cursor:pointer;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.12)">📋 复制软件源地址（粘到签名工具添加）</button>
+
   <div class="zone-tabs">
     <button class="zone-tab sel" id="tabApple" onclick="switchZone('apple')"><img class="zone-icon" src="icons/ios.png" alt="iOS">苹果区</button>
     <button class="zone-tab" id="tabAndroid" onclick="switchZone('android')"><img class="zone-icon" src="icons/android.png" alt="Android">安卓专区</button>
@@ -74,11 +79,6 @@
   </div>
 
   <a class="btn btn-submit" href="submit.html">📮 应用投稿</a>
-
-  <div class="card qrcard" id="qrCard">
-    <div class="qr-title">💬 联系 / 扫码添加</div>
-    <img class="qr-img" src="icons/wechat.png" alt="微信二维码">
-  </div>
 
   <div class="notebox">
     <img src="icons/ios.png" alt="iOS" style="width:22px;height:22px;vertical-align:-5px;margin-right:6px">使用说明：<br>
@@ -236,7 +236,9 @@ function bannerCopyText(r){
 function renderBanner(){
   const box=document.getElementById('bannerBox');
   const rows=Array.isArray(data&&data.banner)?data.banner:[];
-  box.innerHTML=rows.map(r=>{
+  const bImg='icons/wechat.png';
+  const imgHtml=`<img class="bn-img" src="${bImg}" alt="微信二维码" onerror="this.style.display='none'">`;
+  const rowsHtml=rows.map(r=>{
     // 图标：http 开头当图片直链，否则当 emoji
     const icon=(r.icon||'').trim();
     const iconHtml=/^https?:\/\//.test(icon)
@@ -275,6 +277,10 @@ function renderBanner(){
     const plainStyle=r.color?` style="color:${esc(r.color)}"`:'';
     return wrapBanner(iconHtml,`<span${plainStyle}>${esc(text)}</span>`,r);
   }).join('');
+  box.innerHTML=imgHtml
+    ? `<div class="bn-rows">${rowsHtml}</div>${imgHtml}`
+    : rowsHtml;
+  box.classList.toggle('has-img',!!imgHtml);
   // 委托处理复制：点带 data-copy 的元素复制
   box.querySelectorAll('[data-copy]').forEach(el=>{
     el.addEventListener('click',ev=>{
@@ -304,6 +310,13 @@ function fallbackCopy(str,cb){
   const ta=document.createElement('textarea');ta.value=str;document.body.appendChild(ta);ta.select();
   try{document.execCommand('copy');cb();}catch(e){toast('复制失败');}
   document.body.removeChild(ta);
+}
+// 复制完整软件源地址（appstore.json）
+function copySourceUrl(){
+  const done=()=>toast('✅ 已复制源地址，粘到签名工具添加');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(SRC_URL).then(done).catch(()=>fallbackCopy(SRC_URL,done));
+  }else{fallbackCopy(SRC_URL,done);}
 }
 
 // 公告弹窗
