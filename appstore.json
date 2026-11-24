@@ -398,15 +398,15 @@
   "categories": [
     {
       "name": "影视软件-工具",
-      "icon": "📁"
-    },
-    {
-      "name": "微信系列",
       "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
     },
     {
+      "name": "微信系列",
+      "icon": "❇️"
+    },
+    {
       "name": "网页入口",
-      "icon": "🌐"
+      "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
     }
   ],
   "banner": [
