@@ -41,6 +41,14 @@
       "iconURL": "https://github.com/xiaoyun1995314/my-source/blob/main/icons/sjai.png?raw=true",
       "downloadURL": "https://bpz2.app/download",
       "description": "搜索电影工具、在线观看、速度挺快的"
+    },
+    {
+      "name": "第一mao片",
+      "version": "1.2",
+      "size": 0,
+      "iconURL": "https://xiaoyun1995314.github.io/my-source/icons/DYMP.jpg",
+      "downloadURL": "https://yatykc.zq2ndply.work/android/dymp_2.2.1/dymp_2.2.1_1795502998754.apk",
+      "description": "18岁以下禁止下载"
     }
   ]
 }
