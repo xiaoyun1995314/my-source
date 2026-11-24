@@ -7,6 +7,21 @@
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
+      "name": "訫云安卓专区",
+      "bundleID": "",
+      "version": "应用来自网络",
+      "versionDate": "2026-11-24",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E8%A8%AB%E4%BA%91.png",
+      "downloadURL": "https://xiaoyun1995314.github.io/my-source/android.json",
+      "description": "❇️有18岁以下禁止下载内容",
+      "versionDescription": "❇️有18岁以下禁止下载内容",
+      "developerName": "訫云科技",
+      "category": "网页入口",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
       "name": "訫云软件源-主更常用",
       "bundleID": "",
       "version": "訫云资源共享",
@@ -376,21 +391,6 @@
       "versionDescription": "✅看全网VIP电影",
       "developerName": "",
       "category": "影视软件-工具",
-      "screenshots": [],
-      "permissions": []
-    },
-    {
-      "name": "訫云安卓专区",
-      "bundleID": "",
-      "version": "应用来自网络",
-      "versionDate": "2026-11-24",
-      "size": 0,
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E8%A8%AB%E4%BA%91.png",
-      "downloadURL": "https://xiaoyun1995314.github.io/my-source/android.json",
-      "description": "❇️有18岁以下禁止下载内容",
-      "versionDescription": "❇️有18岁以下禁止下载内容",
-      "developerName": "訫云科技",
-      "category": "网页入口",
       "screenshots": [],
       "permissions": []
     }
