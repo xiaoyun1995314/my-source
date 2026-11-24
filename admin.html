@@ -183,7 +183,7 @@
       <option value="text">纯说明文字</option>
     </select>
     <div class="row">
-      <div><label>图标（图片直链，留空用默认）</label><input id="bn_icon" placeholder="https://.../图标.png"></div>
+      <div><label>图标（emoji 或图片直链，留空不显示）</label><input id="bn_icon" placeholder="留空则无图标"></div>
       <div><label>文字 *</label><input id="bn_text" placeholder="如：点击此处添加全能签软件源"></div>
     </div>
     <div id="bnLinkBox">
@@ -792,7 +792,7 @@ function renderBannerAdmin(){
 }
 let bnEditIndex=-1;
 function bnReadForm(){
-  const row={type:$('bn_type').value,icon:$('bn_icon').value.trim()||'ℹ️',text:$('bn_text').value.trim()};
+  const row={type:$('bn_type').value,icon:$('bn_icon').value.trim(),text:$('bn_text').value.trim()};
   row.copy=$('bn_copy').checked;
   row.scroll=$('bn_scroll').checked;
   row.speed=$('bn_speed').value;
@@ -816,7 +816,7 @@ function bnEdit(i){
   bnEditIndex=i;
   const r=jsonData.banner[i];
   $('bn_type').value=r.type; bnTypeChange();
-  $('bn_icon').value=r.icon||'ℹ️';
+  $('bn_icon').value=r.icon||'';
   $('bn_text').value=r.text||'';
   $('bn_url').value=r.url||'';
   $('bn_ext').checked=!!r.external;

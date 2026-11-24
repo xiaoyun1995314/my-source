@@ -253,9 +253,11 @@ function renderBanner(){
   const rowsHtml=rows.map(r=>{
     // 图标：http 开头当图片直链，否则当 emoji
     const icon=(r.icon||'').trim();
-    const iconHtml=/^https?:\/\//.test(icon)
-      ? `<img src="${esc(icon)}" style="width:20px;height:20px;vertical-align:-4px;margin-right:6px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'">`
-      : (icon||'ℹ️')+' ';
+    const iconHtml=icon
+      ? (/^https?:\/\//.test(icon)
+        ? `<img src="${esc(icon)}" style="width:20px;height:20px;vertical-align:-4px;margin-right:6px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'">`
+        : icon+' ')
+      : '';
     const text=r.text||'';
     const color=r.color||'#1a56db';
     const style=`color:${esc(color)}`;
