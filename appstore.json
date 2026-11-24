@@ -429,15 +429,13 @@
       "color": "#9a00a0"
     },
     {
-      "type": "link",
+      "type": "source-esign",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
-      "text": "点击这里复制软件源",
+      "text": "点击这里添加轻松",
       "copy": true,
       "scroll": false,
       "speed": "normal",
-      "color": "#83008d",
-      "url": "https://xiaoyun1995314.github.io/my-source/appstore.json",
-      "external": false
+      "color": "#83008d"
     }
   ],
   "popup": {
