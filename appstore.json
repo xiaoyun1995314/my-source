@@ -405,6 +405,15 @@
       "color": "#7300a1"
     },
     {
+      "type": "source-lc",
+      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "text": "点击这里添加LCSign",
+      "copy": false,
+      "scroll": false,
+      "speed": "normal",
+      "color": "#9a00a0"
+    },
+    {
       "type": "link",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
       "text": "点击这里复制软件源",
@@ -414,15 +423,6 @@
       "color": "#83008d",
       "url": "https://xiaoyun1995314.github.io/my-source/appstore.json",
       "external": false
-    },
-    {
-      "type": "source-lc",
-      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
-      "text": "点击这里添加LCSign",
-      "copy": false,
-      "scroll": false,
-      "speed": "normal",
-      "color": "#9a00a0"
     }
   ],
   "popup": {
