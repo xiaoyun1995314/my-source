@@ -445,6 +445,15 @@
       "scroll": false,
       "speed": "normal",
       "color": "#83008d"
+    },
+    {
+      "type": "source-qnq",
+      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "text": "点击这里添加全能签",
+      "copy": false,
+      "scroll": false,
+      "speed": "normal",
+      "color": "#6f00c9"
     }
   ],
   "popup": {
