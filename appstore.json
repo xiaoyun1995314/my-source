@@ -435,7 +435,7 @@
       "copy": true,
       "scroll": false,
       "speed": "normal",
-      "color": "#1a56db"
+      "color": "#000000"
     },
     {
       "type": "source-wnq",
