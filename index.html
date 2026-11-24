@@ -261,11 +261,10 @@ function renderBanner(){
         : icon+' ')
       : '';
     const text=r.text||'';
-    // 有固定颜色用固定色；没设色则彩虹自动变色
+    // 有固定颜色用固定色；没设色（重置后）则彩虹自动变色
     const hasColor=!!(r.color||'').trim();
     const style=hasColor?`color:${esc(r.color)}`:'';
-    const cls=hasColor?'':'rainbow';
-    const cAttr=hasColor?`style="${style}"`:`class="${cls}"`;
+    const cAttr=hasColor?`style="${style}"`:'class="rainbow"';
     const copyVal=bannerCopyText(r);
     // 复制开关：点文字复制链接/源地址（源类型仍触发添加源，松手同时复制）
     if(r.copy){
@@ -274,7 +273,7 @@ function renderBanner(){
         const tk=r.type==='source-qnq'?'qnq':r.type==='source-lc'?'lc':r.type==='source-wnq'?'wnq':'esign';
         inner=`<a href="javascript:addSource('${tk}')" ${cAttr} data-copy="${esc(copyVal)}">${esc(text)}</a>`;
       }else{
-        inner=`<span class="bncopy ${cls}" ${hasColor?`style="${style}"`:''} data-copy="${esc(copyVal)}">${esc(text)}</span>`;
+        inner=`<span class="bncopy ${hasColor?'':'rainbow'}" ${hasColor?`style="${style}"`:''} data-copy="${esc(copyVal)}">${esc(text)}</span>`;
       }
       return wrapBanner(iconHtml,inner,r);
     }
@@ -293,8 +292,7 @@ function renderBanner(){
     if(r.type==='link'&&r.url){
       return wrapBanner(iconHtml,`<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}" ${cAttr}>${esc(text)}</a>`,r);
     }
-    const plainAttr=hasColor?`style="color:${esc(r.color)}"`:('class="rainbow"');
-    return wrapBanner(iconHtml,`<span ${plainAttr}>${esc(text)}</span>`,r);
+    return wrapBanner(iconHtml,`<span ${cAttr}>${esc(text)}</span>`,r);
   }).join('');
   box.innerHTML=imgHtml
     ? `<div class="bn-rows">${rowsHtml}</div>${imgHtml}`
