@@ -262,7 +262,8 @@ function renderBanner(){
       : '';
     const text=r.text||'';
     // 有固定颜色用固定色；没设色（重置后）则彩虹自动变色
-    const hasColor=!!(r.color||'').trim();
+    const rawColor=(r.color||'').trim();
+    const hasColor=!!rawColor && rawColor.toLowerCase()!=='#000000';
     const style=hasColor?`color:${esc(r.color)}`:'';
     const cAttr=hasColor?`style="${style}"`:'class="rainbow"';
     const copyVal=bannerCopyText(r);

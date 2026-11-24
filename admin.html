@@ -796,7 +796,10 @@ function bnReadForm(){
   row.copy=$('bn_copy').checked;
   row.scroll=$('bn_scroll').checked;
   row.speed=$('bn_speed').value;
-  row.color=$('bn_color').value||'';
+  let c=$('bn_color').value||'';
+  // 颜色选择器清空会回退成 #000000，视为未设色（彩虹）
+  if(!c||c.toLowerCase()==='#000000') c='';
+  row.color=c;
   if(row.type==='link'){
     row.url=$('bn_url').value.trim();
     row.external=$('bn_ext').checked;
@@ -824,7 +827,7 @@ function bnEdit(i){
   $('bn_scroll').checked=!!r.scroll;
   $('bn_speed').value=r.speed||'normal';
   bnScrollToggle();
-  $('bn_color').value=r.color||'#1a56db';
+  $('bn_color').value=(!r.color||r.color.toLowerCase()==='#000000')?'#1a56db':r.color;
   $('bn_text').focus();
 }
 // 保存编辑：替换当前正在编辑的那一行
