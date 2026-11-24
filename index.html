@@ -15,7 +15,7 @@
   .crumbs{font-size:16px;font-weight:800;margin:4px 0 14px;text-shadow:0 0 6px rgba(255,255,255,.8)}
   .crumbs a{color:#2b5fd9;text-decoration:none}
   .card{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.5);border-radius:16px;padding:18px 16px;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
-  .banner{border-radius:14px;padding:15px 16px;margin-bottom:14px;font-weight:800;font-size:17px;line-height:2;text-shadow:0 0 6px rgba(255,255,255,.8)}
+  .banner{border-radius:16px;padding:15px 16px;margin-bottom:14px;font-weight:800;font-size:17px;line-height:2;text-shadow:0 0 6px rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:0 8px 26px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.7)}
   .banner.has-img{display:flex;align-items:center;gap:14px}
   .banner .bn-rows{flex:1;min-width:0}
   .banner .bn-img{flex-shrink:0;width:128px;height:128px;border-radius:12px;object-fit:cover;background:#fff;padding:6px}
@@ -51,9 +51,12 @@
   .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:10px;font-size:15px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
   .toast.show{opacity:1}
   .zone-tabs{display:flex;gap:10px;margin:4px 0 14px}
-  .zone-tab{flex:1;padding:15px;border:0;border-radius:12px;font-size:18px;font-weight:800;cursor:pointer;background:rgba(255,255,255,.45);color:#000}
-  .zone-tab.sel{background:#4d7cfe;color:#fff}
+  .zone-tab{flex:1;padding:15px;border:1px solid rgba(255,255,255,.6);border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;color:#1a1a1a;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.25));backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:0 4px 16px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.8);transition:all .2s}
+  .zone-tab.sel{color:#fff;background:linear-gradient(135deg,rgba(109,158,255,.92),rgba(77,124,254,.92));border-color:rgba(255,255,255,.5);box-shadow:0 8px 22px rgba(77,124,254,.45),inset 0 1px 0 rgba(255,255,255,.4)}
+  .zone-tab:active{transform:scale(.97);opacity:.92}
   .zone-icon{width:24px;height:24px;vertical-align:-6px;margin-right:8px;border-radius:5px;object-fit:cover}
+  .glass-copy{backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);transition:all .2s}
+  .glass-copy:active{transform:scale(.98);opacity:.94}
   .qrcard{text-align:center;padding:18px 16px}
   .qr-title{font-size:17px;font-weight:800;margin-bottom:12px;text-shadow:0 0 6px rgba(255,255,255,.8)}
   .qr-img{width:200px;max-width:70%;border-radius:14px;object-fit:cover;background:#fff;padding:8px}
@@ -65,9 +68,9 @@
   <h1>訫云软件源</h1>
   <div class="sub">资源分类 · 点文件夹浏览，点下载获取</div>
 
-  <div class="banner card" id="bannerBox" style="background:rgba(180,230,200,.55)"></div>
+  <div class="banner card" id="bannerBox" style="background:linear-gradient(135deg,rgba(190,235,205,.5),rgba(215,240,225,.3))"></div>
 
-  <button id="copySrcBtn" onclick="copySourceUrl()" style="display:block;width:100%;padding:15px;border:0;border-radius:14px;background:#2f8f5b;color:#fff;font-size:17px;font-weight:800;cursor:pointer;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.12)">📋 复制软件源地址（粘到签名工具添加）</button>
+  <button id="copySrcBtn" onclick="copySourceUrl()" class="glass-copy" style="display:block;width:100%;padding:15px;border:1.5px solid rgba(47,143,91,.7);border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(255,255,255,.15));color:#1f7a4d;font-size:17px;font-weight:800;cursor:pointer;margin-bottom:14px;box-shadow:0 6px 18px rgba(47,143,91,.18),inset 0 1px 0 rgba(255,255,255,.8)">🔗 复制软件源地址（粘到签名工具添加）</button>
 
   <div class="zone-tabs">
     <button class="zone-tab sel" id="tabApple" onclick="switchZone('apple')"><img class="zone-icon" src="icons/ios.png" alt="iOS">苹果区</button>
