@@ -176,6 +176,7 @@
     <label>行类型</label>
     <select id="bn_type" onchange="bnTypeChange()" style="width:100%;background:transparent;border:1px solid rgba(0,0,0,.25);border-radius:10px;padding:11px 12px;font-size:15.5px;font-weight:600;color:#000;font-family:inherit">
       <option value="source-qnq">添加全能签软件源</option>
+      <option value="source-lc">添加 LCSign 软件源</option>
       <option value="source-esign">添加轻松签软件源</option>
       <option value="link">普通链接</option>
       <option value="text">纯说明文字</option>
@@ -712,6 +713,7 @@ async function savePopup(){
 // ========== ⑥ 主页横幅管理 ==========
 const BN_TYPES={
   'source-qnq':'添加全能签软件源',
+  'source-lc':'添加 LCSign 软件源',
   'source-esign':'添加轻松签软件源',
   'link':'普通链接',
   'text':'纯说明文字'

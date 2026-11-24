@@ -249,8 +249,9 @@ function renderBanner(){
     // 复制开关：点文字复制链接/源地址（源类型仍触发添加源，松手同时复制）
     if(r.copy){
       let inner;
-      if(r.type==='source-qnq'||r.type==='source-esign'){
-        inner=`<a href="javascript:addSource('${r.type==='source-qnq'?'qnq':'esign'}')" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</a>`;
+      if(r.type==='source-qnq'||r.type==='source-esign'||r.type==='source-lc'){
+        const tk=r.type==='source-qnq'?'qnq':r.type==='source-lc'?'lc':'esign';
+        inner=`<a href="javascript:addSource('${tk}')" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</a>`;
       }else{
         inner=`<span class="bncopy" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</span>`;
       }
@@ -261,6 +262,9 @@ function renderBanner(){
     }
     if(r.type==='source-esign'){
       return wrapBanner(iconHtml,`<a href="javascript:addSource('esign')" style="${style}">${esc(text)}</a>`,r);
+    }
+    if(r.type==='source-lc'){
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('lc')" style="${style}">${esc(text)}</a>`,r);
     }
     if(r.type==='link'&&r.url){
       return wrapBanner(iconHtml,`<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}" style="${style}">${esc(text)}</a>`,r);
@@ -281,7 +285,8 @@ function renderBanner(){
 // 跑马灯滚动包裹
 function wrapBanner(iconHtml,inner,r){
   if(r.scroll){
-    return `<div class="row marquee">${iconHtml}<span>${inner}</span></div>`;
+    const dur=r.speed==='slow'?'20s':r.speed==='fast'?'7s':'12s';
+    return `<div class="row marquee">${iconHtml}<span style="animation-duration:${dur}">${inner}</span></div>`;
   }
   return `<div class="row">${iconHtml}${inner}</div>`;
 }
@@ -330,6 +335,7 @@ function showPopup(){
 function addSource(tool){
   const enc=encodeURIComponent(SRC_URL);
   if(tool==='qnq') location.href='nsk-sign://addsource?url='+enc;
+  else if(tool==='lc') location.href='loadcontroller://addsource?url='+enc;
   else location.href='esign://addsource?url='+enc;
   setTimeout(()=>{if(!document.hidden){navigator.clipboard&&navigator.clipboard.writeText(SRC_URL);toast('已复制源地址，请在签名工具内粘贴添加');}},2500);
 }
