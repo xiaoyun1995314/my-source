@@ -25,6 +25,8 @@
   .marquee{overflow:hidden;white-space:nowrap}
   .marquee span{display:inline-block;padding-left:100%;animation:mqm 12s linear infinite}
   @keyframes mqm{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+  .rainbow{background:linear-gradient(90deg,#ff5e5e,#ffb84d,#ffe14d,#5ee08a,#4db8ff,#a87bff,#ff5e5e);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rb 6s linear infinite}
+  @keyframes rb{from{background-position:0% 0}to{background-position:300% 0}}
   .notebox{background:rgba(255,255,255,.35);color:#1a1a1a;border:1px solid rgba(255,255,255,.55);border-radius:14px;padding:16px;font-size:16px;line-height:1.9;font-weight:700;backdrop-filter:blur(10px);box-shadow:0 1px 8px rgba(0,0,0,.06)}
   .folder{display:flex;align-items:center;gap:14px;padding:16px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
   .folder:last-child{border-bottom:0}
@@ -259,37 +261,40 @@ function renderBanner(){
         : icon+' ')
       : '';
     const text=r.text||'';
-    const color=r.color||'#1a56db';
-    const style=`color:${esc(color)}`;
+    // 有固定颜色用固定色；没设色则彩虹自动变色
+    const hasColor=!!(r.color||'').trim();
+    const style=hasColor?`color:${esc(r.color)}`:'';
+    const cls=hasColor?'':'rainbow';
+    const cAttr=hasColor?`style="${style}"`:`class="${cls}"`;
     const copyVal=bannerCopyText(r);
     // 复制开关：点文字复制链接/源地址（源类型仍触发添加源，松手同时复制）
     if(r.copy){
       let inner;
       if(r.type==='source-qnq'||r.type==='source-esign'||r.type==='source-lc'||r.type==='source-wnq'){
         const tk=r.type==='source-qnq'?'qnq':r.type==='source-lc'?'lc':r.type==='source-wnq'?'wnq':'esign';
-        inner=`<a href="javascript:addSource('${tk}')" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</a>`;
+        inner=`<a href="javascript:addSource('${tk}')" ${cAttr} data-copy="${esc(copyVal)}">${esc(text)}</a>`;
       }else{
-        inner=`<span class="bncopy" style="${style}" data-copy="${esc(copyVal)}">${esc(text)}</span>`;
+        inner=`<span class="bncopy ${cls}" ${hasColor?`style="${style}"`:''} data-copy="${esc(copyVal)}">${esc(text)}</span>`;
       }
       return wrapBanner(iconHtml,inner,r);
     }
     if(r.type==='source-qnq'){
-      return wrapBanner(iconHtml,`<a href="javascript:addSource('qnq')" style="${style}">${esc(text)}</a>`,r);
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('qnq')" ${cAttr}>${esc(text)}</a>`,r);
     }
     if(r.type==='source-esign'){
-      return wrapBanner(iconHtml,`<a href="javascript:addSource('esign')" style="${style}">${esc(text)}</a>`,r);
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('esign')" ${cAttr}>${esc(text)}</a>`,r);
     }
     if(r.type==='source-lc'){
-      return wrapBanner(iconHtml,`<a href="javascript:addSource('lc')" style="${style}">${esc(text)}</a>`,r);
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('lc')" ${cAttr}>${esc(text)}</a>`,r);
     }
     if(r.type==='source-wnq'){
-      return wrapBanner(iconHtml,`<a href="javascript:addSource('wnq')" style="${style}">${esc(text)}</a>`,r);
+      return wrapBanner(iconHtml,`<a href="javascript:addSource('wnq')" ${cAttr}>${esc(text)}</a>`,r);
     }
     if(r.type==='link'&&r.url){
-      return wrapBanner(iconHtml,`<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}" style="${style}">${esc(text)}</a>`,r);
+      return wrapBanner(iconHtml,`<a href="${esc(r.url)}" target="${r.external?'_blank':'_self'}" ${cAttr}>${esc(text)}</a>`,r);
     }
-    const plainStyle=r.color?` style="color:${esc(r.color)}"`:'';
-    return wrapBanner(iconHtml,`<span${plainStyle}>${esc(text)}</span>`,r);
+    const plainAttr=hasColor?`style="color:${esc(r.color)}"`:('class="rainbow"');
+    return wrapBanner(iconHtml,`<span ${plainAttr}>${esc(text)}</span>`,r);
   }).join('');
   box.innerHTML=imgHtml
     ? `<div class="bn-rows">${rowsHtml}</div>${imgHtml}`
