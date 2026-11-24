@@ -1,5 +1,14 @@
 {
   "name": "訫云安卓专区",
   "subtitle": "安卓应用下载区（独立于苹果软件源）",
-  "apps": []
+  "apps": [
+    {
+      "name": "怪兽聚合",
+      "version": "更新跟随作者",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "downloadURL": "https://gsuu.cc",
+      "description": "❇️能播放全网大部分电影\n❇️两个人-多人武打视频"
+    }
+  ]
 }
