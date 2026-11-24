@@ -28,7 +28,8 @@
   .notebox{background:rgba(255,255,255,.35);color:#1a1a1a;border:1px solid rgba(255,255,255,.55);border-radius:14px;padding:16px;font-size:16px;line-height:1.9;font-weight:700;backdrop-filter:blur(10px);box-shadow:0 1px 8px rgba(0,0,0,.06)}
   .folder{display:flex;align-items:center;gap:14px;padding:16px 6px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
   .folder:last-child{border-bottom:0}
-  .folder .ficon{font-size:32px;flex-shrink:0}
+  .folder .ficon{font-size:32px;flex-shrink:0;display:flex;align-items:center}
+  .folder .ficon img{width:36px;height:36px;border-radius:8px;object-fit:cover}
   .folder .fname{flex:1;min-width:0;font-size:19px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .folder .fcount{font-size:15px;font-weight:700;color:#333}
   .folder .arrow{font-size:20px;color:#555}
@@ -82,16 +83,13 @@
   <a class="btn btn-submit" href="submit.html"><span style="margin-right:8px">✉️</span>应用投稿</a>
 
   <div class="notebox">
-    <img src="icons/ios.png" alt="iOS" style="width:22px;height:12px;vertical-align:-5px;margin-right:6px">使用说明：<br>①.找到需要的资源后，点右侧「下载」按钮，不要直接点文件名。<br>
-    ②.下载 IPA 后导入自签工具（全能签 / 轻松签）签名再安装。<br>
-    ③.应用均为网络搜集/搬运，非应用开发者如有侵权联系我核实删除<br>
-    ④.非商业网站、请勿使用本源安装、分发微信相关应用及文件账号封禁与本软件站无关<br>
-    ⑤.遇下载慢、安装异常、资源失效等问题恕不单独答疑，请等待后续更新<br>
-    ⑥.自用站-源  仅供个人使用-请勿传播转发，谢谢<br>
+    <img src="icons/ios.png" alt="iOS" style="width:22px;height:22px;vertical-align:-5px;margin-right:6px">使用说明：<br>
+    1. 找到需要的资源后，点右侧「下载」按钮，不要直接点文件名。<br>
+    2. 下载 IPA 后导入自签工具（全能签 / 轻松签）签名再安装。<br>
+    3. 本站仅收录正版或已获授权的资源，请勿用于分发与商用。
   </div>
 
-  <div class="foot">邮箱：450000318.@qq.com<br>
-    訫云软件源 · 仅供个人技术学习使用</div>
+  <div class="foot">訫云软件源 · 仅供个人技术学习使用</div>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -203,9 +201,16 @@ function render(){
       if(!seen.has(name)){seen.add(name);folders.push({name,icon:'📁',cnt:appsIn(name).length});}
     });
     if(!folders.length){box.innerHTML='<div class="empty">暂无资源，请到后台添加。</div>';return;}
+    const ficonHtml=ic=>{
+      const v=(ic||'').trim();
+      if(/^https?:\/\//.test(v)){
+        return `<img src="${esc(v)}" onerror="this.style.display='none'">`;
+      }
+      return esc(v||'📁');
+    };
     box.innerHTML=folders.map(f=>`
       <div class="folder" onclick="openCat('${esc(f.name)}')">
-        <span class="ficon">${f.icon}</span>
+        <span class="ficon">${ficonHtml(f.icon)}</span>
         <div style="flex:1;min-width:0">
           <div class="fname">${esc(f.name)}</div>
           <div class="fcount">${f.cnt} 项</div>
