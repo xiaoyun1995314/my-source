@@ -424,7 +424,7 @@
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
       "text": "点击这里添加LCSign",
       "copy": false,
-      "scroll": true,
+      "scroll": false,
       "speed": "normal",
       "color": "#1a56db"
     },
