@@ -411,13 +411,13 @@
   ],
   "banner": [
     {
-      "type": "source-qnq",
+      "type": "text",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
       "text": "点击这里添加全能签",
       "copy": false,
-      "scroll": false,
-      "speed": "normal",
-      "color": "#7300a1"
+      "scroll": true,
+      "speed": "slow",
+      "color": "#fe0047"
     },
     {
       "type": "source-lc",
@@ -432,6 +432,15 @@
       "type": "source-esign",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
       "text": "点击这里添加轻松签",
+      "copy": true,
+      "scroll": false,
+      "speed": "normal",
+      "color": "#83008d"
+    },
+    {
+      "type": "source-wnq",
+      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
+      "text": "点击这里添加轻松",
       "copy": true,
       "scroll": false,
       "speed": "normal",
