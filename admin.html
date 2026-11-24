@@ -553,6 +553,37 @@ function catIcon(name){
   const c=jsonData.categories.find(x=>(typeof x==='string'?x:x.name)===name);
   return typeof c==='object'?(c.icon||'📁'):'📁';
 }
+// 图标渲染：http 开头当图片直链，否则当 emoji
+function catIconHtml(name){
+  const v=(catIcon(name)||'').trim();
+  if(/^https?:\/\//.test(v)){
+    return `<img src="${esc(v)}" style="width:30px;height:30px;border-radius:6px;object-fit:cover" onerror="this.style.display='none'">`;
+  }
+  return esc(v||'📁');
+}
+// 编辑分类图标（emoji 或图片直链）
+async function catIconEdit(name){
+  const cur=catIcon(name);
+  const nn=prompt(`修改「${name}」的图标：填一个表情（如 📁🎬），或填图片 http 直链。留空恢复默认 📁`,cur);
+  if(nn===null)return;
+  const v=nn.trim();
+  try{
+    showStatus('ok','正在保存图标 ...','listStatus');
+    if(!jsonData) await fetchFile();
+    ensureCategories();
+    let idx=jsonData.categories.findIndex(x=>(typeof x==='string'?x:x.name)===name);
+    if(idx<0){
+      jsonData.categories.push({name,icon:v||'📁'});
+    }else if(typeof jsonData.categories[idx]==='string'){
+      jsonData.categories[idx]={name,icon:v||'📁'};
+    }else{
+      jsonData.categories[idx].icon=v||'📁';
+    }
+    await commitFile(`修改分类图标：${name}`);
+    showStatus('ok','✅ 图标已保存','listStatus');
+    await fetchFile(); renderCats(); renderList();
+  }catch(e){showStatus('err','❌ '+e.message,'listStatus');}
+}
 function countInCat(name){
   return jsonData.apps.filter(a=>(a.category||'未分类').trim()===name.trim()).length;
 }
@@ -575,7 +606,7 @@ function renderCats(){
   box.innerHTML=names.map((name,i)=>`
     <div class="app-item">
       <div class="app-top">
-        <div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:22px">${esc(catIcon(name))}</div>
+        <div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:22px">${catIconHtml(name)}</div>
         <div class="app-info">
           <b>${esc(name)}</b>
           <span>${countInCat(name)} 个文件</span>
@@ -585,6 +616,7 @@ function renderCats(){
         <button class="sm" onclick="catMove(${i},-1)">↑</button>
         <button class="sm" onclick="catMove(${i},1)">↓</button>
         <button class="sm" style="background:#e25555;color:#fff" onclick="catPin(${i})">置顶</button>
+        <button class="sm" onclick="catIconEdit('${esc(name)}')">图标</button>
         <button class="sm" onclick="catRename('${esc(name)}')">改名</button>
         <button class="sm del" onclick="catClear('${esc(name)}')">清空归未分类</button>
       </div>
@@ -645,8 +677,14 @@ async function catRename(oldName){
     if(!jsonData) await fetchFile();
     ensureCategories();
     jsonData.apps.forEach(a=>{if((a.category||'未分类')===oldName)a.category=name;});
-    // 同步 categories 配置里的名字
-    jsonData.categories.forEach(c=>{if((typeof c==='string'?c:c.name)===oldName){if(typeof c==='string')c=name;else c.name=name;}});
+    // 同步 categories 配置里的名字（保留图标）
+    jsonData.categories=jsonData.categories.map(c=>{
+      if((typeof c==='string'?c:c.name)===oldName){
+        if(typeof c==='string') return name;
+        return {...c,name};
+      }
+      return c;
+    });
     await commitFile(`分类改名：${oldName} → ${name}`);
     showStatus('ok','✅ 已改名','listStatus');
     await fetchFile(); renderCats(); renderList();
