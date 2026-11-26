@@ -395,7 +395,7 @@
       "permissions": []
     },
     {
-      "name": "訫云助手-降级",
+      "name": "訫云助手-APP降级-砸壳",
       "bundleID": "com.xinyun.app",
       "version": "2.8.1",
       "versionDate": "2026-11-26",
@@ -404,6 +404,21 @@
       "downloadURL": "https://github.com/xiaoyun1995314/APP/releases/download/v2.8.1/xinyun-v2.8.1.ipa",
       "description": "✅证书可用ipa下载-降级\n✅APP砸壳-解密-安装",
       "versionDescription": "✅证书可用ipa下载-降级\n✅APP砸壳-解密-安装",
+      "developerName": "訫云科技",
+      "category": "訫云助手-工具",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
+      "name": "訫云助手-更新",
+      "bundleID": "",
+      "version": "訫云资源",
+      "versionDate": "2026-11-26",
+      "size": 0,
+      "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/ios.png",
+      "downloadURL": "nsk-sign://web?url= https://github.com/xiaoyun1995314/APP/releases/tag/v2.8.1",
+      "description": "✅ 訫云助手-更新发布地址\n✅APP需要更新换代、有好的想法\n✅比如功能什么的，可以投稿\n✅尽量优化-改善.欢迎投稿",
+      "versionDescription": "✅ 訫云助手-更新发布地址\n✅APP需要更新换代、有好的想法\n✅比如功能什么的，可以投稿\n✅尽量优化-改善.欢迎投稿",
       "developerName": "訫云科技",
       "category": "訫云助手-工具",
       "screenshots": [],
