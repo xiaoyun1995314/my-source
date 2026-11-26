@@ -423,6 +423,21 @@
       "category": "訫云助手-工具",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "红果漫剧-7.4.7",
+      "bundleID": "com.kylin.readnew",
+      "version": "7.4.7",
+      "versionDate": "2026-11-26",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/hgmj.png",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/%E7%BA%A2%E6%9E%9C%E6%BC%AB%E5%89%A7_7.4.7_20261127_014951.ipa",
+      "description": "✅注入红果净化\n✅可以去广告-开启VIP\\等等\n✅功能-我的-设置-红果净化",
+      "versionDescription": "✅注入红果净化\n✅可以去广告-开启VIP\\等等\n✅功能-我的-设置-红果净化",
+      "developerName": "訫云科技",
+      "category": "影视软件-工具",
+      "screenshots": [],
+      "permissions": []
     }
   ],
   "categories": [
