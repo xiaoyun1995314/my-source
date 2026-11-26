@@ -407,6 +407,10 @@
     {
       "name": "网页入口-网站",
       "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
+    },
+    {
+      "name": "訫云助手-工具",
+      "icon": "https://github.com/xiaoyun1995314/my-source/blob/3a603546946e22e9f08ce85a01a30eddcdc5a227/icons/ios.png"
     }
   ],
   "banner": [
