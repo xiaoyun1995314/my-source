@@ -438,6 +438,21 @@
       "category": "影视软件-工具",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "LocalDevVPN-1.3.0",
+      "bundleID": "com.jkcoxson.LocalDevVPN",
+      "version": "1.3.0",
+      "versionDate": "2026-11-26",
+      "size": 3250586,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/LocalDevVPN.png",
+      "downloadURL": "https://id5x6hjjd52bk0.1yunpan.com/LocalDevVPN_1.3.0.ipa",
+      "description": "✅代理工具",
+      "versionDescription": "✅代理工具",
+      "developerName": "訫云科技",
+      "category": "影视软件-工具",
+      "screenshots": [],
+      "permissions": []
     }
   ],
   "categories": [
