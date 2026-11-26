@@ -395,7 +395,7 @@
       "permissions": []
     },
     {
-      "name": "訫云助手-APP降级",
+      "name": "訫云助手-降级",
       "bundleID": "com.xinyun.app",
       "version": "2.8.1",
       "versionDate": "2026-11-26",
@@ -483,11 +483,11 @@
     {
       "type": "link",
       "icon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/ios.png",
-      "text": "点击进入：訫云助手-更新",
+      "text": "訫云助手-APP砸壳-降级",
       "copy": false,
       "scroll": false,
       "speed": "normal",
-      "color": "#11053b",
+      "color": "#e22400",
       "url": "https://github.com/xiaoyun1995314/APP/releases/tag/v2.8.1",
       "external": true
     }
