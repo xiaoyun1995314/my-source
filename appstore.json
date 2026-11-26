@@ -435,12 +435,12 @@
       "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
     },
     {
-      "name": "网页入口-网站",
-      "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
-    },
-    {
       "name": "訫云助手-工具",
       "icon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/ios.png"
+    },
+    {
+      "name": "网页入口-网站",
+      "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
     }
   ],
   "banner": [
