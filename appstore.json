@@ -62,7 +62,7 @@
       "description": "2.0.1需要激活码\n1.0.7不需要\n↓↓激活码购买地址↓↓",
       "versionDescription": "2.0.1需要激活码\n1.0.7不需要\n↓↓激活码购买地址↓↓",
       "developerName": "",
-      "category": "微信系列",
+      "category": "微信系列-插件",
       "screenshots": [],
       "permissions": []
     },
@@ -92,7 +92,7 @@
       "description": "已更新防封模块稳定不封号，推荐所有人更新\n官替版，支持证书签名无后台完美推送，勿修改 bundleid\n推送证书购买地址：https://fk.ioszc.com\n注入插件：\n锤子助手2.6.9、微信助手3.9-5、黄白助手2.1-9、PKC助手0.9-8、斗图助手3.1-8、主题盒子3.0.7、Mikoto-v10、WCRefine2.1-9、小微助手3.3-12",
       "versionDescription": "已更新防封模块稳定不封号，推荐所有人更新\n官替版，支持证书签名无后台完美推送，勿修改 bundleid\n推送证书购买地址：https://fk.ioszc.com\n注入插件：\n锤子助手2.6.9、微信助手3.9-5、黄白助手2.1-9、PKC助手0.9-8、斗图助手3.1-8、主题盒子3.0.7、Mikoto-v10、WCRefine2.1-9、小微助手3.3-12",
       "developerName": "",
-      "category": "微信系列",
+      "category": "微信系列-插件",
       "screenshots": [],
       "permissions": []
     },
@@ -107,7 +107,7 @@
       "description": "已更新防封模块稳定不封号，推荐所有人更新\n多开版，支持证书签名无后台完美推送，勿修改 bundleid\n推送证书购买地址：https://fk.ioszc.com\n注入插件：\n锤子助手2.6.9、微信助手3.9-5、黄白助手2.1-9、PKC助手0.9-8、斗图助手3.1-8、主题盒子3.0.7、Mikoto-v10、WCRefine2.1-9、小微助手3.3-12",
       "versionDescription": "已更新防封模块稳定不封号，推荐所有人更新\n多开版，支持证书签名无后台完美推送，勿修改 bundleid\n推送证书购买地址：https://fk.ioszc.com\n注入插件：\n锤子助手2.6.9、微信助手3.9-5、黄白助手2.1-9、PKC助手0.9-8、斗图助手3.1-8、主题盒子3.0.7、Mikoto-v10、WCRefine2.1-9、小微助手3.3-12",
       "developerName": "",
-      "category": "微信系列",
+      "category": "微信系列-插件",
       "screenshots": [],
       "permissions": []
     },
@@ -122,7 +122,7 @@
       "description": "已更新防封模块稳定不封号，推荐所有人更新\n多开版，支持证书签名无后台完美推送，勿修改 bundleid\n推送证书购买地址：https://fk.ioszc.com\n注入插件：\n锤子助手2.6.9、微信助手3.9-5、黄白助手2.1-9、PKC助手0.9-8、斗图助手3.1-8、主题盒子3.0.7、Mikoto-v10、WCRefine2.1-9、小微助手3.3-12",
       "versionDescription": "已更新防封模块稳定不封号，推荐所有人更新\n多开版，支持证书签名无后台完美推送，勿修改 bundleid\n推送证书购买地址：https://fk.ioszc.com\n注入插件：\n锤子助手2.6.9、微信助手3.9-5、黄白助手2.1-9、PKC助手0.9-8、斗图助手3.1-8、主题盒子3.0.7、Mikoto-v10、WCRefine2.1-9、小微助手3.3-12",
       "developerName": "",
-      "category": "微信系列",
+      "category": "微信系列-插件",
       "screenshots": [],
       "permissions": []
     },
@@ -401,7 +401,7 @@
       "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
     },
     {
-      "name": "微信系列",
+      "name": "微信系列-插件",
       "icon": "https://xiaoyun1995314.github.io/my-source/icons/ios.png"
     },
     {
