@@ -468,6 +468,21 @@
       "category": "网页入口-网站",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "微信自动发卡-插件",
+      "bundleID": "",
+      "version": "1.0",
+      "versionDate": "2026-11-27",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/%E5%9B%BE%E6%A0%87/CJ.png",
+      "downloadURL": "https://wwai.lanzouu.com/b01npjhcd",
+      "description": "✅微信自动发卡插件\n✅注入微信使用",
+      "versionDescription": "✅微信自动发卡插件\n✅注入微信使用",
+      "developerName": "訫云科技",
+      "category": "未分类",
+      "screenshots": [],
+      "permissions": []
     }
   ],
   "categories": [
