@@ -483,6 +483,21 @@
       "category": "未分类",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "搞机源网盘",
+      "bundleID": "",
+      "version": "网盘",
+      "versionDate": "2026-11-27",
+      "size": 0,
+      "iconURL": "",
+      "downloadURL": "nsk-sign://web?url= https://pan.iosku.top/苹果应用",
+      "description": "❇️搞机源网盘软件挺多\n注：搬运地址-作者-遇见",
+      "versionDescription": "❇️搞机源网盘软件挺多\n注：搬运地址-作者-遇见",
+      "developerName": "訫云科技",
+      "category": "未分类",
+      "screenshots": [],
+      "permissions": []
     }
   ],
   "categories": [
