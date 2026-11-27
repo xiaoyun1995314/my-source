@@ -438,6 +438,21 @@
       "category": "影视软件-工具",
       "screenshots": [],
       "permissions": []
+    },
+    {
+      "name": "ipazs",
+      "bundleID": "app.local.ipazs",
+      "version": "2.8.5",
+      "versionDate": "2026-11-27",
+      "size": 51380224,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/iOS.png",
+      "downloadURL": "https://github.com/xiaoyun1995314/ipazs/releases/download/v2.3.5/ipazs-full-2.3.5.ipa",
+      "description": "✅APP降级-砸壳-解密\n❇️注：APP源码为ipadn-功能大差不差\n本APP软件源地址：https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json",
+      "versionDescription": "✅APP降级-砸壳-解密\n❇️注：APP源码为ipadn-功能大差不差\n本APP软件源地址：https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json",
+      "developerName": "訫云科技",
+      "category": "訫云助手-工具",
+      "screenshots": [],
+      "permissions": []
     }
   ],
   "categories": [
