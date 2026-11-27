@@ -7,21 +7,6 @@
   "unlockURL": "https://xiaoyun1995314.github.io/my-source/appstore.json",
   "apps": [
     {
-      "name": "訫云软件源-主更常用",
-      "bundleID": "",
-      "version": "訫云资源共享",
-      "versionDate": "2026-11-24",
-      "size": 0,
-      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
-      "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
-      "description": "✅本源主更常用-不常用的可能断更\n✅没有的软件或者版本-可以投稿、更新\n✅可有偿-砸壳\\解密-代找资源\n✅部分软件下载慢-服务器垃圾\n❇️只能慢慢等下载好-没有办法\n✅收藏不迷路",
-      "versionDescription": "✅本源主更常用-不常用的可能断更\n✅没有的软件或者版本-可以投稿、更新\n✅可有偿-砸壳\\解密-代找资源\n✅部分软件下载慢-服务器垃圾\n❇️只能慢慢等下载好-没有办法\n✅收藏不迷路",
-      "developerName": "訫云科技",
-      "category": "网页入口-网站",
-      "screenshots": [],
-      "permissions": []
-    },
-    {
       "name": "ipazs-APP降级",
       "bundleID": "app.local.ipazs",
       "version": "2.8.5",
@@ -33,6 +18,21 @@
       "versionDescription": "✅APP降级-砸壳-解密\n❇️注：APP源码为ipadn-功能大差不差\n本APP软件源地址：https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json",
       "developerName": "訫云科技",
       "category": "訫云助手-工具",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
+      "name": "訫云软件源-主更常用",
+      "bundleID": "",
+      "version": "訫云资源共享",
+      "versionDate": "2026-11-24",
+      "size": 0,
+      "iconURL": "https://id5x6hjjd52bk0.1yunpan.com/XYZY.PNG",
+      "downloadURL": "nsk-sign://web?url=https://xiaoyun1995314.github.io/my-source/index.html",
+      "description": "✅本源主更常用-不常用的可能断更\n✅没有的软件或者版本-可以投稿、更新\n✅可有偿-砸壳\\解密-代找资源\n✅部分软件下载慢-服务器垃圾\n❇️只能慢慢等下载好-没有办法\n✅收藏不迷路",
+      "versionDescription": "✅本源主更常用-不常用的可能断更\n✅没有的软件或者版本-可以投稿、更新\n✅可有偿-砸壳\\解密-代找资源\n✅部分软件下载慢-服务器垃圾\n❇️只能慢慢等下载好-没有办法\n✅收藏不迷路",
+      "developerName": "訫云科技",
+      "category": "网页入口-网站",
       "screenshots": [],
       "permissions": []
     },
@@ -451,6 +451,21 @@
       "versionDescription": "✅代理工具",
       "developerName": "訫云科技",
       "category": "影视软件-工具",
+      "screenshots": [],
+      "permissions": []
+    },
+    {
+      "name": "东京热-下载地址",
+      "bundleID": "",
+      "version": "跟随官网",
+      "versionDate": "2026-11-27",
+      "size": 0,
+      "iconURL": "https://9u8iw7.2beywxwqts.site/c1.html?c=kmv6",
+      "downloadURL": "https://9u8iw7.2beywxwqts.site/c1.html?c=kmv6",
+      "description": "❇️iOS苹果--安卓通用\n🔞18岁以下禁止下载\n🔞这是外网福利软件",
+      "versionDescription": "❇️iOS苹果--安卓通用\n🔞18岁以下禁止下载\n🔞这是外网福利软件",
+      "developerName": "訫云科技",
+      "category": "网页入口-网站",
       "screenshots": [],
       "permissions": []
     }
