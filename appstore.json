@@ -497,17 +497,6 @@
     },
     {
       "type": "link",
-      "icon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/ios.png",
-      "text": "訫云助手-APP砸壳-降级",
-      "copy": false,
-      "scroll": false,
-      "speed": "normal",
-      "color": "#e22400",
-      "url": "https://id5x6hjjd52bk0.1yunpan.com/%E8%A8%AB%E4%BA%91%E5%8A%A9%E6%89%8B-v2.8.1-%E6%9C%AA%E7%AD%BE%E5%90%8D.ipa",
-      "external": true
-    },
-    {
-      "type": "link",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/iOS.png",
       "text": "ipa助手-APP砸壳-降级",
       "copy": false,
@@ -515,6 +504,17 @@
       "speed": "normal",
       "color": "#e22400",
       "url": "https://github.com/xiaoyun1995314/ipazs/releases/download/v2.3.5/ipazs-full-2.3.5.ipa",
+      "external": true
+    },
+    {
+      "type": "link",
+      "icon": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/ios.png",
+      "text": "訫云助手-APP砸壳-降级",
+      "copy": false,
+      "scroll": false,
+      "speed": "normal",
+      "color": "#e22400",
+      "url": "https://id5x6hjjd52bk0.1yunpan.com/%E8%A8%AB%E4%BA%91%E5%8A%A9%E6%89%8B-v2.8.1-%E6%9C%AA%E7%AD%BE%E5%90%8D.ipa",
       "external": true
     }
   ],
