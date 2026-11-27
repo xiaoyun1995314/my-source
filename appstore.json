@@ -440,7 +440,7 @@
       "permissions": []
     },
     {
-      "name": "ipazs",
+      "name": "ipazs-APP降级",
       "bundleID": "app.local.ipazs",
       "version": "2.8.5",
       "versionDate": "2026-11-27",
