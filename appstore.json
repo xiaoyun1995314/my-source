@@ -531,7 +531,7 @@
       "speed": "normal",
       "color": "#e22400",
       "url": "https://github.com/xiaoyun1995314/ipazs/releases/download/v2.3.5/ipazs-full-2.3.5.ipa",
-      "external": true
+      "external": false
     },
     {
       "type": "link",
