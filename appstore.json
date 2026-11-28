@@ -218,17 +218,18 @@
     },
     {
       "name": "电影猎手",
-      "type": "0",
+      "bundleID": "com.zan.quotes",
       "version": "3.1.1.6",
-      "versionDate": "2026-11-21T09:03:56+08:00",
-      "versionDescription": "电影资源很多，基本都可以看（福利）\n注：软件不是本人开发、地址是开发者的",
-      "lock": "0",
-      "downloadURL": "https://eliteres.fanruan.com/office/2026/05/11/96b2eb9c-3533-4679-aa53-d76cb4426f79.ipa",
-      "isLanZouCloud": "0",
+      "versionDate": "2026-11-28",
+      "size": 1048576,
       "iconURL": "https://raw.githubusercontent.com/xiaoyun1995314/my-source/refs/heads/main/icons/dyls.png",
-      "tintColor": "018084",
-      "size": 0,
-      "category": "影视软件-工具"
+      "downloadURL": "https://eliteres.fanruan.com/office/2026/05/11/96b2eb9c-3533-4679-aa53-d76cb4426f79.ipa",
+      "description": "✅电影资源很多，基本都可以看（福利）\n注：软件不是本人开发、地址是开发者的",
+      "versionDescription": "✅电影资源很多，基本都可以看（福利）\n注：软件不是本人开发、地址是开发者的",
+      "developerName": "訫云资源",
+      "category": "影视软件-工具",
+      "screenshots": [],
+      "permissions": []
     },
     {
       "name": "闪电水印",
