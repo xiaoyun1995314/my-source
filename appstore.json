@@ -521,15 +521,6 @@
   ],
   "banner": [
     {
-      "type": "source-qnq",
-      "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
-      "text": "点击这里添加全能签",
-      "copy": false,
-      "scroll": false,
-      "speed": "normal",
-      "color": "#000000"
-    },
-    {
       "type": "link",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/iOS.png",
       "text": "ipa助手--APP砸壳-降级",
