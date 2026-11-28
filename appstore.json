@@ -521,15 +521,6 @@
   ],
   "banner": [
     {
-      "type": "text",
-      "icon": "",
-      "text": "訫云资源-没有的应用欢迎投稿",
-      "copy": false,
-      "scroll": true,
-      "speed": "normal",
-      "color": "#fe0047"
-    },
-    {
       "type": "source-lc",
       "icon": "https://id5x6hjjd52bk0.1yunpan.com/MU.png",
       "text": "点击这里添加LCSign",
